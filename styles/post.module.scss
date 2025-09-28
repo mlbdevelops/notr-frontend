@@ -1,0 +1,223 @@
+.post{
+  width: 100%;
+  transition: 0.4s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+  border: none;
+  border-bottom: 3px solid #1a1a1a;
+  position: relative;
+  
+  .postHeader{
+    width: 95%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    .userDiv{
+      display: flex; 
+      justify-content: center; 
+      align-items: center ;
+      gap: 10px;
+      
+      .userProfile{
+        border-radius: 50px;
+        border: 1px solid #262626;
+        object-fit: cover; 
+        background-repeat: no-repeat;
+      }
+      
+      .userProfileNone{
+        border-radius: 50px;
+        border: 1px solid #262626;
+        background-color: #1d1d1d;
+        padding: 15px;
+        
+      }
+      
+      .postUser{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+        
+        .userRole{
+          padding: 2px 6px;
+          font-size: 12px;
+          border-radius: 50px;
+          border: 1px solid #434343; 
+          background-color: #1d1d1d;
+          color: #9d9d9d;
+        }
+      }
+    }
+  }
+  
+  .note{
+    padding: 0 20px;
+    padding-top: 15px;
+    height: auto;
+    width: 82%;
+    margin-top: auto;
+    display: flex;
+    position: relative;
+    word-break: break-word;
+    border: none;
+    transition: 0.5s;
+    min-height: 40px;
+    border-left: 1px solid #262625;
+    
+    .postImg{
+      width: auto;
+      max-width: 292.5px;
+      height: auto;
+      max-height: 450px;
+      border-radius: 10px;
+      border: 1px solid #262626;
+    }
+    
+    .tag{
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      padding: 3px 6px;
+      font-size: 12px;
+      border-radius: 0 50px 50px 0;
+      border: 1px solid #434343; 
+      background-color: #1d1d1d;
+      color: white;
+      color: #b1b1b1;
+      font-weight: normal;
+      font-family: Arial;
+      font-style: normal;
+    }
+  }
+  
+  .imgBox{
+    width: 85%;
+    display: flex;
+    border: none;
+    border-bottom: 1px solid #262626;
+    padding: 10px 5px;
+    gap: 10px;
+    overflow: scroll;
+    
+    &::webkit-scrollbar{
+      display: none;
+    }
+    
+    .img{
+      border: 1px solid #262626;
+      border-radius: 5px;
+    }
+  }
+  
+  .reactionBox{
+    padding: 10px 0;
+    width: 90%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    transition: 0.2s;
+    gap: 20px;
+    
+    .metric{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 10px;
+      border: 1px solid #262626;
+      border-radius: 50px;
+      
+     .reaction{
+        
+        &:active{
+          transform: scale(0.90);
+        }
+      }
+    }
+  }
+}
+
+.btnote{
+  font-family: Arial;
+  font-style: normal;
+  font-weight: normal;
+  padding: 5px 10px;
+  font-size: 12px;
+  white-space: nowrap;
+  border-radius: 50px;
+  border: 1px solid #262626;
+  background-color: #1d1d1d;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.closeComments{
+  height: 100%;
+  width: 100%;
+  background-color: transparent;
+}
+
+.commentInpDiv{
+  width: 100%;
+  border: none;
+  border-top: 1px solid #262626;
+  bottom: 0;
+  height: 65px;
+  background-color: #1d1d1d;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  
+  .sendInp{
+    width: 70%;
+    padding: 10px 15px;
+    border-radius: 10px;
+    background-color: #252525;
+    border: 1px solid #262626;
+    outline: none;
+    color: white;
+  }
+}
+
+.menuDiv{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  align-self: end;
+  z-index: 10000;
+  position: absolute;
+  right: 30px;
+  height: auto;
+  max-height: 50%;
+  width: auto;
+  padding: 10px 7.2px;
+  top: 30px;
+  background-color: #1d1d1d;
+  border: 1px solid #262626;
+  border-radius: 10px;
+  gap: 3px;
+  
+  .elem{
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 12px; 
+    min-width: 70px;
+    
+    &:active{
+      padding: 8px 12px; 
+      background-color: rgba(39,39,39);
+      border-radius: 10px;
+    }
+  }
+}

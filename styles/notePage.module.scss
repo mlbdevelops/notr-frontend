@@ -1,0 +1,240 @@
+.body{
+  margin-top: 70px;
+}
+
+.noteEditingContainer{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 10px;
+  
+  .input{
+    padding: 20px 15px;
+    width: 90%;
+    border: 1px solid #262626;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    outline: none;
+    background-color: #0f0f0f;
+    color: white;
+  }
+  
+  .time{
+    color: gray;
+    margin: 0;
+  }
+  
+  .saveButton{
+    padding: 7px 15px;
+    border: 1px solid #262626;
+    border-radius: 12px;
+    background-color: #0f0f0f;
+    color: white;
+    transition: 0.1s;
+    display: flex;
+    align-items: center;
+    
+    &:active{
+      transform: scale(0.93);
+    }
+  }
+  
+  .spin{
+    animation: spin 0.5s linear infinite;
+  }
+  
+  .noteDiv{
+    padding: 10px;
+    width: 94%;
+    min-height: 400px;
+    background-color: #0f0f0f;
+    border: none;
+    border-top: 1px solid #262626;
+    
+    
+    .noteInput{
+      padding: 20px 10px;
+      border: none;
+      background-color: transparent;
+      font-size: 15px;
+      outline: none;
+      color: white;
+    }
+  }
+}
+
+@keyframes spin{
+  0%{
+    transform: rotate(0);
+  }
+  100%{
+    transform: rotate(360deg);
+  }
+}
+
+.fi, .pasteStyles{
+  border: 1px solid #1d1d1d;
+  padding: 9px;
+  border-radius: 10px;
+  transition: 0.2s;
+  
+  &:active{
+    border-color: white;
+    background-color: #262626;
+  }
+}
+
+.fiActive{
+  border: 1px solid #1d1d1d;
+  padding: 9px;
+  border-radius: 10px;
+  transition: 0.2s;
+  border-color: white;
+  background-color: #262626;
+}
+
+.blur{
+  top: 0;
+  position: fixed;
+  height: 100dvh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(1px);
+  z-index: 9999999999;
+  
+}
+
+.tagsBox{
+  height: 80%;
+  width: 80%;
+  border-radius: 10px;
+  background-color: #1d1d1d;
+  border: 1px solid #262626;
+  padding: 15px;
+  overflow: scroll;
+  user-select: none;
+  position: relative;
+  
+  .tagsTitle{
+    text-align: center;
+    margin: 10px 0;
+    font-size:30px;
+    font-weight: bold;
+    background-color: transparent;
+    backdrop-filter: blur(5px);
+  }
+  
+  .ul{
+    list-style: none;
+    gap: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    
+    .li{
+      padding: 5px 10px;
+      border-radius: 50px;
+      background-color: #262626;
+      border: 1px solid #353535;
+      transition: 0.2s;
+      
+      &:hover{
+        border-color: white;
+      }
+    }
+  }
+  .closeB{
+    width: 45%;
+    height: 30px;
+    background-color: #1d1d1d;
+    border: 1px solid #464646;
+    color: white;
+    border-radius: 50px;
+    transition: 0.2s;
+    
+    
+    &:active{
+      transform: scale(0.95);
+    }
+  }
+}
+
+.tagText{
+  padding: 5px 10px;
+  border-radius: 50px;
+  background-color: #161616;
+  border: 1px solid #262625;
+  font-size: 13px;
+  margin: 0 10px;
+}
+
+.buttonsDivPopUp{
+  display: flex;
+  border: none;
+  align-items: center;
+  border-top: 1px solid #262626;
+  justify-content: space-between;
+  padding: 15px 0;
+  bottom: 0;
+  position: absolute;
+  width: 90%;
+  background-color: #1d1d1d;
+  
+  .other{
+    padding: 5px 0;
+    border-radius: 40px;
+    background-color: #1d1d1d;
+    border: 1px solid #353535;
+    transition: 0.2s;
+    width: auto;
+    width: 45%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    &:hover{
+      border-color: white;
+    }
+  }
+}
+
+.elli{
+  border: 1px solid #1d1d1d;
+  padding: 5px;
+  border-radius: 10px;
+  transition: 0.2s;
+}
+
+.optionName{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  white-space: nowrap;
+  width: 95%;
+  padding: 10px 0 10px 10px;
+  
+  &:active{
+    background-color: #262626;
+    border-radius: 10px;
+  }
+}
+
+.postThis{
+  padding: 5px 10px;
+  border-radius: 50px;
+  border: 1px solid #262626;
+  background-color: #1d1d1d;
+  color: #e7e7e7;
+  font-size: 13px;
+  transition: 0.2s;
+  
+  &:active{
+    transform: scale(0.95);
+  }
+}

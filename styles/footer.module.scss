@@ -1,0 +1,33 @@
+$color: rgba(0 ,0 ,0 ,0.1);
+
+.footer{
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  z-index: 999999;
+  padding: 5px 0;
+  height: 5%;
+  background-color: #0f0f0f;
+  backdrop-filter: blur(8px);
+  transition: 0.1s;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  place-items: center;
+  margin: 0;
+  border: none;
+  border-top: 1px solid #262626;
+  
+  .i{
+    padding: 10px;
+    transition: 0.1s;
+    border-radius: 10px;
+    border: 0.5px solid transparent;
+  }
+  .i:active{
+    background-color: rgba($color, $alpha: 1.0);
+    backdrop-filter: blur(10px);
+    border: 0.5px solid #6051ff;
+  }
+}
+

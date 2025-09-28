@@ -1,0 +1,41 @@
+.body{
+  margin: 70px 0;
+  display: flex; 
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 5px;
+  
+  .option{
+    display: flex; 
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 15px;
+    width: 90%;
+    background-color: #1b1b1b;
+    border-radius: 15px;
+    transition: 0.2s;
+    
+    &:active{
+      transform: scale(0.98);
+    }
+    
+    .switch{
+      display: flex;
+      padding: 5px;
+      align-items: center;
+      width: 43px; 
+      height: 20px; 
+      border-radius: 20px;
+      background-color: #2e2e2e;
+      transition: 0.4s;
+      
+      .swch{
+        height: 100%;
+        width: 50%;
+        border-radius: 100px;
+        border: 0.5px solid #2f2f2f;
+      }
+    }
+  }
+}

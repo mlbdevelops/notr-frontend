@@ -1,0 +1,125 @@
+.body{
+  margin: 70px 0;
+  user-select: none;
+  
+  .notesContainer{
+    width: 100%;
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column ;
+    align-items: center;
+    user-select: none;
+    justify-content: center;
+    gap: 10px;
+  }
+}
+
+.noUser{
+  width: 100%;
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-direction: column;
+  
+  .text{
+    color: #686868;
+  }
+  
+  .icon{
+    padding: 40px;
+    border-radius: 100px;
+    background-color:#363636;
+    color: white;
+    transition: 2s;
+    transform: scale(1.4);
+    animation: resizer 4.5s ease-in-out infinite;
+    opacity: 0;
+  }
+}
+
+.add{
+  padding: 15px;
+  bottom: 65px;
+  right: 20px;
+  position: fixed;
+  border-radius: 15px;
+  background-color: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8px);
+  border: 1px solid #262626;
+  transition: 0.1s;
+  
+  &:active {
+    transform: scale(0.90);
+  }
+}
+
+@keyframes resizer{
+  80%{
+    transform: scale(0.50);
+    opacity: 0.5;
+  }
+  25%{
+    transform: scale(0.70);
+    opacity: 1;
+  }
+  50%{
+    transform:  scale(1);
+    opacity: 1;
+  }
+  100%{
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+.searchDiv{
+  place-self: center;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0;
+  
+  .searchInp{
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #262626;
+    background-color: #171717;
+    width: 90%;
+    outline: none;
+    transition: 0.1s;
+    color: white;
+    
+    &:focus{
+      border: none;
+      outline: 1px solid white;
+    }
+  }
+}
+
+.tabIconActive{
+  padding: 6px;
+  background-color: transparent;
+  transition: 0.2s;
+  border: none;
+  border-bottom: 2px solid white;
+}
+
+.profile{
+  border-radius: 50px;
+  border: 1px solid #252525;
+  background-color: #1d1d1d;
+  margin-right: 5px;
+  margin-left: 3.2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profilePic{
+  border-radius: 100px;
+  object-fit: cover;
+  border: 1px solid #262626;
+}

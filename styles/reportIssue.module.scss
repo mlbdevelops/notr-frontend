@@ -1,0 +1,72 @@
+.body{
+  margin: 70px 0;
+  display: flex;
+  align-items: center; 
+  flex-direction: column;
+  
+  .inp{
+    width: 80%;
+    padding:  10px; 
+    border-radius: 10px;
+    background-color: #1d1d1d; 
+    border: 1px solid #262625;
+    outline: none;
+    color: white;
+    margin-bottom: 30px;
+    height: 100px;
+    font-family: Arial;
+  }
+  
+  .selectDiv{
+    height: 200px; 
+    width: 50%;
+    border: 1px dashed darkgray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border-radius: 10px;
+    
+    .inpImg{
+      height: 100%;
+      width: 100%;
+      opacity: 0;
+      cursor: pointer;
+      border-radius: 10px;
+    }
+    
+    .plus{
+      position: absolute;
+    }
+  }
+  
+  .sendB{
+    width: 90%;
+    border: none;
+    color: black; 
+    background-color: white; 
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 40px;
+    transition: 0.2s;
+    
+    &:active{
+      transform: scale(0.98);
+      opacity: 0.5;
+    }
+  }
+}
+
+.label{
+  align-self: flex-start;
+  margin: 15px 40px;
+  font-weight: bold;
+}
+
+.img{
+  max-width: 100px;
+  border-radius: 10px;
+  border: 1px solid #262626;
+  height: auto;
+  margin-top: 10px;
+}

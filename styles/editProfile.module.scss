@@ -1,0 +1,157 @@
+.body{
+  margin: 70px 0; 
+  display: flex;
+  margin-bottom: 20px;
+  flex-direction: column; 
+  align-items: center;
+  
+  .choose{
+    height: auto; 
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    
+    .profileIcon{
+      padding: 40px; 
+      border-radius: 100px; 
+      border: 1px solid #262626; 
+      background-color: #1d1d1d;
+    }
+    
+    .trashI{
+      position: absolute;
+      bottom: 100px;
+      right: 0;
+      padding: 10px;
+      border: 1px solid #262626;
+      border-radius: 50px; 
+      background-color: #1d1d1d;
+      
+      &:active{
+        opacity: 0.5;
+      }
+    }
+    
+    .uploadB{
+      width: auto;
+      white-space: nowrap;
+      position: relative;
+      padding: 10px 18px;
+      border-radius: 10px; 
+      background-color: #1d1d1d; 
+      border: 1px solid #262626;
+      color: white;
+      margin: 10px 0;
+      transition: 0.2s;
+      
+      &:active{
+        transform: scale(0.95);
+      }
+      
+      .hiddenB{
+        position: absolute;
+        left: 10px;
+        top: 0;
+        width: 90px;
+        opacity: 0;
+      }
+    }
+  }
+  
+  .inpBody{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    gap: 10px;
+    
+    .inp{
+      width: 93%;
+      padding: 10px; 
+      border-radius: 10px;
+      background-color: #1d1d1d; 
+      border: 1px solid #262625;
+      outline: none;
+      color: white;
+      font-family: Arial;
+    }
+    
+    .label{
+      display: block;
+      font-weight: bold;
+      margin: 0 5px;
+    }
+    
+    .roleSelection{
+      width: 92.5%;
+      padding: 6px 10px; 
+      border-radius: 10px;
+      background-color: #1d1d1d; 
+      border: 1px solid #262625;
+      outline: none;
+      color: white;
+      display: flex;
+      align-items: center; 
+      justify-content: space-between;
+      position: relative;
+      
+      .roleDiv{
+        display: flex;
+        align-items: flex-start; 
+        flex-direction: column; 
+        position: absolute;
+        background-color: #1d1d1d;
+        height: auto;
+        width: 91.6%;
+        top: 30px;
+        border: 1px solid #262626;
+        border-top: none;
+        left: -1px;
+        border-radius: 0 0 10px 10px;
+        padding: 13px;
+        
+        .role{
+          width: 90%;
+          padding: 6px 10px;
+          border-radius: 6.5px;
+          
+          &:active{
+            background-color: rgb(40,40,40);
+            
+          }
+        }
+      }
+    }
+  }
+}
+
+.form{
+  width: 90%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.photo{
+  border-radius: 200px; 
+  border: 1px solid #262626;
+  background-image: cover;
+  background-repeat: no-repeat;
+  object-fit: cover;
+}
+
+.updateButton{
+  padding: 7px 0;
+  width: 99.1%;
+  border-radius: 5px;
+  background-color: white;
+  color: black;
+  border: none ;
+  margin-top: 20px;
+  
+  &:active{
+    opacity: 0.5;
+  }
+}

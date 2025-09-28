@@ -1,0 +1,63 @@
+.noteLink{
+  width: 95%;
+  color: #e1e1e1;
+  text-decoration: none;
+  cursor: none;
+}
+
+.linkToPage{
+  position: absolute;
+  height: 80%;
+  top: 10px;
+  width: 75%;
+}
+
+.noteBox{
+  width: 83%;
+  word-break: break-word;
+  border: 1px solid #262626;
+  border-radius: 20px;
+  padding: 10px 20px;
+  height: 90px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: space-between;
+  gap: 10px;
+  transition: 0.2s;
+  background-color: #1d1d1d;
+  position: relative;
+  
+  &:active{
+    transform: scale(0.98);
+  }
+  
+  .title{
+    font-weight: bold;
+    font-size: 20px;
+    margin: 5px 0;
+  }
+  
+  .deleteIcon{
+    padding: 10px;
+    border-radius: 50px;
+    background-color: #262626;
+    position: absolute;
+    right: 10px;
+    border: 1px solid #2d2d2d;
+  }
+  
+  .time{
+    color: #787878;
+  }
+}
+
+
+.tagIcon{
+  padding: 5px;
+  border-radius: 50px;
+  background-color: #262626;
+  border: 1px solid #2d2d2d;
+  position: absolute;
+  right: 12px;
+}

@@ -1,0 +1,38 @@
+$color: #1d1d1d;
+
+.header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0 0 10px;
+  border: none;
+  height: 65px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: transparent;
+  color: #3e3e3e;
+  z-index: 1;
+}
+
+.iCont{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: auto;
+  margin-right: 25px;
+  color: #ececec;
+  gap: 10px;
+  
+  .i{
+    padding: 10px;
+    transition: 0.1s;
+    border-radius: 50px;
+    border: 0.5px solid transparent;
+  }
+  
+  .i:active{
+    background-color: $color;
+    border: 0.5px solid #262626;
+  }
+}

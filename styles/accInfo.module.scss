@@ -1,0 +1,208 @@
+.body{
+  margin-top: 70px;
+  user-select: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  .container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+    height: auto;
+    
+    .profileDiv{
+      display: flex;
+      flex-direction: column;
+      align-items: center; 
+      gap: 10px;
+      .userIcon{
+        padding: 25px;
+        border: 1px solid #262626;
+        border-radius: 100px;
+        transition: 0.3s;
+        animation: bounce 5s ease-in-out;
+        
+        &:hover{
+          transform: scale(1.05);
+          box-shadow: 3px 3px 10px rgb(38,38,38);
+        }
+      }
+      
+      .profilePic{
+        border-radius: 50px;
+        border: 1px solid #262626;
+        object-fit: cover;
+      }
+      
+      .role{
+        font-size: 10px;
+        padding: 5px 10px;
+        border-radius: 50px;
+        background-color: #1d1d1d;
+        border: 1px solid #262626;
+      }
+    }
+    
+    .info{
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      
+      .name{
+        font-size: 25px;
+        font-weight: bold;
+      }
+      
+      .conn{
+        color: #727272;
+      }
+    }
+    
+  }
+  .bioDiv{
+    width: 90%;
+    padding: 10px;
+    word-break: break-word;
+    max-width: 400px;
+    
+    .bio{
+      white-space: pre-line;
+      font-size: 15px;
+    }
+  }
+  
+  .buttonsDiv{
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin: 20px 0;
+    
+    .btn{
+      padding: 8px;
+      width: 48%;
+      border: 1px solid #1a1a1a;
+      background-color: #181818;
+      border-radius: 10px; 
+      color: white;
+      transition: 0.2s;
+      
+      &:active{
+        //transform: scale(0.90);
+        opacity: 0.5;
+      }
+    }
+    
+    .connectB{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      width: 100%;
+      border: 1px solid #262626;
+      background-color: #1d1d1d;
+      border-radius: 10px; 
+      color: white;
+      transition: 0.2s;
+      
+      .icon{
+        padding: 0 5px;
+        margin: 0;
+      }
+      &:active{
+        opacity: 0.6;
+        transform: scale(0.98);
+      }
+    }
+  }
+  
+  .metrics{
+    display: flex;
+    width: 90%;
+    gap: 10px;
+    justify-content: flex-start;
+  }
+  
+  .postsDiv{
+    margin-top: 20px;
+    border: none;
+    padding: 30px 0;
+    width: 100%;
+    border-top: 3px solid #1d1d1d;
+  }
+  
+  .empty{
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    
+    .cam{
+      padding: 30px;
+    }
+  }
+}
+
+.picDiv{
+  height: 100dvh; 
+  top: 0;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100dvw;
+  z-index: 9999999999;
+  
+  .shownPicture{
+    height: auto;
+    border-radius: 10px;
+    max-width: 270px;
+    border: 1px solid #262626;
+  }
+}
+
+.blur{
+  height: 100dvh;
+  width: 100dvw;
+  border: none;
+  background-color: rgba(0,0,0,0.5);
+  top: 0;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-direction: column;
+  z-index: 9999999999999999;
+  
+  .optionsDiv{
+    width: 90%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: #1d1d1d;
+    border: 1px solid #262626;
+    gap: 5px;
+    padding: 20px 10px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    
+    .option{
+      width: 93.5%;
+      display: flex;
+      align-items: center;
+      padding: 12px 9px;
+      gap: 10px;
+      border-radius: 10px;
+      transition: 0.1s;
+      
+      &:active{
+        background-color: rgb(36,36,36);
+      }
+    }
+  }
+}

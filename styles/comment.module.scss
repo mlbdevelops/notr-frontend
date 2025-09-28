@@ -1,0 +1,100 @@
+.blur{
+  top: 0;
+  position: fixed;
+  height: 100dvh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(1px);
+  z-index: 20000000000000000;
+  user-select: none;
+  
+  .commentDiv{
+    bottom: 0;
+    position: fixed;
+    height: 80%;
+    width: 100%;
+    background-color: #1d1d1d;
+    border: 1px solid #262626;
+    border-radius: 30px 30px 0 0;
+    
+    .commentText{
+      width: 100%;
+      border: none;
+      border-bottom: 1px solid #262626;
+      text-align: center;
+      padding-bottom: 17px;
+      font-weight: bold;
+      margin-bottom: 0;
+    }
+    .comments{
+      overflow-x: scroll;
+      width: 90%;
+      display: flex;
+      align-items: flex-start;
+      flex-direction: column;
+      word-break: break-word;
+      height: auto;
+      max-height: 400px;
+      padding: 20px 15px;
+      gap: 15px;
+      
+      .comment{
+        width: auto;
+        padding: 0;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        
+        
+        .profile{
+          background-color: #292929;
+          border-radius: 50px;
+          border: 1px solid #262626;
+          height: 40px;
+          width: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        
+        .usernameAndText{
+          font-size: 12px;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 6px;
+          background-color: #272727;
+          padding: 7px 15px;
+          max-width: 200px;
+          word-break: break-word;
+          border-radius: 15px;
+        }
+      }
+    }
+  }
+}
+
+.loading{
+  height: 70px; 
+  width: 70px;
+  background-color: transparent;
+  border: 1px solid white;
+  border-top-color: transparent; 
+  border-radius: 100px; 
+  animation: spin 0.5s linear infinite;
+  place-self: center;
+  margin-top: 50px;
+}
+
+@keyframes spin{
+  0%{
+    transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(360deg);
+  }
+}

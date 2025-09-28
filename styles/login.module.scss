@@ -1,0 +1,62 @@
+.body{
+  display: flex; 
+  align-items: center; 
+  width: 100%;
+  flex-direction: column;
+  height: 90dvh;
+  margin-top: 60px;
+  position: relative;
+  
+  .inpDiv{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    .label{
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start; 
+      padding: 5px;
+      width: 90%;
+      gap: 10px;
+      margin-left: 10px;
+      
+      .inp{
+        width: 90%;
+        padding: 10px; 
+        border-radius: 10px;
+        background-color: #1d1d1d; 
+        border: 1px solid #262625;
+        outline: none;
+        color: white;
+      }
+    }
+    
+    .lbtn{
+      width: 80%;
+      border-radius: 5px;
+      background-color: white;
+      color: black;
+      padding: 10px;
+      font-weight: bold;
+      border: none;
+      margin-top: 15px;
+      transition: 0.2s;
+      
+      &:active{
+        transform: scale(0.98);
+        opacity: 0.5;
+      }
+    }
+    
+    .forgot{
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      align-self: flex-end;
+      margin-right: 45px;
+      margin-top: 5px;
+    }
+  }
+}
