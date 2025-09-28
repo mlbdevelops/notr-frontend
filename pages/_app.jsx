@@ -27,7 +27,7 @@ export default function App({Component, pageProps}){
           name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
         />
-        <title>Notr - Note taking app</title>
+        <title>Notr - Note taking/sharing app</title>
       </Head>
     </div>
   )
