@@ -45,7 +45,6 @@ export default function loginPage(){
         localStorage.setItem('tab', 1);
         router.push('/');
       } else {
-        console.log(user)
         setIsSucess(true)
         setIsLoading(false)
         setMsg({
