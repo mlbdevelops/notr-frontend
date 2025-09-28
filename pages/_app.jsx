@@ -16,6 +16,7 @@ export default function App({Component, pageProps}){
       <Component {...pageProps}/> 
       <Head>
         <link rel="icon" type="image/png" href="/notr.png"/>
+        <link rel="apple-touch-icon" type="image/png" href="/notr.png"/>
         <link rel="manifest" href="/manifest.webmanifest"/>
         <meta
           name="viewport"
