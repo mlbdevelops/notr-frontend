@@ -11,7 +11,7 @@ export default function App({Component, pageProps}){
   
   return (
     <div style={{
-      fontSize: size == 0? '13.5px' : size == 1? '15px' : size == 2? '17px' : size == 3? '19px' : size == 4? '21px' : '',
+      fontSize: size == 0? '13.5px' : size == 1? '15px' : size == 2? '17px' : size == 3? '19px' : size == 4? '21px' : '16px',
     }}>
       <Component {...pageProps}/> 
       <Head>
