@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { App } from '@capacitor/app';
 import { useRouter } from 'next/router';
 
-export default function App({Component, pageProps}){
+export default function app({Component, pageProps}){
   const [size, setSize] = useState();
   
   useEffect(() => {
