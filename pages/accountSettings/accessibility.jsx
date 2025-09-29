@@ -45,7 +45,12 @@ export default function accessibility(){
           width: '90%',
           margin: '10px 0',
           overflow: 'scroll',
-          fontSize: size == 0? '13px' : size == 1? '14px' : size == 2? '15px' : size == 3? '16px' : size == 4? '17px' : null,
+          fontSize: size == 0 ? '16px' 
+            : size == 1 ? '17px' 
+            : size == 2 ? '18px' 
+            : size == 3 ? '20px' 
+            : size == 4 ? '22px' 
+            : '18px',
         }}>
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perspiciatis modi eligendi cupiditate perferendis enim culpa quaerat. Dignissimos recusandae quia mollitia dolores quis quo minus quidem officiis cupiditate minima, at explicabo iste. Officia veritatis suscipit obcaecati numquam culpa eaque tempora qui deleniti neque cumque hic velit impedit accusamus, quia illum cum autem ea quos quibusdam porro? Molestias veniam dolor quos facere a cum aliquam, dolores reiciendis explicabo eius possimus! Similique, voluptas.
         </span>
