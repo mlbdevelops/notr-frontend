@@ -11,7 +11,6 @@ out/
 build/
 
 # Capacitor native projects (AppFlow builds these)
-android/
 ios/
 
 # Env files
