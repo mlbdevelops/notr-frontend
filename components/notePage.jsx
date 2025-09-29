@@ -124,11 +124,13 @@ export default function home(){
           )) : ''}
         </div> : <div className={styles.noUser}>
         <User size={50} className={styles.icon}/>
-        <p className={styles.text}><Link style={{textDecoration: 'none', fontWeight: 'bold', color: 'white',}} href={'/auth/login'}>login</Link> or <Link style={{textDecoration: 'none', color: 'white', fontWeight: 'bold',}} href={'/auth/register'}>create an account</Link> to add notes </p>
+        <p className={styles.text}><Link style={{textDecoration: 'none', fontWeight: 'bold', color: 'white',}} href={'/auth/login'}>login</Link> or <Link style={{textDecoration: 'none', color: 'white', fontWeight: 'bold',}} href={'/auth/register'}>create an account</Link> to add or share your notes. </p>
         </div> }
-      <Plus onClick={() => {
+        
+      
+      {user && token? <Plus onClick={() => {
         user != null? setAdd(true) : null
-      }} className={styles.add}/>
+      }} className={styles.add}/> : ''}
       
       { user && notes.length < 1?
         <div className={styles.noUser}>

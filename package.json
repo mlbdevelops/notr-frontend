@@ -10,9 +10,9 @@
     "export": "next export"
   },
   "keywords": [],
-  "author": "",
+  "author": "MlbDev",
   "license": "ISC",
-  "description": "",
+  "description": "Note-based social network.",
   "dependencies": {
     "@capacitor/android": "^7.4.3",
     "@capacitor/cli": "^7.4.3",

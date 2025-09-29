@@ -80,7 +80,7 @@ export default function home(){
       <Header 
         textColor={'white'}
         leftIcon={<Image height={100} width={100} src={'/background_less_logo.png'}/>}
-        rightIcons={tabIndex == 1? notes_icons : posts_icons}
+        rightIcons={user? tabIndex == 1? notes_icons : posts_icons : ''}
         isTransparent={true}
         blur={'10px'}
       />
@@ -104,18 +104,20 @@ export default function home(){
         <PostPage/>
       </div>
       
-      <Footer icons={[
-        <List 
-          onClick={() => switchTab(1)}
-          fill={tabIndex == 1? 'white' : ''}
-          className={tabIndex == 1? styles.tabIconActive : styles.tabIcon} size={20}/>,
-        <Heart 
-          onClick={() => switchTab(2)} 
-          className={tabIndex == 2? styles.tabIconActive : styles.tabIcon} 
-          size={20}
-          fill={tabIndex == 2? 'white' : ''}
-        />
-      ]}/>
+      {user?
+        <Footer icons={[
+          <List 
+            onClick={() => switchTab(1)}
+            fill={tabIndex == 1? 'white' : ''}
+            className={tabIndex == 1? styles.tabIconActive : styles.tabIcon} size={20}/>,
+          <Heart 
+            onClick={() => switchTab(2)} 
+            className={tabIndex == 2? styles.tabIconActive : styles.tabIcon} 
+            size={20}
+            fill={tabIndex == 2? 'white' : ''}
+          />
+        ]}/> 
+      : ''}
     </div>
   )
 }
