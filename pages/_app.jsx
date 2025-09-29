@@ -1,6 +1,8 @@
 import '../styles/global.css';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
+import { App } from '@capacitor/app';
+import { useRouter } from 'next/router';
 
 export default function App({Component, pageProps}){
   const [size, setSize] = useState();
@@ -8,6 +10,20 @@ export default function App({Component, pageProps}){
   useEffect(() => {
     setSize(localStorage.getItem('size') || 0)
   }, [!size]);
+  
+  useEffect(() => {
+    const handler = App.addListener('backButton', () => {
+      // If on root page, exit app
+      if (window.location.pathname === '/') {
+        App.exitApp();  // exits app
+      } else {
+        window.history.back(); // go back to previous page
+      }
+    });
+    return () => {
+      handler.remove();
+    };
+  }, []);
   
   return (
     <div style={{
