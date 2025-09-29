@@ -39,6 +39,9 @@ export default function home(){
  
  useEffect(() => {
     const tab = localStorage.getItem('tab');
+    if (!user) {
+      return setTabIndex(1);
+    }
     if (tab) {
       setTabIndex(Number(tab));
     }
