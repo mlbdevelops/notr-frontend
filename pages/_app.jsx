@@ -16,7 +16,6 @@ export default function app({Component, pageProps}){
   useEffect(() => {
     StatusBar.setOverlaysWebView({ overlay: true });
     StatusBar.setBackgroundColor({ color: 'transparent' });
-    StatusBar.setStyle({ style: Style.Light });
   }, [])
   
   useEffect(() => {
