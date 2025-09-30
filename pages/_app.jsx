@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { App } from '@capacitor/app';
 import { useRouter } from 'next/router';
+import { StatusBar, Style } from '@capacitor/status-bar';
 
 export default function app({Component, pageProps}){
   const [size, setSize] = useState();
@@ -13,16 +14,20 @@ export default function app({Component, pageProps}){
   
   useEffect(() => {
     const handler = App.addListener('backButton', () => {
-      // If on root page, exit app
       if (window.location.pathname === '/') {
-        App.exitApp();  // exits app
+        App.exitApp();
       } else {
-        window.history.back(); // go back to previous page
+        window.history.back();
       }
     });
     return () => {
       handler.remove();
     };
+  }, []);
+  
+  useEffect(() => {
+    StatusBar.setBackgroundColor({ color: '#00000000' });
+    StatusBar.setStyle({ style: Style.Light });
   }, []);
   
   return (
@@ -43,7 +48,7 @@ export default function app({Component, pageProps}){
           name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
         />
-        <title>Notr - Note taking/sharing app</title>
+        <title>Notr</title>
       </Head>
     </div>
   )
