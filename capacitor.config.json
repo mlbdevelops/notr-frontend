@@ -1,14 +1,19 @@
 {
   "appId": "com.mlbdev.notr",
-  "appName": "Notr",
+  "appName": "Notr", 
   "webDir": "out",
   "plugins": {
     "SplashScreen": {
       "launchShowDuration": 3000,
       "launchAutoHide": true,
       "backgroundColor": "#000000",
-      "androidScaleType": "CENTER",
+      "androidScaleType": "CENTER", 
       "showSpinner": false
+    },
+    "StatusBar": {
+      "style": "LIGHT",
+      "backgroundColor": "#00000000",
+      "overlaysWebView": true
     }
   }
 }

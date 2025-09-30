@@ -6,15 +6,21 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        
-        <!-- Normal layout, not fullscreen -->
-        <item name="android:windowFullscreen">false</item>
-        
+
         <!-- Transparent status bar -->
         <item name="android:statusBarColor">@android:color/transparent</item>
         
         <!-- White status bar icons -->
         <item name="android:windowLightStatusBar">false</item>
+        
+        <!-- Enable system bar backgrounds drawing -->
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        
+        <!-- Make status bar translucent -->
+        <item name="android:windowTranslucentStatus">true</item>
+        
+        <!-- Not fullscreen (keep your content below status bar) -->
+        <item name="android:windowFullscreen">false</item>
     </style>
 
     <!-- No action bar -->
@@ -22,17 +28,29 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:background">@null</item>
+        
+        <!-- Transparent status bar -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        
+        <!-- White status bar icons -->
+        <item name="android:windowLightStatusBar">false</item>
+        
+        <!-- Enable system bar backgrounds drawing -->
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        
+        <!-- Make status bar translucent -->
+        <item name="android:windowTranslucentStatus">true</item>
     </style>
 
-    <!-- Splash screen theme -->
+    <!-- Splash screen theme (keep as is) -->
     <style name="AppTheme.NoActionBarLaunch" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Transparent status bar during splash -->
         <item name="android:statusBarColor">@android:color/transparent</item>
-        
+
         <!-- Fullscreen splash -->
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        
+
         <!-- Splash logo/background -->
         <item name="android:windowBackground">@drawable/launch_background</item>
     </style>
