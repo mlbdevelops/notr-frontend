@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Black or transparent background behind splash logo -->
-    <item android:drawable="@android:color/transparent"/>
-    <!-- Centered splash logo -->
+    <!-- Background color -->
+    <item android:drawable="@color/splash_background" />
+
+    <!-- Splash image -->
     <item>
-        <bitmap
-            android:gravity="center"
-            android:src="@drawable/splash"/>
+      <bitmap
+          android:gravity="center"
+          android:src="@drawable/splash" />
     </item>
 </layer-list>

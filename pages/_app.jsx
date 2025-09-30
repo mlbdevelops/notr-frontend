@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { App } from '@capacitor/app';
 import { useRouter } from 'next/router';
-import { StatusBar, Style } from '@capacitor/status-bar';
+//import { StatusBar, Style } from '@capacitor/status-bar';
 import { Capacitor } from '@capacitor/core';
 
 export default function app({Component, pageProps}){
@@ -26,19 +26,6 @@ export default function app({Component, pageProps}){
     };
   }, []);
   
-  useEffect(() => {
-    // Only run on native platforms
-    if (Capacitor.isNativePlatform()) {
-      StatusBar.setBackgroundColor({ color: '#00000000' });
-      StatusBar.setStyle({ style: Style.Light });
-      
-      // Optional: For Android to ensure overlay works
-      if (Capacitor.getPlatform() === 'android') {
-        StatusBar.setOverlaysWebView({ overlay: true });
-      }
-    }
-  }, []);
-  
   return (
     <div style={{
       fontSize: size == 0 ? '16px' 
@@ -47,8 +34,6 @@ export default function app({Component, pageProps}){
         : size == 3 ? '20px' 
         : size == 4 ? '22px' 
         : '18px',
-      paddingTop: 'env(safe-area-inset-top)',
-      minHeight: '100vh'
     }}>
       <Component {...pageProps}/> 
       <Head>
