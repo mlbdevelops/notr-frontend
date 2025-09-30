@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { App } from '@capacitor/app';
 import { useRouter } from 'next/router';
-//import { StatusBar, Style } from '@capacitor/status-bar';
+import { StatusBar, Style } from '@capacitor/status-bar';
 import { Capacitor } from '@capacitor/core';
 
 export default function app({Component, pageProps}){
@@ -25,7 +25,22 @@ export default function app({Component, pageProps}){
       handler.remove();
     };
   }, []);
-  
+
+  useEffect(() => {
+    async function setupStatusBar() {
+      if (Capacitor.isNativePlatform()) {
+        try {
+          await StatusBar.setOverlaysWebView({ overlay: false });
+          await StatusBar.setBackgroundColor({ color: '#00000000' });
+          await StatusBar.setStyle({ style: Style.Light });
+        } catch (e) {
+          console.log('StatusBar plugin not available in web:', e);
+        }
+      }
+    }
+    setupStatusBar();
+  }, []);
+
   return (
     <div style={{
       fontSize: size == 0 ? '16px' 
