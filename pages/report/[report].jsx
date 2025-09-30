@@ -38,7 +38,7 @@ export default function report(){
   }
   
   return(
-    <div className={styles.body}>
+    <div style={{marginTop: '95px'}} className={styles.body}>
       <Header 
         isTransparent={true}
         text='Reason for report'

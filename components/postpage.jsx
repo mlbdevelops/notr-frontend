@@ -112,7 +112,7 @@ export default function PostPage() {
   }
   
   return (
-    <div className={styles.body}>
+    <div style={{marginTop: '100px'}} className={styles.body}>
       {posts.map(post => (
         <Post
           key={post?._id}

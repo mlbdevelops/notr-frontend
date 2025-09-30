@@ -59,7 +59,7 @@ export default function loginPage(){
   };
   
   return(
-    <div className={styles.body}>
+    <div style={{marginTop: '95px'}} className={styles.body}>
       <h2 style={{margin: '20px 0'}}>
         Login to Notr
       </h2>

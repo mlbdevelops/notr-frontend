@@ -21,6 +21,7 @@ export default function settings(){
         display: 'flex',
         alignItems: 'center',
         margin: '65px 0',
+        marginTop: '95px',
         width: '100%',
         gap: '5px',
         flexDirection: 'column',

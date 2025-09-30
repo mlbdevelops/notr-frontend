@@ -3,8 +3,8 @@ import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { App } from '@capacitor/app';
 import { useRouter } from 'next/router';
-import { StatusBar, Style } from '@capacitor/status-bar';
 import { Capacitor } from '@capacitor/core';
+import { StatusBar, Style } from '@capacitor/status-bar';
 
 export default function app({Component, pageProps}){
   const [size, setSize] = useState();
@@ -12,6 +12,12 @@ export default function app({Component, pageProps}){
   useEffect(() => {
     setSize(localStorage.getItem('size') || 0)
   }, [!size]);
+  
+  useEffect(() => {
+    StatusBar.setOverlaysWebView({ overlay: true });
+    StatusBar.setBackgroundColor({ color: 'transparent' });
+    StatusBar.setStyle({ style: Style.Light });
+  }, [])
   
   useEffect(() => {
     const handler = App.addListener('backButton', () => {
@@ -26,23 +32,9 @@ export default function app({Component, pageProps}){
     };
   }, []);
 
-  useEffect(() => {
-    async function setupStatusBar() {
-      if (Capacitor.isNativePlatform()) {
-        try {
-          await StatusBar.setOverlaysWebView({ overlay: false });
-          await StatusBar.setBackgroundColor({ color: '#00000000' });
-          await StatusBar.setStyle({ style: Style.Light });
-        } catch (e) {
-          console.log('StatusBar plugin not available in web:', e);
-        }
-      }
-    }
-    setupStatusBar();
-  }, []);
-
   return (
     <div style={{
+      // No paddingTop, since we want overlay
       fontSize: size == 0 ? '16px' 
         : size == 1 ? '17px' 
         : size == 2 ? '18px' 

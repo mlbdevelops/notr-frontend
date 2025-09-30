@@ -37,16 +37,17 @@ export default function home(){
     }
  }, []);
  
- useEffect(() => {
-    const tab = localStorage.getItem('tab');
-    if (!user) {
-      return setTabIndex(1);
+  useEffect(() => {
+    const tab = JSON.parse(localStorage.getItem('tab'));
+    if (user) {
+      if (tab) {
+        setTabIndex(tab);
+      }
+    } else {
+      setTabIndex(1);
     }
-    if (tab) {
-      setTabIndex(Number(tab));
-    }
- }, []);
- 
+  }, [user]);
+  
  useEffect(() => {
     tabIndex != 0? localStorage.setItem('tab', tabIndex) : null;
     if (scrollPositions[tabIndex] !== undefined) {
@@ -55,7 +56,6 @@ export default function home(){
       window.scrollTo(0, 0)
     }
  }, [tabIndex]);
-  
   
   const notes_icons = [
     <Settings onClick={() => user? router.push('/settings') : null} className={styles1.i}/>

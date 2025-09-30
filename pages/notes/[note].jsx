@@ -199,7 +199,7 @@ Notr - powerful note taking app`
   }
   
   return(
-    <div className={styles.body}>
+    <div style={{marginTop: '95px'}} className={styles.body}>
       <Header
         isTransparent={true}
         blur={'10px'}

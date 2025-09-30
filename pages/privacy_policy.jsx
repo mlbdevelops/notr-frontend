@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 export default function PrivacyPolicy() {
   const router = useRouter();
   return (
-    <div style={{margin: '70px 0' }}>
+    <div style={{margin: '70px 0', marginTop: '95px',}}>
       <Header 
         text='Privacy policy'
         leftIcon={

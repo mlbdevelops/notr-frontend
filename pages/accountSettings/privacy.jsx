@@ -57,7 +57,7 @@ export default function privacy(){
   }
   
   return(
-    <div className={styles.body}>
+    <div style={{marginTop: '100px'}}  className={styles.body}>
       <Header 
         text='Privacy'
         leftIcon={

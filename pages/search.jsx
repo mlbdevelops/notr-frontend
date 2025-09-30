@@ -34,7 +34,7 @@ export default function search(){
   }
   
   return(
-    <div className={styles.body}>
+    <div style={{marginTop: '30px'}} className={styles.body}>
       <div className={styles.inpDiv}>
         <ChevronLeft onClick={() => router.back()}/>
         <input 

@@ -16,6 +16,7 @@ export default function about() {
       display: 'flex',
       alignItems: 'center',
       flexDirection: 'column',
+      marginTop: '100px',
     }}>
       <Header 
         text='About'

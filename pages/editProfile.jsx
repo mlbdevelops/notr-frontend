@@ -91,7 +91,8 @@ export default function EditProfile(){
     <div 
       onClick={() => isRole? setIsRole(false) : ''} className={styles.body}
       style={{
-        opacity: !isSubmitting? 1 : 0.5,
+        opacity: !isSubmitting? 1 : 0.7,
+        marginTop: '95px',
       }}
     >
       <Header 

@@ -18,6 +18,7 @@ export default function accessibility(){
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
+      marginTop: '100px',
     }}>
       <Header
         leftIcon={<ChevronLeft onClick={() => router.back()} style={{padding: '10px 15px'}}/>}

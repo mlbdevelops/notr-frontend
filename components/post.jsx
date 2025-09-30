@@ -120,6 +120,7 @@ export default function Post({tag, note, title, username, name, ownerId, _id, ph
       return;
     }
     setCommentText('');
+    setIsLoading(true)
     const res = await fetch('https://notrbackend.vercel.app/api/posts/comments', {
       method: 'POST',
       headers: {
@@ -132,18 +133,31 @@ export default function Post({tag, note, title, username, name, ownerId, _id, ph
       })
     });
     const data = await res.json();
-    
     if (res.ok) {
       getPostsComments();
     }
   };
   
   const getPostsComments = async () => {
-    !comment? setComment(true) : null;
-    const res = await fetch(`https://notrbackend.vercel.app/api/posts/GetComments/${_id}`);
-    const data = await res.json();
-    if (res.ok) {
-      setCommentList(data.comments);
+    try {
+      
+      setIsLoading(true)
+      !comment? setComment(true) : null;
+      const res = await fetch(`https://notrbackend.vercel.app/api/posts/GetComments/${_id}`, {
+        headers: {
+          'Content-Type' : 'application',
+          'token' : token
+        }
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setIsLoading(false)
+      }
+      if (res.ok) {
+        setIsLoading(false)
+        setCommentList(data.comments);
+      }
+    } catch (error) {
     }
   };
   
@@ -227,10 +241,6 @@ See more on Notr.
       
       {/*delete comp*/}
       
-      { isLoading?
-        <Loader loaderColor='white'/>
-      : ''}
-      
       { isDelete?
         <Question msg='Are you sure you want to delete?' title='Delete' actions={[
           <p onClick={() => setIsDelete(false)}>No</p>,
@@ -252,8 +262,21 @@ See more on Notr.
           <div className={styles2.commentDiv}>
             <p className={styles2.commentText}>Comments</p>
             <div>
+              { isLoading? <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: '100px',
+                width: '100px',
+                borderRadius: '20px',
+                placeSelf: 'center',
+                marginTop: '90px',
+                backgroundColor: 'rgba(0, 0, 0, 0.1)',
+              }}>
+                <div className={styles.spinner}></div>
+              </div> : ''}
               <div className={styles2.comments}>
-                { commentList.length >= 1?
+                { !isLoading && commentList.length >= 1?
                   commentList.map((comm, i) => (
                     <div key={i} className={styles2.comment}>
                       <div className={styles2.profile}>{comm.user?.username[0].toUpperCase() || ''}</div>
@@ -263,11 +286,11 @@ See more on Notr.
                       </div>
                     </div>
                   ))
-                : <p style={{
+                : !isLoading && commentList.length == 0? <p style={{
                   textAlign: 'center',
                   marginTop: '80px',
                   width: '100%',
-                }}>This post has no comments</p>}
+                }}>This post has 0 comments</p> : ''}
               </div>
             </div>
              <div className={styles.commentInpDiv}>
@@ -278,7 +301,9 @@ See more on Notr.
                   value={commentText}
                   onChange={(e) => setCommentText(e.target.value)}
                 />
-                <Send onClick={sendComment}/>
+                <Send style={{
+                  opacity: commentText? 1 : 0.5,
+                }} onClick={sendComment}/>
             </div>
           </div>
         </div>

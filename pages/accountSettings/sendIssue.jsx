@@ -38,7 +38,7 @@ export default function sendIssue() {
   }
   
   return(
-    <div className={styles.body}>
+    <div style={{marginTop: '95px'}} className={styles.body}>
       <Header
         text='Report an issue'
         leftIcon={

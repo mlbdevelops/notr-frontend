@@ -103,7 +103,7 @@ export default function home(){
   };
   
   return(
-    <div className={styles.body}>
+    <div style={{marginTop: '100px'}} className={styles.body}>
       { user? 
         <div className={styles.notesContainer}>
           { queryData.length < 1 && notes.length >= 1? notes.map((note, i) => (

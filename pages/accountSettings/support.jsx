@@ -8,7 +8,7 @@ import styles from '../../styles/support.module.scss';
 export default function support(){
   const router = useRouter();
   return(
-    <div className={styles.body}>
+    <div style={{marginTop: '95px'}} className={styles.body}>
       <Header 
         text={'Support'}
         leftIcon={<ChevronLeft style={{padding: '10px 15px'}} onClick={() => router.back()}/>}

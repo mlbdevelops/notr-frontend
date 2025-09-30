@@ -98,10 +98,10 @@ export default function settings(){
   }
   
   return(
-    <div>
+    <div style={{marginTop: '100px'}}>
       <Header
         text={'Settings'} 
-        leftIcon={<ChevronLeft style={{padding:'10px'}} onClick={() => router.back()} />}
+        leftIcon={<ChevronLeft style={{padding:'5px', cursor : 'pointer'}} onClick={() => router.back()} />}
       />
       { isDeleted? 
         <Question msg={data.response} title={'Account deleted'} actions={<button className={styles.btn} onClick={logOut}>Ok</button>}/> : null
@@ -122,6 +122,7 @@ export default function settings(){
         display: 'flex',
         alignItems: 'center',
         margin: '70px 0',
+        marginTop: '94px',
         width: '100%',
         gap: '5px',
         flexDirection: 'column',

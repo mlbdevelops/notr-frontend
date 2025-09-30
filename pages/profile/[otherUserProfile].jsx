@@ -93,7 +93,7 @@ export default function account(){
   }
   
   return(
-    <div className={styles.body}>
+    <div style={{marginTop: '95px'}} className={styles.body}>
       <Header
         leftIcon={<ChevronLeft style={{padding:'10px'}} onClick={() => router.back()}/>}
         text={<small>{user?.username}</small>}
@@ -120,7 +120,6 @@ export default function account(){
             {connections} connections
           </span>
         </div>
-        
         
         <div className={styles.profileDiv}>
           {user?.photoUrl? <img onClick={() => user?.isPrivate? null : setIsPicShown(true)} src={user?.photoUrl} height={80} width={80} className={styles.profilePic}/> : <User size={30} className={styles.userIcon}/>}

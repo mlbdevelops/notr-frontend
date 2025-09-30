@@ -136,7 +136,7 @@ export default function Private(){
   };
   
   return(
-    <div className={styles.body}>
+    <div style={{marginTop: '95px'}} className={styles.body}>
       <Header 
         text='Private notes' 
         leftIcon={<ChevronLeft style={{padding: '10px'}} onClick={() => router.back()}/>}

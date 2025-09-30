@@ -90,7 +90,7 @@ https://notrbackend.vercel.app/user?id=${user?._id}
   }
   
   return(
-    <div className={styles.body}>
+    <div style={{marginTop: '100px'}} className={styles.body}>
       <Header
         leftIcon={<ChevronLeft style={{padding:'10px'}} onClick={() => router.back()}/>}
         text={<small>{user?.username}</small>}

@@ -166,12 +166,12 @@ export default function createPost(){
   }
   
   return(
-    <div className={styles.body}>
+    <div style={{marginTop: '100px'}} className={styles.body}>
       <Header 
         leftIcon={<ChevronLeft style={{padding: '10px'}} onClick={() => router.back()}/>}
         text={'Post'}
         rightIcons={
-          <p className={styles.iTab}>Post</p>
+          <p onClick={create_post} className={styles.iTab}>Post</p>
         }
         isTransparent={true}
         blur={'10px'}

@@ -21,7 +21,7 @@ const NotFound = () => {
   
   
   return(
-    <div>
+    <div style={{marginTop: '95px'}}>
       <header>
         <h1>Ooopzzz</h1>
       </header>
