@@ -1,7 +1,7 @@
 {
   "name": "Notr",
   "short_name": "Notr",
-  "description": "Note taking app",
+  "description": "Note taking/sharing app",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

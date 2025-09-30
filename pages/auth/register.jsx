@@ -141,8 +141,7 @@ export default function register(){
   
   return(
     <div className={styles.body}>
-      <Header leftIcon={<ChevronLeft onClick={() => router.back()} style={{padding : '10px'}}/>}
-        text={'Register'}
+      <Header leftIcon={<ChevronLeft onClick={() => router.back()} style={{padding : '10px', cursor: 'pointer', transition: '0.1s'}}/>}
         isTransparent={true}
         blur={'10px'}
       />
