@@ -33,7 +33,7 @@ export default function account(){
     const userId = searchParams.get('user')
     const getUser = async (userId) => {
       if (!userId) return
-      const res = await fetch(`https://notrbackend.vercel.app/api/users/getOtherProfile/${userId}/logged?loggedUser=${user}`)
+      const res = await fetch(`https://notrbackend.vercel.app/api/users/getOtherProfile/${userId}/logged?loggedUser=${loggedUser}`)
       const data = await res.json()
       if (res.ok) {
         setUser(data.user)
