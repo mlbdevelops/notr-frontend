@@ -123,10 +123,12 @@ export default function createPost(){
   
   const setfiles = (e) => {
     const files = Array.from(e.target.files)
+    if (files > 15) {
+      return alert('You can only select 15 files');
+    }
     if (files) {
       setImages(files)
     }
-    console.log(e)
   }
   
   const create_post = async () => {

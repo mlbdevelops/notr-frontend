@@ -21,7 +21,7 @@ export default function accessibility(){
       marginTop: '100px',
     }}>
       <Header
-        leftIcon={<ChevronLeft onClick={() => router.back()} style={{padding: '10px 15px'}}/>}
+        leftIcon={<ChevronLeft onClick={() => router.back()} style={{padding: '10px', cursor: 'pointer'}}/>}
         text='Accessibility'
         isTransparent={true}
         blur={'10px'}
@@ -34,13 +34,14 @@ export default function accessibility(){
           alignItems: 'center',
           whiteSpace: 'nowrap',
           padding: '10px 0',
-          gap: '10px'
+          gap: '10px',
+          fontWeight: 'bold',
         }}>
           <Type style={{
             padding: '7.5px',
             backgroundColor: 'white',
             borderRadius: '8px',
-          }} color={'black'} size={20}/> Text size
+          }} color={'black'} size={20}/> Font size
         </span>
         <span style={{
           width: '90%',

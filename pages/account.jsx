@@ -29,12 +29,16 @@ export default function account(){
   const [likeCount, setLikeCont] = useState(0)
   const [isPicShown, setIsPicShown] = useState(false)
   const [isMore, setIsMore] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   
   useEffect(() => {
     const userId = JSON.parse(localStorage.getItem('user')) || ''
+    setUser(userId)
+    userId.photoUrl? setUserProfile(userId.photoUrl) : ''
     const token = JSON.parse(localStorage.getItem('token')) || ''
     
     const getUser = async (token) => {
+      setIsLoading(true)
       const res = await fetch(`https://notrbackend.vercel.app/api/getUserInfo`, {
         headers: {
           'token': token
@@ -42,14 +46,13 @@ export default function account(){
       })
       const data = await res.json()
       if (res.ok) {
+        setIsLoading(false)
         setUser(data.user)
-        console.log(data)
         setUserProfile(data?.user?.photoUrl)
         setNotes(data.notes)
         setPosts(data.posts)
         setLikeCont(data.likeCount)
         setConnections(data.connections)
-        console.log('😁',data)
       }
     }
     getUser(token)
@@ -157,11 +160,25 @@ https://notrbackend.vercel.app/user?id=${user?._id}
         </span>
         •
         <span>
-          {note} Notes
+          {note || 0} Notes
         </span>
       </div>
       <div className={styles.postsDiv}>
-        { posts.length >= 1?
+        { isLoading? <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '100px',
+            width: '100px',
+            borderRadius: '20px',
+            placeSelf: 'center',
+            marginTop: '90px',
+            backgroundColor: 'rgba(0, 0, 0, 0.1)',
+          }}>
+            <div className={styles.spinner}></div>
+          </div> : ''}
+          
+        {!isLoading && posts.length >= 1?
           <div>
             {posts.map((post, i) => (
               <Post 
@@ -185,11 +202,11 @@ https://notrbackend.vercel.app/user?id=${user?._id}
             ))}
           </div>
         : 
-          <div className={styles.empty}>
+          !isLoading && posts.length == 0? <div className={styles.empty}>
             <Camera size={60} className={styles.cam}/>
             <strong>You haven't posted yet</strong>
           </div>
-        }
+        : ''}
       </div>
     </div>
   );
