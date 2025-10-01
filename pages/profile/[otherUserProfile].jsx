@@ -30,29 +30,33 @@ export default function account(){
   const [isPicShown, setIsPicShown] = useState(false)
   
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user')) || ''
+    const user = JSON.parse(localStorage.getItem('user')) || {}
     const token = JSON.parse(localStorage.getItem('token')) || ''
-    if (user?._id) {
+    if (user?._id && token) {
       setToken(token)
-      setLoggedUserId(user._id)
+      setLoggedUserId(user._id || 'null')
     }
-  }, [])
+  }, [loggedUser])
   
   useEffect(() => {
     const userId = searchParams.get('user')
     const getUser = async (userId) => {
-      if (!userId) return
-      const res = await fetch(`https://notrbackend.vercel.app/api/users/getOtherProfile/${userId}/logged?loggedUser=${loggedUser}`)
-      const data = await res.json()
-      if (res.ok) {
-        setUser(data.user)
-        setPosts(data.posts)
-        setLikeCont(data.likeCount)
-        setConnections(data.connections)
+      try {
+        if (!userId) return
+        const res = await fetch(`http://localhost:3001/api/users/getOtherProfile/${userId}/logged/${loggedUser}`)
+        const data = await res.json()
+        if (res.ok) {
+          setUser(data.user)
+          setPosts(data.posts)
+          setLikeCont(data.likeCount)
+          setConnections(data.connections)
+        }
+      } catch (error) {
+        alert(error);
       }
     }
     getUser(userId)
-  }, [searchParams && user])
+  }, [searchParams && loggedUser])
   
   useEffect(() => {
     const getConnected = async () => {

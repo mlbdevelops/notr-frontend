@@ -85,6 +85,12 @@ export default function Post({tag, note, title, username, name, ownerId, _id, ph
   
   
   const like = async (tkn) => {
+    if (loggedUser == 'null') {
+      if (confirm('Login to perform this action.')) {
+        router.push('/auth/login')
+      }
+      return;
+    }
     const res = await fetch('https://notrbackend.vercel.app/api/post/like', {
       method: 'POST',
       headers: {
