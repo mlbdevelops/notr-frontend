@@ -14,7 +14,8 @@ import { useState, useEffect, useRef } from 'react'
 import Question from './confirm.jsx'
 import { useRouter } from 'next/router';
 import Loader from './loading_spinner.jsx'
-
+import { Clipboard as CapClip } from '@capacitor/clipboard';
+import { Share as CapShare } from '@capacitor/share';
 import styles2 from '../styles/comment.module.scss';
 export default function Post({tag, note, title, username, name, ownerId, _id, photos, loggedUser, likes, fontFamily, textAlign, fontStyle, fontWeight, time, accProfile, likedByUser}){
   const router = useRouter()
@@ -176,7 +177,8 @@ export default function Post({tag, note, title, username, name, ownerId, _id, ph
     const data = await res.json()
     if (res.ok) {
       setIsLoading(false)
-      alert(data?.msg);  
+      location.reload()
+      alert(data?.msg); 
     }
   };
   
@@ -190,8 +192,7 @@ ${note}
 .
 .
 .
-.
-See more on Notr.
+Notr - https://notr-sigma.vercel.app
       `,
     }
     
@@ -200,6 +201,22 @@ See more on Notr.
         await navigator.share(shareData)
       } catch (error) {
         console.log(error);
+      }
+    }else{
+      try {
+        await CapShare.share({
+          title: title,
+          text:
+`••• ${title}
+  
+${note}
+.
+.
+.
+Notr - https://notr-sigma.vercel.app`
+        })
+      } catch (error) {
+        console.error(error);
       }
     }
   }

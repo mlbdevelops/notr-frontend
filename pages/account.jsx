@@ -16,6 +16,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import styles from '../styles/accInfo.module.scss'
 import Post from '../components/post.jsx'
+import { Share as CapShare } from '@capacitor/share';
 
 export default function account(){
   
@@ -60,7 +61,7 @@ export default function account(){
   
   const copyFunc = async () => {
     try {
-      await navigator.clipboard.writeText(`https://notrbackend.vercel.app/user?id=${user?._id}`).trim();
+      await navigator.clipboard.writeText(`https://notr-app.vercel.app/user?id=${user?._id}`).trim();
     } catch (error) {
       console.log(error)
     }
@@ -78,7 +79,7 @@ export default function account(){
 
 Let's connect on Notr. Here's my link
 
-https://notrbackend.vercel.app/user?id=${user?._id}
+https://notr-app.vercel.app/user?id=${user?._id}
 `
     }
     
@@ -87,6 +88,12 @@ https://notrbackend.vercel.app/user?id=${user?._id}
         await navigator.share(shareData)
       } catch (error) {
         console.log(error);
+      }
+    }else{
+      try {
+        await CapShare.share(shareData)
+      } catch (error) {
+        console.error(error);
       }
     }
     setIsMore(false)

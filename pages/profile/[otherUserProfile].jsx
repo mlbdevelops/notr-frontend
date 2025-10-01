@@ -12,14 +12,14 @@ import {
   Lock
 } from 'lucide-react';
 import { useEffect, useState } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation' // <--- added useSearchParams
+import { useRouter, useSearchParams } from 'next/navigation'
 import styles from '../../styles/accInfo.module.scss'
 import Post from '../../components/post.jsx'
 
 export default function account(){
   
   const router = useRouter()
-  const searchParams = useSearchParams() // <--- get search params
+  const searchParams = useSearchParams()
   const [user, setUser] = useState({})
   const [connections, setConnections] = useState()
   const [loggedUser, setLoggedUserId] = useState('')
@@ -40,11 +40,9 @@ export default function account(){
         setPosts(data.posts)
         setLikeCont(data.likeCount)
         setConnections(data.connections)
-        console.log(data)
       }
     }
     getUser(userId)
-    console.log(userId)
   }, [searchParams])
   
   useEffect(() => {

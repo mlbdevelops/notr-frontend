@@ -114,7 +114,7 @@ export default function home(){
             fill={tabIndex == 1? 'white' : ''}
             className={tabIndex == 1? styles.tabIconActive : styles.tabIcon} size={20}/>,
           <Heart 
-            onClick={() => switchTab(2)} 
+            onClick={() => tabIndex == 2? location.reload() : switchTab(2)} 
             className={tabIndex == 2? styles.tabIconActive : styles.tabIcon} 
             size={20}
             fill={tabIndex == 2? 'white' : ''}

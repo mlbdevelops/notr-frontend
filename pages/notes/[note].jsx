@@ -20,6 +20,8 @@ import {
   Key,
   EllipsisVertical
 } from 'lucide-react';
+import { Clipboard as CapClip } from '@capacitor/clipboard';
+import { Share as CapShare } from '@capacitor/share';
 import Link from 'next/link'
 import { useEffect, useState, useRef } from 'react';
 import styles from '../../styles/notePage.module.scss';
@@ -64,7 +66,6 @@ export default function note(){
     const clipboard = async () => {
       try {
         const clbTxt = await navigator.clipboard.readText();
-        console.log(clbTxt)
         if (clbTxt) {
           setIsPaste(true)
         }
@@ -90,9 +91,10 @@ export default function note(){
 `Title: ${newTitle}
 
 Note: ${newNote}
-
-
-Notr - powerful note taking app`
+.
+.
+.
+Notr - https://notr-sigma.vercel.app`
     }
     
     if (navigator.share) {
@@ -101,6 +103,18 @@ Notr - powerful note taking app`
       } catch (error) {
         console.log(error);
       }
+    }else{
+      await CapShare.share({
+        title: newTitle,
+        text: 
+`Title: ${newTitle}
+
+Note: ${newNote}
+.
+.
+.
+Notr - https://notr-sigma.vercel.app`
+      })
     }
   }
   
@@ -156,7 +170,6 @@ Notr - powerful note taking app`
     }
   };
   
-  
   const deleteNote = async () => {
     setIsLoading(true)
     const res = await fetch(`https://notrbackend.vercel.app/api/delete/${note}`, {
@@ -178,11 +191,20 @@ Notr - powerful note taking app`
   };
   
   const pasteFunc = async () => {
-    try {
-      const clbTxt = await navigator.clipboard.readText();
-      setNewNote((prev) => prev + clbTxt)
-    } catch (error) {
-      console.log(error)
+    if (navigator.clipboard?.readText()) {
+      try {
+        const clbTxt = await navigator.clipboard.readText();
+        setNewNote((prev) => prev + clbTxt)
+      } catch (error) {
+        console.log(error)
+      }
+    }else{
+      try {
+        const { value } = await CapClip.read();
+        setNewNote((prev) => prev + value)
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
   
@@ -212,14 +234,17 @@ Notr - powerful note taking app`
         text={'Notes'}
         textColor='white'
         rightIcons={[
-          <div style={{display: newNote? 'block' : 'none'}}>
-            <Link 
-              onClick={saveNote}
-              href={`/create/${notes?._id}`}
-              style={{textDecoration: 'none', cursor: 'none'}}
-            >
-            <p className={styles.postThis}>Post this note</p>
-            </Link>
+          <div style={{
+            opacity: newNote? 1 : 0.5,}}>
+            <p 
+              onClick={() => {
+                if (!newNote) {
+                  return;
+                }
+                saveNote()
+                router.push(`/create/note?note=${notes?._id}`)
+              }}
+              className={styles.postThis}>Post this note</p>
           </div>,
           <EllipsisVertical size={20} onClick={() => setIsOptions(true)} className={styles.elli}/>
         ]}

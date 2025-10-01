@@ -1,3 +1,4 @@
+import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/router';
 import Header from '../../components/header.jsx'
 import { 
@@ -39,7 +40,7 @@ export default function createPost(){
   const [newNote, setNewNote] = useState('');
   const [newTitle, setNewTitle] = useState('');
   const [token, setToken] = useState('');
- 
+ const searchParams = useSearchParams();
   const [font, setFont] = useState('');
   const [fontWeight, setFontWeight] = useState('');
   const [fontStyle, setFontStyle] = useState('');
@@ -86,8 +87,8 @@ export default function createPost(){
   }
   
   useEffect(() => {
-    getIndividualNote(noteId, token)
-  }, [noteId && token])
+    getIndividualNote(searchParams.get('note'), token)
+  }, [searchParams && token])
   
   const getNotesFunc = async () => {
     try{
@@ -113,8 +114,6 @@ export default function createPost(){
     }
   }
   
-  console.log(note)
-  
   const tagData=[{category:"Topic/Subject",tags:["ProjectProposal","MeetingNotes","Recipe","Ideas","Quotes","Memories","Challenges","Reflections","Goals","Journaling","Favorites","Stories","Tips","Advice","Opinions"]},{category:"Status",tags:["InProgress","Completed","Blocked","Pending","Reviewed"]},{category:"Priority",tags:["High","Medium","Low","Urgent"]},{category:"Context",tags:["Work","Personal","School","Travel","Fitness","Wellness","Learning","Creativity","Mindfulness"]},{category:"People",tags:["Family","Friends","Girlfriend","Boyfriend","Crush","Myself","Colleagues","Mentors","Dad","Mom","Sister","Brother","Aunt","Uncle","Grandma","Grandpa","Cousin","Neighbors"]},{category:"Date/Time",tags:["Today","Tomorrow","Yesterday","NextWeek","LastMonth","ThisYear","Weekend"]},{category:"Projects&Events",tags:["MarketingCampaign","WebsiteRedesign","WeekendVibes","Conferences","Birthday","Holiday","Party"]},{category:"Location",tags:["Home","Office","Cafe","Outdoors","Gym","NatureLovers","City","Beach"]},{category:"Type",tags:["Idea","Quote","Question","Reflection","Story","Tip","Advice","Opinion","Announcement","GoalSetting"]},{category:"Source",tags:["Article","Book","Website","Podcast","Video"]},{category:"Sentiment",tags:["Positive","Negative","Neutral","Motivational","Gratitude","Inspiration","Mindfulness","Humor","Love","Peace","Hope","Excited"]},{category:"Extras",tags:["CreativityBoost","Focus","LearningCurve","SelfCare","Productivity","Adventure","Relaxation","Growth"]}
   ];
   
@@ -123,11 +122,11 @@ export default function createPost(){
   
   const setfiles = (e) => {
     const files = Array.from(e.target.files)
-    if (files > 15) {
-      return alert('You can only select 15 files');
+    if (images.length > 15) {
+      return alert('You can only select up to 15 images.');
     }
     if (files) {
-      setImages(files)
+      setImages((prev) => [...new Set([...prev, ...files])])
     }
   }
   
@@ -428,16 +427,16 @@ export default function createPost(){
               {images.map((img, i) => {
                 const url = URL.createObjectURL(img)
                 return (
-                  <img 
-                    key={i}
-                    src={url}
-                    height={100}
-                    width={100}
-                    onClick={() => {
-                      setImages(images.filter(image => image !== img))
-                    }}
-                    className={styles.img}
-                  />
+                  <div className={styles.imgDiv}>
+                    <span onClick={() => setImages(images.filter(image => image !== img))} className={styles.deleteB}>
+                      ×
+                    </span>
+                    <img 
+                      key={i}
+                      src={url}
+                      className={styles.img}
+                    />
+                  </div>
                 )
               })}
             </div> 

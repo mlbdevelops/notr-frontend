@@ -141,17 +141,19 @@
   }
   
   .picsDiv{
-    padding: 10px;
+    padding: 15px;
     width: 90%;
     display: flex;
     overflow-x: scroll;
-    gap: 10px;
+    gap: 20px;
     
     .img{
       border: 1px solid #262626;
       border-radius: 10px;
       width: auto;
       position: relative;
+      height: 200px;
+      width: auto;
     }
     
     .removePic{
@@ -382,6 +384,30 @@
           background-color: #262626;
         }
       }
+    }
+  }
+}
+
+.imgDiv{
+  position: relative;
+  
+  .deleteB{
+    position: absolute;
+    height: 25px;
+    width: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    right: -10px;
+    top: -10px;
+    border-radius: 50px;
+    background-color: #1d1d1d;
+    border: 0.5px solid #262626;
+    z-index: 10000;
+    
+    &:active{
+      transform: scale(0.95);
+      background-color: #363636;
     }
   }
 }
