@@ -157,6 +157,9 @@ export default function Post({tag, note, title, username, name, ownerId, _id, ph
         }
       });
       const data = await res.json();
+      if (res.status == 204) {
+        return setIsLoading(false);
+      }
       if (!res.ok) {
         setIsLoading(false)
       }

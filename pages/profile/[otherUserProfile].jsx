@@ -43,8 +43,11 @@ export default function account(){
     const getUser = async (userId) => {
       try {
         if (!userId) return
-        const res = await fetch(`http://localhost:3001/api/users/getOtherProfile/${userId}/logged/${loggedUser}`)
+        const res = await fetch(`https://notrbackend.vercel.app/api/users/getOtherProfile/${userId}/logged/${loggedUser}`)
         const data = await res.json()
+        if (!res.ok && res.status === 404) {
+          return alert(data.msg)
+        }
         if (res.ok) {
           setUser(data.user)
           setPosts(data.posts)
@@ -52,7 +55,7 @@ export default function account(){
           setConnections(data.connections)
         }
       } catch (error) {
-        alert(error);
+        console.log(error);
       }
     }
     getUser(userId)
