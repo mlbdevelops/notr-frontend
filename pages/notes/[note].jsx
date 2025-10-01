@@ -127,11 +127,11 @@ Notr - powerful note taking app`
         setNewNote(data.response?.note)
         setNewTitle(data.response?.title)
         setIsPrivate(data?.response?.isPrivate)
+        setIsLoading(false)
         if (!data) {
           setNoData(true)
         }
       }
-      setIsLoading(false)
     }
     getIndividualNote(token)
   }, [note && token])

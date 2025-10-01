@@ -9,6 +9,7 @@ import PasswordDiv from '../../components/password.jsx'
 import noteStyles from '../../styles/noteStyles.module.scss';
 import styles2 from '../../styles/password.module.scss'
 import styles3 from '../../styles/home.module.scss'
+import Loader from '../../components/loading_spinner.jsx'
 
 export default function Private(){
   const router = useRouter()
@@ -25,6 +26,7 @@ export default function Private(){
   const [isEmpty, setIsEmpty] = useState(false)
   const [isPopUp, setIsPop] = useState(false)
   const [isDone, setIsDone] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const [serverMsg, setServerMsg] = useState('')
   const [token, setToken] = useState('')
   const [text, setText] = useState('Set all as public')
@@ -49,6 +51,7 @@ export default function Private(){
     })
     const data = await res.json()
     if (res.ok) {
+      setIsLoading(false)
       setTextData(data.msg)
     }
   }
@@ -60,6 +63,7 @@ export default function Private(){
       setSubmitting('Submit')
       return setMsg('Required field!')
     }
+    setIsLoading(true)
     const res = await fetch(`https://notrbackend.vercel.app/api/notes/password`, {
       method: 'POST',
       headers: {
@@ -73,12 +77,15 @@ export default function Private(){
     const data = await res.json()
     if (data.msg == 'Your password has succesfully been set') {
       setSubmitting('Submit')
+      setIsLoading(false)
       return setAuth(true)
     }
     if (res.ok) {
       if (data.response) {
+        setIsLoading(false)
         setSubmitting('Continue')
       }else{
+        setIsLoading(false)
         setSubmitting('Submit')
       }
       data.response === true? getNotes() : null
@@ -88,6 +95,7 @@ export default function Private(){
   }
   
   const getNotes = async () => {
+    setIsLoading(true)
     const res = await fetch(`https://notrbackend.vercel.app/api/notes/privateNotes`, {
       headers: {
         'token' : token
@@ -96,13 +104,14 @@ export default function Private(){
     const data = await res.json()
     console.log(data)
     if (res.ok) {
-      console.log(data)
       setNotes(data.response)
+      setIsLoading(false)
     }
   }
   
   const setAllAsPublic = async () => {
     setText('Setting...')
+    setIsLoading(true)
     const res = await fetch(`https://notrbackend.vercel.app/api/notes/setAllAsPublic`, {
       method: 'POST',
       headers: {
@@ -117,12 +126,14 @@ export default function Private(){
     if (res.ok) {
       setText('Set all as public')
       setIsDone(true)
+      setIsLoading(false)
       setServerMsg(data.msg)
       getNotes()
     }
   }
   
   const deleteNote = async (note) => {
+    setIsLoading(true)
     const res = await fetch(`https://notrbackend.vercel.app/api/delete/${note}`, {
       method: 'DELETE',
       headers: {
@@ -153,6 +164,8 @@ export default function Private(){
       { isDone?
         <Question title='Done' msg={serverMsg} actions={<p onClick={() => setIsDone(false)}>Ok</p>}/>
       : null}
+      
+      { isLoading? <Loader loaderColor={'white'}/> : ''}
       
       {isSetAll?
         <Question title='To public' msg={'Are you sure to set them to public?'} actions={[

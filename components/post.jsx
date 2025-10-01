@@ -163,7 +163,7 @@ export default function Post({tag, note, title, username, name, ownerId, _id, ph
   
   const deleteFunc = async () => {
     if (!loggedUser) {
-      return alert('No user found');
+      return alert('Login to perform this action.');
     }
     setIsLoading(true)
     const res = await fetch(`https://notrbackend.vercel.app/api/posts/delete/${_id}`, {
@@ -186,10 +186,11 @@ export default function Post({tag, note, title, username, name, ownerId, _id, ph
       text: `
 ••• ${title}
 
-
 ${note}
-
-
+.
+.
+.
+.
 See more on Notr.
       `,
     }

@@ -12,13 +12,14 @@ import {
   Lock
 } from 'lucide-react';
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
+import { useRouter, useSearchParams } from 'next/navigation' // <--- added useSearchParams
 import styles from '../../styles/accInfo.module.scss'
 import Post from '../../components/post.jsx'
 
 export default function account(){
   
   const router = useRouter()
+  const searchParams = useSearchParams() // <--- get search params
   const [user, setUser] = useState({})
   const [connections, setConnections] = useState()
   const [loggedUser, setLoggedUserId] = useState('')
@@ -29,7 +30,9 @@ export default function account(){
   const [isPicShown, setIsPicShown] = useState(false)
   
   useEffect(() => {
+    const userId = searchParams.get('user')
     const getUser = async (userId) => {
+      if (!userId) return
       const res = await fetch(`https://notrbackend.vercel.app/api/users/getOtherProfile/${userId}`)
       const data = await res.json()
       if (res.ok) {
@@ -40,9 +43,9 @@ export default function account(){
         console.log(data)
       }
     }
-    getUser(router.query.user)
-    console.log(router)
-  }, [])
+    getUser(userId)
+    console.log(userId)
+  }, [searchParams])
   
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user')) || ''
@@ -55,6 +58,7 @@ export default function account(){
   
   useEffect(() => {
     const getConnected = async () => {
+      if (!user?._id) return
       const res = await fetch(`https://notrbackend.vercel.app/api/users/knowConnection/${user?._id}`, {
         headers: {
           'token' : token
@@ -70,6 +74,12 @@ export default function account(){
   }, [user?._id])
   
   const connect = async () => {
+    if (!user) {
+      if (confirm('Login to perform this action')) {
+        router.push('/auth/login')
+      }
+    }
+    
     if (!user?._id) {
       return alert("Something went wrong or this user isn't available.")
     }

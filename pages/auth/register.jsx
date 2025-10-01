@@ -82,6 +82,7 @@ export default function register(){
   }
   
   const createVerifiyPass = async () => {
+    return setSteps(5)
     setIsLoading(true);
     const res = await fetch('https://notrbackend.vercel.app/api/createCode/email', {
       method: 'POST',
