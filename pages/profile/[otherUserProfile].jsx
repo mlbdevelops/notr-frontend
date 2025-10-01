@@ -30,6 +30,15 @@ export default function account(){
   const [isPicShown, setIsPicShown] = useState(false)
   
   useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user')) || ''
+    const token = JSON.parse(localStorage.getItem('token')) || ''
+    if (user?._id) {
+      setToken(token)
+      setLoggedUserId(user._id)
+    }
+  }, [])
+  
+  useEffect(() => {
     const userId = searchParams.get('user')
     const getUser = async (userId) => {
       if (!userId) return
@@ -43,16 +52,7 @@ export default function account(){
       }
     }
     getUser(userId)
-  }, [searchParams])
-  
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user')) || ''
-    const token = JSON.parse(localStorage.getItem('token')) || ''
-    if (user?._id) {
-      setToken(token)
-      setUser(user._id)
-    }
-  }, [])
+  }, [searchParams && user])
   
   useEffect(() => {
     const getConnected = async () => {
