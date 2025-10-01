@@ -156,14 +156,14 @@ export default function Post({tag, note, title, username, name, ownerId, _id, ph
           'token' : token
         }
       });
-      const data = await res.json();
-      if (res.status == 204) {
+      if (res.ok && res.status === 204) {
         return setIsLoading(false);
       }
+      const data = await res.json();
       if (!res.ok) {
         setIsLoading(false)
       }
-      if (res.ok) {
+      if (res.ok && res.status !== 204) {
         setIsLoading(false)
         setCommentList(data.comments);
       }
@@ -313,7 +313,7 @@ Notr - https://notr-sigma.vercel.app`
                       </div>
                     </div>
                   ))
-                : !isLoading && commentList.length == 0? <p style={{
+                : !isLoading && commentList.length === 0? <p style={{
                   textAlign: 'center',
                   marginTop: '80px',
                   width: '100%',
