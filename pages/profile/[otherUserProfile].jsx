@@ -15,6 +15,7 @@ import { useEffect, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import styles from '../../styles/accInfo.module.scss'
 import Post from '../../components/post.jsx'
+import Loader from '../../components/loading_spinner.jsx'
 
 export default function account(){
   
@@ -28,6 +29,7 @@ export default function account(){
   const [likeCount, setLikeCont] = useState(0)
   const [isConnected, setIsConnect] = useState(false)
   const [isPicShown, setIsPicShown] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user')) || {}
@@ -41,11 +43,13 @@ export default function account(){
   useEffect(() => {
     const userId = searchParams.get('user')
     const getUser = async (userId) => {
+      setIsLoading(true)
       try {
         if (!userId) return
         const res = await fetch(`https://notrbackend.vercel.app/api/users/getOtherProfile/${userId}/logged/${loggedUser}`)
         const data = await res.json()
         if (!res.ok && res.status === 404) {
+          setIsLoading(false)
           return alert(data.msg)
         }
         if (res.ok) {
@@ -53,6 +57,7 @@ export default function account(){
           setPosts(data.posts)
           setLikeCont(data.likeCount)
           setConnections(data.connections)
+          setIsLoading(false)
         }
       } catch (error) {
         console.log(error);
@@ -122,6 +127,7 @@ export default function account(){
         </div>
       : null}
       
+      {isLoading? <Loader loaderColor='white'/> : ''}
       
       <div className={styles.container}>
         <div className={styles.info}>
