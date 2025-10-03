@@ -17,6 +17,7 @@ export default function home(){
   const [user, setUser] = useState('')
   const [name, setName] = useState('')
   const [profile, setProfile] = useState('')
+  const [status, setStatus] = useState('')
   const [tabIndex, setTabIndex] = useState(0)
   const [noUser, setNoUser] = useState(false)
   const router = useRouter()
@@ -33,17 +34,9 @@ export default function home(){
   async function initNetworkListener() {
     if (Capacitor.isNativePlatform()) {
       const status = await Network.getStatus();
-      setNetworkConn(status?.getStatus()?.connected? 'Online' : 'Offline')
+      setStatus(status?.connected? 'Online' : 'Offline')
       Network.addListener('networkStatusChange', (status) => {
-        setNetworkConn(status.connected? 'Online': 'Offline');
-      });
-    } else {
-      setNetworkConn(navigator.onLine? 'Online' : 'Offline')
-      window.addEventListener('online', (e) => {
-        setNetworkConn('Online')
-      });
-      window.addEventListener('offline', (e) => {
-        setNetworkConn('Offline')
+        setStatus(status.connected? 'Online': 'Offline');
       });
     }
   }
