@@ -43,7 +43,6 @@
 
 .add{
   padding: 15px;
-  bottom: 65px;
   right: 20px;
   position: fixed;
   border-radius: 15px;
@@ -124,4 +123,29 @@
   border-radius: 100px;
   object-fit: cover;
   border: 1px solid #262626;
+}
+
+.networkDiv{
+  width: 90%;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  place-self: center;
+  
+  .networkMsg{
+    padding: 3px 8px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    
+    .networkPoint{
+      outline-offset: 1px;
+      border-radius: 50px;
+      height: 5px;
+      width: 5px;
+    }
+  }
 }

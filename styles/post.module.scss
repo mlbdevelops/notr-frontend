@@ -240,3 +240,26 @@
     transform: rotate(360deg);
   }
 }
+
+.linkBox{
+  width: 90%;
+  padding: 10px;
+  padding-bottom: 0;
+  overflow-x: scroll;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  
+  .link{
+    text-decoration: none;
+    padding: 3px 8px;
+    border-radius: 50px;
+    border: 1px solid #262626;
+    background-color: #1d1d1d;
+    color: white;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+}

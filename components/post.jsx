@@ -1,13 +1,5 @@
 import {
-  EllipsisVertical, 
-  Heart, 
-  MessageCircle,
-  Tag,
-  Send,
-  Trash,
-  Share,
-  User,
-  AlertTriangle
+  EllipsisVertical, Heart,  MessageCircle, Tag, Send, Trash, Share, User, AlertTriangle, Link
 } from 'lucide-react';
 import styles from '../styles/post.module.scss'
 import { useState, useEffect, useRef } from 'react'
@@ -17,6 +9,8 @@ import Loader from './loading_spinner.jsx'
 import { Clipboard as CapClip } from '@capacitor/clipboard';
 import { Share as CapShare } from '@capacitor/share';
 import styles2 from '../styles/comment.module.scss';
+import { Browser } from '@capacitor/browser'
+
 export default function Post({tag, note, title, username, name, ownerId, _id, photos, loggedUser, likes, fontFamily, textAlign, fontStyle, fontWeight, time, accProfile, likedByUser}){
   const router = useRouter()
   const [image, setImage] = useState('')
@@ -34,6 +28,7 @@ export default function Post({tag, note, title, username, name, ownerId, _id, ph
   const [expanded, setExpanded] = useState(false)
   const [isLikes, setIsLikes] = useState(likedByUser)
   const [isLoading, setIsLoading] = useState(false)
+  const links = note.split(' ').filter((link => link.includes('.')))
   
   const menuRef = useRef(null)
   useEffect(() => {
@@ -48,6 +43,13 @@ export default function Post({tag, note, title, username, name, ownerId, _id, ph
   useEffect(() => {
     likedByUser? setIsRed(true) : setIsRed(false)
   }, [likedByUser])
+  
+  const openUrl = async (url) => {
+    if (!url.startsWith('https://')) {
+      url = 'https://' + url
+    }
+    await Browser.open({url})
+  }
   
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -147,7 +149,6 @@ export default function Post({tag, note, title, username, name, ownerId, _id, ph
   
   const getPostsComments = async () => {
     try {
-      
       setIsLoading(true)
       !comment? setComment(true) : null;
       const res = await fetch(`https://notrbackend.vercel.app/api/posts/GetComments/${_id}`, {
@@ -380,6 +381,22 @@ Notr - https://notr-sigma.vercel.app`
           <span className={styles.tag}><Tag size={11}/> {tag}</span> 
         : ''}
       </div>
+      
+      {links.length >= 1?
+        <div className={styles.linkBox}>
+          {links.map((lk, i) => (
+            <span
+              className={styles.link} 
+              onClick={() => {
+                openUrl(lk)
+              }}
+              key={i}>
+              <Link size={10}/> {lk}
+            </span>
+          ))}
+        </div>
+      : ''}
+      
       { photos.length >= 1?
         <div className={styles.imgBox}>
           {photos.map((photo, i) => (

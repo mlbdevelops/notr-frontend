@@ -33,7 +33,6 @@ export default function app({Component, pageProps}){
 
   return (
     <div style={{
-      // No paddingTop, since we want overlay
       fontSize: size == 0 ? '16px' 
         : size == 1 ? '17px' 
         : size == 2 ? '18px' 

@@ -9,9 +9,11 @@ import styles1 from '../styles/header.module.scss';
 import { useRouter } from 'next/router'
 import PostPage from '../components/postpage.jsx'
 import Question from '../components/confirm.jsx'
+import { Capacitor } from '@capacitor/core';
+import { Network } from '@capacitor/network';
 
 export default function home(){
-  
+  const [networkConn, setNetworkConn] = useState('')
   const [user, setUser] = useState('')
   const [name, setName] = useState('')
   const [profile, setProfile] = useState('')
@@ -27,6 +29,32 @@ export default function home(){
     }))
     setTabIndex(tab)
   }
+  
+  async function initNetworkListener() {
+    if (Capacitor.isNativePlatform()) {
+      const status = await Network.getStatus();
+      setNetworkConn(status?.getStatus()?.connected? 'Online' : 'Offline')
+      Network.addListener('networkStatusChange', (status) => {
+        setNetworkConn(status.connected? 'Online': 'Offline');
+      });
+    } else {
+      setNetworkConn(navigator.onLine? 'Online' : 'Offline')
+      window.addEventListener('online', (e) => {
+        setNetworkConn('Online')
+      });
+      window.addEventListener('offline', (e) => {
+        setNetworkConn('Offline')
+      });
+    }
+  }
+  
+  useEffect(() => {
+    initNetworkListener()
+  }, [])
+  
+  useEffect(() => {
+    networkConn == 'Offline'? setTabIndex(1) : ''
+  }, [networkConn])
   
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -107,7 +135,7 @@ export default function home(){
         <PostPage/>
       </div>
       
-      {user?
+      {user && networkConn !== 'Offline'?
         <Footer icons={[
           <List 
             onClick={() => switchTab(1)}

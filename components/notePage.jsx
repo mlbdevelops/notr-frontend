@@ -1,4 +1,3 @@
-
 import { Search, Heart, Menu, Trash, Plus, User, List, Edit, Settings } from 'lucide-react';
 import styles2 from '../styles/addNote.module.scss';
 import styles1 from '../styles/header.module.scss';
@@ -9,8 +8,10 @@ import Link from 'next/link';
 import AddNote from './addNote.jsx';
 import Loader from './loading_spinner.jsx'
 import noteStyles from '../styles/noteStyles.module.scss';
-
+import { Capacitor } from '@capacitor/core';
+import { Network } from '@capacitor/network';
 import { useRouter } from 'next/router'
+import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 
 export default function home(){
   const router = useRouter()
@@ -19,14 +20,79 @@ export default function home(){
   const [getAgain, setGetAgain] = useState('')
   const [add, setAdd] = useState(false)
   const [title, setTitle] = useState('')
+  const [mode, setMode] = useState('')
   const [notes, setNotes] = useState([])
   const [queryData, setQueryData] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [searchValue, setSearchValue] = useState('')
+  const [networkConn, setNetworkConn] = useState('')
   const [token, setToken] = useState('')
   const [list, setList] = useState()
   
- useEffect(() => {
+  const saveNoteData = async () => {
+    if (Capacitor.isNativePlatform()) {
+      try {
+        await Filesystem.writeFile({
+          path: 'notr_offline.json',
+          data: JSON.stringify(notes),
+          directory: Directory.Data,
+          encoding: Encoding.UTF8,
+        });
+      } catch (e) {
+        alert('Something went wrong, if the problem persists, contact us.')
+      }
+    }
+  };
+  
+  const readFile = async () => {
+    if (Capacitor.isNativePlatform()) {
+      try {
+        const file = await Filesystem.readFile({
+          path: 'notr_offline.json',
+          directory: Directory.Data,
+          encoding: Encoding.UTF8,
+        });
+        return JSON.parse(file.data);
+      } catch (error) {
+        alert('Something went wrong while getting your notes, try again later.');
+      }
+    }
+  };
+  
+  useEffect(() => {
+    const setOfflineNotes = async () => {
+      if (user && token && mode === 'Offline') {
+        const offlineNotes = await readFile()
+        setNotes(offlineNotes);
+      }
+    }
+    setOfflineNotes()
+  }, [user, token, mode]);
+  
+  useEffect(() => {
+    let listener;
+    const initNetworkListener = async () => {
+      if (Capacitor.isNativePlatform()) {
+        const status = await Network.getStatus();
+        setNetworkConn(status.connected? 'Online' : 'Offline')
+        setMode(status.connected? 'Online' : 'Offline')
+        listener = Network.addListener('networkStatusChange', async (status) => {
+          setNetworkConn(status.connected? 'Online': 'Offline');
+          const offlineNotes = await readFile()
+          if (status.connected) getNotesFunc()
+          setMode(status.connected? 'Online': 'Offline')
+          if (!status.connected) {
+            setNotes(offlineNotes)
+          }
+        });
+      }
+    }
+    initNetworkListener();
+
+    return () => { if (listener) listener.remove(); }
+  }, [user, token])
+  
+  useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
     const token = JSON.parse(localStorage.getItem('token'));
     if (user && token) {
@@ -45,18 +111,17 @@ export default function home(){
           'token' : token
         }
       });
-      if (!res.ok && notes.length == 0) {
-        return setNotes(notesFromLocalStorage);
-      }
       const noteList = await res.json();
       if (res.ok) {
         setIsLoading(false);
         setNotes(noteList.response)
-        return [...noteList]
+        saveNoteData()
       }
-      return [
-        err = {error : false}
-      ];
+      return {
+        err: {
+          error : false
+        }
+      };
     }catch(err) {
       console.log(err)
     }
@@ -64,7 +129,7 @@ export default function home(){
   
   useEffect(() => {
     getNotesFunc()
-  }, [user && token])
+  }, [user, token, networkConn !== 'Offline'])
   
   const addNote = async () => {
     try{
@@ -85,7 +150,7 @@ export default function home(){
       getNotesFunc();
     }
     }catch(err){
-      console.log(err)
+      alert(err)
     }
   };
   
@@ -97,16 +162,33 @@ export default function home(){
       }
     });
     if (res.ok) {
-      setNotes([])
+      getNotesFunc()
     }
-    getNotesFunc()
   };
   
   return(
     <div style={{marginTop: '100px'}} className={styles.body}>
+    <div className={styles.networkDiv}>
+      <p>
+        You have {notes.length} notes
+      </p>
+      <div style={{
+        border: '1px solid',
+        borderColor: networkConn == 'Online'? '#03b500' : '#ff4646',
+      }} className={styles.networkMsg}>
+        <div style={{
+          outline: networkConn == 'Online'? '1px solid #03b500' : '1px solid #ff4646',
+          backgroundColor: networkConn == 'Online'? '#03b500' : '#ff4646'
+        }} className={styles.networkPoint}></div>
+        <span style={{color: 'darkgray', fontSize: '10px',}}>
+          {networkConn}
+        </span>
+      </div>
+    </div>
+    
       { user? 
         <div className={styles.notesContainer}>
-          { queryData.length < 1 && notes.length >= 1? notes.map((note, i) => (
+          { notes.length >= 1? notes.map((note, i) => (
             <Note 
               noteId={note._id} 
               tag={note.tag}
@@ -130,6 +212,8 @@ export default function home(){
       
       {user && token? <Plus onClick={() => {
         user != null? setAdd(true) : null
+      }} style={{
+        bottom: networkConn == 'Offline'? '30px' : '65px'
       }} className={styles.add}/> : ''}
       
       { user && notes.length < 1?
@@ -141,7 +225,7 @@ export default function home(){
         </div>
       : '' }
       
-      {user && isLoading?
+      {user && isLoading && networkConn !== 'Offline' && notes.length == 0?
         <Loader loaderColor={'white'}/>
       : null}
       
@@ -155,9 +239,11 @@ export default function home(){
           {user? 
             <input 
               onChange={(e) => setTitle(e.target.value)} 
-              onKeyPress={() => {
-                title? addNote() : ''
-                title? setAdd(false) : ''
+              onKeyPress={(e) => {
+                if(e.key === 'Enter' && title){
+                  addNote()
+                  setAdd(false)
+                }
               }}
               className={styles2.input} type="text" 
               placeholder="Enter a name"
