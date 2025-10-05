@@ -18,6 +18,7 @@ export default function home(){
   const [name, setName] = useState('')
   const [profile, setProfile] = useState('')
   const [status, setStatus] = useState('')
+  const [theme, setTheme] = useState('')
   const [tabIndex, setTabIndex] = useState(0)
   const [noUser, setNoUser] = useState(false)
   const router = useRouter()
@@ -30,6 +31,10 @@ export default function home(){
     }))
     setTabIndex(tab)
   }
+  
+  useEffect(() => {
+    setTheme(localStorage.getItem('theme') || 'dark')
+  }, [theme]);
   
   async function initNetworkListener() {
     if (Capacitor.isNativePlatform()) {
@@ -79,7 +84,10 @@ export default function home(){
  }, [tabIndex]);
   
   const notes_icons = [
-    <Settings onClick={() => user? router.push('/settings') : null} className={styles1.i}/>
+    <Settings 
+      onClick={() => user? router.push('/settings') : null}
+      className={styles1.i}
+    />
   ]
   
   const posts_icons = [
@@ -128,19 +136,20 @@ export default function home(){
         <PostPage/>
       </div>
       
-      {user && networkConn !== 'Offline'?
+      {user && status !== 'Offline'?
         <Footer icons={[
           <List 
             onClick={() => switchTab(1)}
-            fill={tabIndex == 1? 'white' : ''}
+            fill
             className={tabIndex == 1? styles.tabIconActive : styles.tabIcon} size={20}/>,
           <Heart 
             onClick={() => tabIndex == 2? location.reload() : switchTab(2)} 
-            className={tabIndex == 2? styles.tabIconActive : styles.tabIcon} 
+            className={tabIndex == 2? styles.tabIconActive : styles.tabIcon}
             size={20}
             fill={tabIndex == 2? 'white' : ''}
           />
-        ]}/> 
+        ]}
+        /> 
       : ''}
     </div>
   )

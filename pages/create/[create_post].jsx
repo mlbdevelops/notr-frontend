@@ -19,9 +19,11 @@ import { useState, useEffect } from 'react';
 import styles2 from '../../styles/notePage.module.scss';
 import Quetion from '../../components/confirm.jsx'
 import Loader from '../../components/loading_spinner.jsx';
+import { useTranslation } from 'react-i18next';
 
 export default function createPost(){
   const router = useRouter()
+  const {t} = useTranslation()
   
   const [noteId, setNoteId] = useState(router.query.create_post);
   
@@ -170,9 +172,9 @@ export default function createPost(){
     <div style={{marginTop: '100px'}} className={styles.body}>
       <Header 
         leftIcon={<ChevronLeft style={{padding: '10px'}} onClick={() => router.back()}/>}
-        text={'Post'}
+        text={t('create_post.create_post')}
         rightIcons={
-          <p onClick={create_post} className={styles.iTab}>Post</p>
+          <p onClick={create_post} className={styles.iTab}>{t('create_post.post')}</p>
         }
         isTransparent={true}
         blur={'10px'}
@@ -285,13 +287,12 @@ export default function createPost(){
                   
                 </div>
               ))
-            : <div style={{width: '90%', textAlign: 'center', marginTop: '230px'}}>
-              No notes found, Create one before posting.
+            : <div style={{width: '90%', textAlign: 'center', marginTop: '230px'}}>{t('create_post.msg')}
             </div>} 
             </div>
             
             <button onClick={() => setList(false)} className={styles.closeBList}>
-              Close
+              {t('create_post.close')}
             </button>
           </div>
         </div>
@@ -326,7 +327,7 @@ export default function createPost(){
             }}
             className={styles.addNote}>
             <Plus size={30}/>
-            <span>Add a note</span> 
+            <span>{t('create_post.add_note')}</span> 
           </div>
         }
         <div style={{
@@ -366,7 +367,7 @@ export default function createPost(){
               <Tag 
                 size={14} 
                 className={styles.icon}/>
-              Add tags
+              {t('create_post.add_tag')}
             </span>
           </span>
           { selectedTag.length >= 1?
@@ -407,7 +408,7 @@ export default function createPost(){
             > <Camera 
                 className={styles.icon} 
                 size={17.5}
-              />Add images
+              />{t('create_post.add_images')}
             </button>
             <input 
               accept='image/*' 
@@ -442,7 +443,7 @@ export default function createPost(){
             </div> 
           : null }
           <div className={styles.buttonsDiv}>
-            <button className={styles.postB} type='submit'>Post</button> 
+            <button className={styles.postB} type='submit'>{t('create_post.post')}</button> 
           </div>
         </form>
         <div style={{
@@ -457,7 +458,7 @@ export default function createPost(){
               fontFamily: font? font : 'Arial',
               opacity: !newNote? 0.5 : 1,
             }}
-          ><Type size={17.5} className={styles.icon}/>{font? font : 'Set font family'}</span>
+          ><Type size={17.5} className={styles.icon}/>{font? font : t('create_post.add_fontFam')}</span>
         </div>
       </div>
       

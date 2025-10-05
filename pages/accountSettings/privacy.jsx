@@ -4,8 +4,11 @@ import { useRouter } from 'next/router';
 import styles from '../../styles/privacy.module.scss';
 import { useState, useEffect } from 'react';
 import Loader from '../../components/loading_spinner.jsx';
+import { useTranslation } from 'react-i18next';
 
 export default function privacy(){
+  const { t } = useTranslation();
+  
   const router = useRouter();
   const [isPrivate, setIsPrivate] = useState(false);
   const [load, setLoad] = useState(false);
@@ -13,7 +16,7 @@ export default function privacy(){
   
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem('token')) || '';
-    token? setToken(token) : null
+    token? setToken(token) : null;
   }, []);
   
   useEffect(() => {
@@ -59,7 +62,7 @@ export default function privacy(){
   return(
     <div style={{marginTop: '100px'}}  className={styles.body}>
       <Header 
-        text='Privacy'
+        text={t('header.privacy')}
         leftIcon={
           <ChevronLeft
             style={{padding: '10px 15px'}}
@@ -79,7 +82,7 @@ export default function privacy(){
         className={styles.option}
       >
         <span style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
-          {isPrivate? <Earth/>  : <Lock size={20}/>} Switch to {isPrivate? 'public' : 'private'}
+        <Lock size={20}/> {t('header.privacy')}
         </span>
         <div style={{
           placeContent: isPrivate? 'end' : 'start',
@@ -98,16 +101,16 @@ export default function privacy(){
         marginBottom: 0,
         width: '95%',
       }}>
-        If this option is enabled, no one will be able to : 
+        {t('accSettings.privacyPage.privacy_option.description')}
         <ul>
-        	<li>See your profile details,</li>
-        	<li>Connect with you,</li>
-        	<li>See your posts on your profile.</li>
+        	<li>{t('accSettings.privacyPage.privacy_option.list.item1')}</li>
+        	<li>{t('accSettings.privacyPage.privacy_option.list.item2')}</li>
+        	<li>{t('accSettings.privacyPage.privacy_option.list.item3')}</li>
         </ul>
-        Note: 
+        {t('accSettings.privacyPage.privacy_option.note_title')}
         <ul>
-        	<li>Your posts are still visible on the feeds.</li>
-        	<li>If your a teenager, this option will be automatically enabled when registering your account.</li>
+        	<li>{t('accSettings.privacyPage.privacy_option.note.item1')}</li>
+        	<li>{t('accSettings.privacyPage.privacy_option.note.item2')}</li>
         </ul>
       </span>
     </div>

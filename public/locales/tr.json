@@ -1,0 +1,310 @@
+{
+  "app": {
+    "name": "Notr"
+  },
+  "login": {
+    "login_message": "Giriş Yap",
+    "email": "E-posta",
+    "password": "Şifre",
+    "login_button": "Giriş",
+    "account_not_exist": "Hesabınız yok mu? ",
+    "register_link": "Kayıt Ol",
+    "alert_title": "Giriş",
+    "alert_ok": "Tamam"
+  },
+
+  "header": {
+    "setting": "Ayarlar",
+    "privacy": "Gizlilik",
+    "accessibility": "Erişilebilirlik",
+    "buy_coffee": "Bana bir kahve al",
+    "deleteAcc": "Hesabı Sil",
+    "langs": "Diller",
+    "update": "Güncelle",
+    "support": "Destek",
+    "about": "Hakkında"
+  },
+
+  "register": {
+    "alerts": {
+      "password_mismatch": "Şifreler eşleşmiyor",
+      "age_restriction": "13 yaşından küçükler kayıt olamaz",
+      "email_registered": "Bu e-posta zaten kayıtlı. Başka bir tane deneyin",
+      "incorrect_code": "Yanlış kod",
+      "alert_ok": "Tamam",
+      "ageTitle": "Yaş"
+    },
+    "steps": {
+      "name_username": {
+        "title": "İsim ve Kullanıcı Adı",
+        "desc": "Bir isim ve kullanıcı adı seçin",
+        "name": "İsim",
+        "username": "Kullanıcı Adı",
+        "username_note": "Kullanıcı adı 21 karakterden az olmalıdır!",
+        "continue": "Devam Et"
+      },
+      "birthday": {
+        "title": "Doğum Tarihi",
+        "desc": "Doğum tarihinizi girin",
+        "date": "Tarih",
+        "back": "Geri",
+        "continue": "Devam Et"
+      },
+      "email": {
+        "title": "E-posta",
+        "desc": "Onay için e-posta adresinizi girin",
+        "email": "E-posta",
+        "back": "Geri",
+        "continue": "Devam Et"
+      },
+      "verification": {
+        "title": "Doğrulama",
+        "desc": "{{email}} adresine gönderilen kodu girin",
+        "code": "Kod",
+        "back": "Geri",
+        "verify": "Doğrula"
+      },
+      "password": {
+        "title": "Şifre",
+        "desc": "Hesabınızı güvenceye almak için güçlü bir şifre oluşturun",
+        "password": "Şifre",
+        "verify_password": "Şifreyi doğrula",
+        "privacy_policy_text": "Devam ederek, bizlerin",
+        "and_text": "ve",
+        "privacy_policy": "Gizlilik Politikasını",
+        "terms_of_use": "Kullanım Şartlarını",
+        "back": "Geri",
+        "finish": "Bitir"
+      }
+    }
+  },
+
+  "language": {
+    "change_language": "Dili değiştir",
+    "language_changed": "Dil {{language}} olarak değiştirildi",
+    "languages": {
+      "en": "İngilizce",
+      "zh": "Mandarin / 汉语",
+      "hi": "Hintçe",
+      "es": "İspanyolca",
+      "fr": "Fransızca",
+      "ar": "Arapça",
+      "bn": "Bengalce",
+      "ru": "Rusça",
+      "pt": "Portekizce",
+      "ur": "Urduca",
+      "id": "Endonezce",
+      "de": "Almanca",
+      "ja": "Japonca",
+      "sw": "Svahili",
+      "mr": "Marathi",
+      "te": "Telugu",
+      "tr": "Türkçe",
+      "ta": "Tamilce",
+      "vi": "Vietnamca",
+      "ko": "Korece"
+    }
+  },
+
+  "notePage": {
+    "noteLengthText": "{{notesLength}} notunuz var",
+    "networkStatusTrue": "çevrimiçi",
+    "networkStatusFalse": "çevrimdışı",
+    "addNotesText": "Liste boş",
+    "addNote": "Ekle",
+    "addNoteTitle": "Bir not ekle",
+    "cancel": "İptal",
+    "enter_a_name": "Bir isim girin",
+    "empty": "Boş!"
+  },
+
+  "indivuNote": {
+    "post_note_b": "Bu notu paylaş",
+    "placeholder": "Bir şeyler yazın...",
+    "addTag": "Bir etiket ekle",
+    "save": "Kaydet",
+    "set_secret": "Gizli yap",
+    "set_public": "Herkese açık yap",
+    "copy": "Kopyala",
+    "share": "Paylaş",
+    "delete": "Sil",
+    "title": "Başlık",
+
+    "deleteAlert": {
+      "title": "Sil",
+      "msg": "Bu notu silmek istediğinizden emin misiniz?",
+      "boxBs": {
+        "no": "Hayır",
+        "yes": "Sil"
+      }
+    },
+
+    "shareAlert": {
+      "msg": "İçerik olmadan paylaşamazsınız.",
+      "title": "Paylaş",
+      "ok": "Tamam"
+    },
+
+    "clearAlert": {
+      "msg": "İçeriği temizlemek istediğinizden emin misiniz?",
+      "title": "Sil",
+      "ok": "Evet",
+      "no": "Hayır"
+    }
+  },
+
+  "noteSettings": {
+    "acc": "Hesap",
+    "secret": "Gizli notlar"
+  },
+
+  "account": {
+    "edit": "Düzenle",
+    "create": "Paylaş",
+    "no_post": "Henüz hiçbir paylaşım yapmadınız.",
+    "posts": "paylaşımlar",
+    "notes": "notlar",
+
+    "options": {
+      "share": "Profili paylaş",
+      "copy_link": "Linki kopyala",
+      "moreSets": "Ayarlar"
+    }
+  },
+
+  "accSettings": {
+    "privacy": "Gizlilik",
+    "accessibility": "Erişilebilirlik",
+    "buy_coffee": "Bana bir kahve al",
+    "logout": "Çıkış",
+    "deleteAcc": "Hesabı Sil",
+    "langs": "Diller",
+    "update": "Güncelle",
+    "support": "Destek",
+    "about": "Hakkında",
+
+    "privacyPage": {
+      "privacy_option": {
+        "description": "Bu seçenek etkinleştirilirse, kimse yapamaz:",
+        "list": {
+          "item1": "Profil detaylarınızı görmek,",
+          "item2": "Sizinle bağlantı kurmak,",
+          "item3": "Profilinizdeki paylaşımları görmek."
+        },
+        "note_title": "Not:",
+        "note": {
+          "item1": "Paylaşımlarınız akışta hâlâ görünür.",
+          "item2": "Bir gençseniz, bu seçenek hesap oluşturulduğunda otomatik olarak etkinleştirilir."
+        }
+      }
+    }
+  },
+
+  "accessibility": {
+    "fontsize": "Metin boyutu"
+  },
+
+  "support": {
+    "report_a_prob": "Bir problem bildir",
+    "ask": "Sor"
+  },
+
+  "about": {
+    "policy": "Gizlilik Politikası",
+    "term": "Kullanım Şartları"
+  },
+
+  "searchPage": {
+    "placeholder": "Ara...",
+    "result": "Sonuçlar için",
+    "accounts": "Hesaplar",
+    "notes": "Notlar",
+    "no_result": "Sonuç yok"
+  },
+
+  "create_post": {
+    "add_note": "Not ekle",
+    "add_tag": "Etiket ekle",
+    "add_images": "Resim ekle",
+    "add_fontFam": "Yazı tipi ailesi",
+    "post": "Paylaş",
+    "msg": "Not bulunamadı",
+    "close": "Kapat",
+    "create_post": "Bir paylaşım oluştur"
+  },
+
+  "otherUserProfile": {
+    "connect": "Bağlan",
+    "connected": "Bağlandı"
+  },
+
+  "harmfulContents": [
+    "Taciz veya zorbalık",
+    "Nefret söylemi",
+    "İntihal",
+    "Saldırgan veya hakaret içeren dil",
+    "Çıplaklık / cinsel içerik",
+    "Kendine zarar verme veya intihara teşvik",
+    "Şiddet veya kan",
+    "Yanlış bilgi",
+    "Yasadışı faaliyetler (uyuşturucu, silah, korsanlık)",
+    "Spam veya dolandırıcılık içerik",
+    "Terörizm veya aşırılıkçı içerik",
+    "Çocuk cinsel istismarı materyali (CSAM)",
+    "Taklit",
+    "Kötü amaçlı yazılım veya zararlı linkler"
+  ],
+
+  "reportMsgBox": {
+    "reason": "Rapor nedeni",
+    "title": "Raporlamadan önce",
+    "msg": "Lütfen raporlamadan önce geçerli bir neden seçin. Geri bildiriminiz hizmetlerimizi geliştirmemize ve bu topluluğu herkes için keyifli tutmamıza yardımcı olur. Teşekkürler!",
+    "alert": {
+      "title": "Raporla",
+      "msg": "Bu paylaşımı raporlamak istediğinizden emin misiniz?",
+      "ok": "Evet",
+      "no": "Hayır"
+    }
+  },
+
+  "post": {
+    "share": "Paylaş",
+    "report": "Raporla",
+    "comment": "Yorum Yap",
+    "delete": "Sil",
+
+    "alert": {
+      "msg": "Bu paylaşımı silmek istediğinizden emin misiniz?",
+      "title": "Sil",
+      "actions": {
+        "ok": "Evet",
+        "no": "Hayır"
+      }
+    }
+  },
+
+  "editProfile": {
+    "title": "Düzenle",
+    "choose_a_pic": "Bir fotoğraf seç",
+    "placeholder_name": "İsim",
+    "placeholder_bio": "Biyografi",
+    "blank": "Boş bırakılamaz!",
+    "chars": "Sadece 101 karakter içermelidir",
+    "role": "Rol",
+    "geust": "Misafir",
+    "roles": [
+      "Misafir",
+      "Yazar",
+      "Şair",
+      "Okuyucu"
+    ],
+    "submit": "Gönder",
+    "letter": {
+      "username": "kullanıcı adı",
+      "email": "e-posta",
+      "password": "şifre",
+      "age": "yaş",
+      "msg": "{{email}}, {{pssw}}, {{username}} ve {{age}} düzenleme yakında mevcut olacak, çünkü gönderimden önce çift doğrulama gereklidir."
+    }
+  }
+}

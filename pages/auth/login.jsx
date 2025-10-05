@@ -1,113 +1,107 @@
-import Question from '../../components/confirm.jsx'
+import Question from '../../components/confirm.jsx';
 import { ArrowRight } from 'lucide-react';
 import styles from '../../styles/login.module.scss';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import Loader from '../../components/loading_spinner.jsx'
+import Loader from '../../components/loading_spinner.jsx';
+import { useTranslation } from 'react-i18next';
 
-export default function loginPage(){
+export default function LoginPage() {
+  const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isSucess, setIsSucess] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [msg, setMsg] = useState({});
   const router = useRouter();
-  
+
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
-    if(user != null){
-     router.push('/');
+    if (user != null) {
+      router.push('/');
     }
   }, []);
-  
+
   const login = async () => {
-    const data = {
-      email: email,
-      password: password
-    };
-    
-    try{
-      setIsLoading(true)
+    const data = { email, password };
+
+    try {
+      setIsLoading(true);
       const res = await fetch('https://notrbackend.vercel.app/api/auth/login', {
         method: 'POST',
-        headers:{
-          'Content-Type':'application/json'
-        },
-        body: JSON.stringify(data)
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
       });
       const user = await res.json();
-      if(res.ok) {
+
+      if (res.ok) {
         setIsLoading(false);
+        localStorage.setItem('theme', 'dark');
         localStorage.setItem('user', JSON.stringify(user.response));
         localStorage.setItem('token', JSON.stringify(user.token));
         localStorage.setItem('isAutoSave', 'Off');
         localStorage.setItem('tab', 1);
         router.push('/');
       } else {
-        setIsSucess(true)
-        setIsLoading(false)
+        setIsSuccess(true);
+        setIsLoading(false);
         setMsg({
           msg: user.msg,
-          title: 'login',
-          actions: <p onClick={() => setIsSucess(false)}>Ok</p>
-        })
+          title: t('login.alert_title'),
+          actions: <p onClick={() => setIsSuccess(false)}>{t('login.alert_ok')}</p>,
+        });
       }
-    } catch(e){
-      console.log(e)
+    } catch (e) {
+      console.log(e);
     }
   };
-  
-  return(
+
+  return (
     <div className={styles.body}>
-      <h2 style={{margin: '20px 0'}}>
-        Login to Notr
-      </h2>
-      
-      {isSucess?
-        <Question msg={msg.msg} title={msg.title} actions={msg.actions}/>
-      : null}
-      
-      { isLoading?
-        <Loader loaderColor='white'/>
-      : ''}
-      
+      <h2 style={{ margin: '20px 0' }}>{t('login.login_message')}</h2>
+
+      {isSuccess && <Question msg={msg.msg} title={msg.title} actions={msg.actions} />}
+
+      {isLoading && <Loader loaderColor="white" />}
+
       <div className={styles.inpDiv}>
-        <label className={styles.label} for="email">
-          <strong style={{marginLeft:'5px'}}>
-            Email
-          </strong>
-          <input 
-            className={styles.inp} 
-            name='email' 
+        <label className={styles.label} htmlFor="email">
+          <strong style={{ marginLeft: '5px' }}>{t('login.email')}</strong>
+          <input
+            className={styles.inp}
+            name="email"
             type="text"
-            placeholder='Email'
+            placeholder={t('login.email')}
             onChange={(e) => setEmail(e.target.value)}
           />
         </label>
-        
-        <span className={styles.forgot}>Forgot password</span>
-        
-        <label className={styles.label} for="pssw">
-          <strong style={{marginLeft:'5px'}}>
-            Password
-          </strong>
-          <input 
-            className={styles.inp} 
-            name='pssw' 
+
+        <label className={styles.label} htmlFor="pssw">
+          <strong style={{ marginLeft: '5px' }}>{t('login.password')}</strong>
+          <input
+            className={styles.inp}
+            name="pssw"
             type="password"
-            placeholder='Password'
+            placeholder={t('login.password')}
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
-        <button 
-          className={styles.lbtn}
-          onClick={login}
-        >Login</button>
+
+        <button className={styles.lbtn} onClick={login}>
+          {t('login.login_button')}
+        </button>
       </div>
-      <p style={{position: 'absolute',color: '#707070', bottom: '10px',}}>Don't have an account? <Link style={{fontWeight:'bold', textDecoration: 'none', color: 'white'}} href='/auth/register'>create an account</Link></p>
+
+      <p style={{ position: 'absolute', color: '#707070', bottom: '10px' }}>
+        {t('login.account_not_exist')}{' '}
+        <Link
+          style={{ fontWeight: 'bold', textDecoration: 'none', color: 'white' }}
+          href="/auth/register"
+        >
+          {t('login.register_link')}
+        </Link>
+      </p>
     </div>
-  )
+  );
 }
-
-

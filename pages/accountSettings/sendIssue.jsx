@@ -40,7 +40,7 @@ export default function sendIssue() {
   return(
     <div style={{marginTop: '95px'}} className={styles.body}>
       <Header
-        text='Report an issue'
+        text='Report a problem'
         leftIcon={
           <ChevronLeft style={{padding: '10px'}} onClick={() => router.back()}/>
         }

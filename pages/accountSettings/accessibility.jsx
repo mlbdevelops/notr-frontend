@@ -3,10 +3,12 @@ import { useRouter } from 'next/router';
 import { ChevronLeft, Type, ChevronRight } from 'lucide-react';
 import styles from '../../styles/accessibility.module.scss';
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export default function accessibility(){
   const router = useRouter();
   const [size, setSize] = useState();
+  const { t } = useTranslation();
   
   useEffect(() => {
     setSize(localStorage.getItem('size') || 2);
@@ -22,7 +24,7 @@ export default function accessibility(){
     }}>
       <Header
         leftIcon={<ChevronLeft onClick={() => router.back()} style={{padding: '10px', cursor: 'pointer'}}/>}
-        text='Accessibility'
+        text={t('header.accessibility')}
         isTransparent={true}
         blur={'10px'}
       />
@@ -41,7 +43,7 @@ export default function accessibility(){
             padding: '7.5px',
             backgroundColor: 'white',
             borderRadius: '8px',
-          }} color={'black'} size={20}/> Font size
+          }} color={'black'} size={20}/>{t('accessibility.fontsize')}
         </span>
         <span style={{
           width: '90%',

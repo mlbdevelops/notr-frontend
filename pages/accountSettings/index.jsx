@@ -11,6 +11,11 @@ import {
   Accessibility,
   HelpingHand,
   LifeBuoy,
+  HandHeart,
+  ArrowUp,
+  Globe,
+  Moon,
+  Locales
 } from 'lucide-react';
 import Header from '../../components/header.jsx'
 import { useRouter } from 'next/router'
@@ -18,8 +23,10 @@ import styles from '../../styles/settings.module.scss'
 import Question from '../../components/confirm.jsx'
 import Loader from '../../components/loading_spinner.jsx'
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next';
 
 export default function settings(){
+  const { t } = useTranslation()
   const router = useRouter()
   const [isPopup, setIsPopup] = useState(false)
   const [isDeleted, setIsDeleted] = useState(false)
@@ -100,7 +107,9 @@ export default function settings(){
   return(
     <div style={{marginTop: '100px'}}>
       <Header
-        text={'Settings'} 
+        text={t('header.setting')}
+        isTransparent={true}
+        blur={'10px'}
         leftIcon={<ChevronLeft style={{padding:'5px', cursor : 'pointer'}} onClick={() => router.back()} />}
       />
       { isDeleted? 
@@ -134,7 +143,7 @@ export default function settings(){
         }} className={styles.component}>
           <span className={styles.span}>
             <Lock size={20}/>
-            Privacy
+            {t('accSettings.privacy')}
           </span>
           <ChevronRight/>
         </div>
@@ -144,17 +153,53 @@ export default function settings(){
         }} className={styles.component}>
           <span className={styles.span}>
             <Accessibility size={20}/>
-            Accessibility
+            {t('accSettings.accessibility')}
           </span>
           <ChevronRight/>
         </div>
-        { /*About*/ }
+        
+        {/* Theme
         <div onClick={() => {
-          router.push('/accountSettings/about')
+          router.push('/accountSettings/theme')
         }} className={styles.component}>
           <span className={styles.span}>
-            <Info size={20}/>
-            About
+            <Moon size={20}/>
+            Dark mode
+          </span>
+          <ChevronRight/>
+        </div>*/}
+        
+        {/*Language*/}
+        <div onClick={() => {
+          router.push('/accountSettings/language')
+        }} className={styles.component}>
+          <span className={styles.span}>
+            <Globe size={20}/>
+            {t('accSettings.langs')}
+          </span>
+          <ChevronRight/>
+        </div>
+        { /*app update*/ }
+        <div onClick={() => {
+          router.push('/accountSettings/app_update')
+        }} className={styles.component}>
+          <span className={styles.span}>
+            <ArrowUp style={{
+              padding: '2px',
+              borderRadius: '50px',
+              border: '1.5px solid white'
+            }} size={12.5}/>
+            {t('accSettings.update')}
+          </span>
+          <ChevronRight/>
+        </div>
+        { /*buy_me_a_coffee*/ }
+        <div onClick={() => {
+          router.push('/accountSettings/buy_me_a_coffee.jsx')
+        }} className={styles.component}>
+          <span className={styles.span}>
+            <HandHeart size={20}/>
+            {t('accSettings.buy_coffee')}
           </span>
           <ChevronRight/>
         </div>
@@ -164,7 +209,17 @@ export default function settings(){
         }} className={styles.component}>
           <span className={styles.span}>
             <LifeBuoy size={20}/>
-            Support
+            {t('accSettings.support')}
+          </span>
+          <ChevronRight/>
+        </div>
+        { /*About*/ }
+        <div onClick={() => {
+          router.push('/accountSettings/about')
+        }} className={styles.component}>
+          <span className={styles.span}>
+            <Info size={20}/>
+            {t('accSettings.about')}
           </span>
           <ChevronRight/>
         </div>
@@ -175,7 +230,7 @@ export default function settings(){
         }} className={styles.component}>
           <span className={styles.span}>
             <LogOut size={20}/>
-            Logout
+            {t('accSettings.logout')}
           </span>
         </div>
         { /*Delete account*/ }
@@ -187,23 +242,13 @@ export default function settings(){
           style={{color: 'red',justifyContent: 'space-between'}} className={styles.component}>
           <span className={styles.span}>
             <Trash size={20}/>
-            Delete account 
+            {t('accSettings.deleteAcc')}
           </span>
           <span style={{color: 'lightgray'}}>
             {isDeleting? 'Deleting...' : ''}
           </span>
         </div>
       </div>
-      <p style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '5px',
-        fontSize: '12px',
-        bottom: '10px',
-        color: '#5f5f5f',
-        position: 'fixed',
-        placeSelf: 'center',
-      }}><Bug size={13.5}/> Report any bugs to the <a style={{textDecoration: 'none', fontWeight: 'bold', color: 'white'}} href='https://www.facebook.com/mlbdev'>developer</a></p>
     </div>
   );
 }

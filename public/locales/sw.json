@@ -1,0 +1,310 @@
+{
+  "app": {
+    "name": "Notr"
+  },
+  "login": {
+    "login_message": "Ingia",
+    "email": "Barua pepe",
+    "password": "Nenosiri",
+    "login_button": "Ingia",
+    "account_not_exist": "Huna akaunti? ",
+    "register_link": "Jisajili",
+    "alert_title": "Ingia",
+    "alert_ok": "Sawa"
+  },
+
+  "header": {
+    "setting": "Mipangilio",
+    "privacy": "Faragha",
+    "accessibility": "Ufikiaji",
+    "buy_coffee": "Ninunulie kahawa",
+    "deleteAcc": "Futa akaunti",
+    "langs": "Lugha",
+    "update": "Sasisha",
+    "support": "Msaada",
+    "about": "Kuhusu"
+  },
+
+  "register": {
+    "alerts": {
+      "password_mismatch": "Nenosiri halifanani",
+      "age_restriction": "Huwezi kujisajili ikiwa uko chini ya miaka 13",
+      "email_registered": "Barua pepe hii tayari imejisajili. Jaribu nyingine",
+      "incorrect_code": "Nambari si sahihi",
+      "alert_ok": "Sawa",
+      "ageTitle": "Umri"
+    },
+    "steps": {
+      "name_username": {
+        "title": "Jina na Jina la Mtumiaji",
+        "desc": "Chagua jina na jina la mtumiaji",
+        "name": "Jina",
+        "username": "Jina la mtumiaji",
+        "username_note": "Jina la mtumiaji lazima liwe chini ya herufi 21!",
+        "continue": "Endelea"
+      },
+      "birthday": {
+        "title": "Tarehe ya Kuzaliwa",
+        "desc": "Ingiza tarehe yako ya kuzaliwa",
+        "date": "Tarehe",
+        "back": "Rudi",
+        "continue": "Endelea"
+      },
+      "email": {
+        "title": "Barua pepe",
+        "desc": "Ingiza barua pepe yako kwa uthibitisho",
+        "email": "Barua pepe",
+        "back": "Rudi",
+        "continue": "Endelea"
+      },
+      "verification": {
+        "title": "Uthibitisho",
+        "desc": "Ingiza nambari iliyopeanwa kwa {{email}}",
+        "code": "Nambari",
+        "back": "Rudi",
+        "verify": "Thibitisha"
+      },
+      "password": {
+        "title": "Nenosiri",
+        "desc": "Tengeneza nenosiri imara kulinda akaunti yako",
+        "password": "Nenosiri",
+        "verify_password": "Thibitisha nenosiri",
+        "privacy_policy_text": "Kwa kuendelea, unakubali",
+        "and_text": "na",
+        "privacy_policy": "Sera ya Faragha",
+        "terms_of_use": "Masharti ya Matumizi",
+        "back": "Rudi",
+        "finish": "Kamilisha"
+      }
+    }
+  },
+
+  "language": {
+    "change_language": "Badilisha lugha",
+    "language_changed": "Lugha imebadilishwa kuwa {{language}}",
+    "languages": {
+      "en": "Kiingereza",
+      "zh": "Mandarin / 汉语",
+      "hi": "Kihindi",
+      "es": "Kihispania",
+      "fr": "Kifaransa",
+      "ar": "Kiarabu",
+      "bn": "Kibengali",
+      "ru": "Kirusi",
+      "pt": "Kireno",
+      "ur": "Kiurdu",
+      "id": "Kiindonesia",
+      "de": "Kijerumani",
+      "ja": "Kijapani",
+      "sw": "Kiswahili",
+      "mr": "Kimarathi",
+      "te": "Kitelugu",
+      "tr": "Kituruki",
+      "ta": "Kitamili",
+      "vi": "Kivietinamu",
+      "ko": "Kikorea"
+    }
+  },
+
+  "notePage": {
+    "noteLengthText": "Una {{notesLength}} noti",
+    "networkStatusTrue": "mtandaoni",
+    "networkStatusFalse": "nje ya mtandao",
+    "addNotesText": "Orodha ni tupu",
+    "addNote": "Ongeza",
+    "addNoteTitle": "Ongeza noti",
+    "cancel": "Ghairi",
+    "enter_a_name": "Ingiza jina",
+    "empty": "Tupu!"
+  },
+
+  "indivuNote": {
+    "post_note_b": "Tuma noti hii",
+    "placeholder": "Andika kitu...",
+    "addTag": "Ongeza lebo",
+    "save": "Hifadhi",
+    "set_secret": "Fanya siri",
+    "set_public": "Fanya wazi",
+    "copy": "Nakili",
+    "share": "Shiriki",
+    "delete": "Futa",
+    "title": "Kichwa",
+
+    "deleteAlert": {
+      "title": "Futa",
+      "msg": "Una uhakika unataka kufuta noti hii?",
+      "boxBs": {
+        "no": "Hapana",
+        "yes": "Futa"
+      }
+    },
+
+    "shareAlert": {
+      "msg": "Haiwezi kushirikisha bila maudhui.",
+      "title": "Shiriki",
+      "ok": "Sawa"
+    },
+
+    "clearAlert": {
+      "msg": "Una uhakika unataka kufuta maudhui?",
+      "title": "Futa",
+      "ok": "Ndio",
+      "no": "Hapana"
+    }
+  },
+
+  "noteSettings": {
+    "acc": "Akaunti",
+    "secret": "Noti za siri"
+  },
+
+  "account": {
+    "edit": "Hariri",
+    "create": "Tuma",
+    "no_post": "Hujatuma chochote bado.",
+    "posts": "matumizi",
+    "notes": "noti",
+
+    "options": {
+      "share": "Shiriki wasifu",
+      "copy_link": "Nakili kiungo",
+      "moreSets": "Mipangilio"
+    }
+  },
+
+  "accSettings": {
+    "privacy": "Faragha",
+    "accessibility": "Ufikiaji",
+    "buy_coffee": "Ninunulie kahawa",
+    "logout": "Toka",
+    "deleteAcc": "Futa akaunti",
+    "langs": "Lugha",
+    "update": "Sasisha",
+    "support": "Msaada",
+    "about": "Kuhusu",
+
+    "privacyPage": {
+      "privacy_option": {
+        "description": "Ikiwa chaguo hili limewezeshwa, hakuna mtu atakayoweza:",
+        "list": {
+          "item1": "Kona za wasifu wako kuonekana,",
+          "item2": "Kukuunganisha,",
+          "item3": "Kuona machapisho yako kwenye wasifu."
+        },
+        "note_title": "Kumbuka:",
+        "note": {
+          "item1": "Machapisho yako bado yataonekana kwenye feedi.",
+          "item2": "Ikiwa wewe ni kijana, chaguo hili litawekwa moja kwa moja wakati wa kuunda akaunti."
+        }
+      }
+    }
+  },
+
+  "accessibility": {
+    "fontsize": "Ukubwa wa maandishi"
+  },
+
+  "support": {
+    "report_a_prob": "Ripoti tatizo",
+    "ask": "Uliza"
+  },
+
+  "about": {
+    "policy": "Sera ya Faragha",
+    "term": "Masharti ya Matumizi"
+  },
+
+  "searchPage": {
+    "placeholder": "Tafuta...",
+    "result": "Matokeo ya",
+    "accounts": "Akaunti",
+    "notes": "Noti",
+    "no_result": "Hakuna matokeo"
+  },
+
+  "create_post": {
+    "add_note": "Ongeza noti",
+    "add_tag": "Ongeza lebo",
+    "add_images": "Ongeza picha",
+    "add_fontFam": "Familia ya fonti",
+    "post": "Tuma",
+    "msg": "Hakuna noti iliyopatikana",
+    "close": "Funga",
+    "create_post": "Tengeneza chapisho"
+  },
+
+  "otherUserProfile": {
+    "connect": "Unganisha",
+    "connected": "Umeunganishwa"
+  },
+
+  "harmfulContents": [
+    "Unyanyasaji au kubughudhi",
+    "Hotuba ya chuki",
+    "Ulaghai",
+    "Lugha yenye kuudhi au kuharibu",
+    "Ukatili wa kingono / maudhui ya kashfa",
+    "Kujihatarisha au kuhamasisha kujiua",
+    "Uchungu au vurugu",
+    "Uongo au taarifa zisizo sahihi",
+    "Shughuli haramu (dawa, silaha, wizi)",
+    "Spam au udanganyifu",
+    "Ugaidi au maudhui ya msitari",
+    "Udhalilishaji wa watoto (CSAM)",
+    "Utambulisho bandia",
+    "Malware au viungo vyenye hatari"
+  ],
+
+  "reportMsgBox": {
+    "reason": "Sababu ya kuripoti",
+    "title": "Kabla ya kuripoti",
+    "msg": "Tafadhali chagua sababu halali kabla ya kuripoti. Maoni yako yanatupa msaada wa kuboresha huduma na kufanya jamii iwe ya kufurahisha kwa kila mtu. Asante!",
+    "alert": {
+      "title": "Ripoti",
+      "msg": "Una uhakika unataka kuripoti chapisho hili?",
+      "ok": "Ndio",
+      "no": "Hapana"
+    }
+  },
+
+  "post": {
+    "share": "Shiriki",
+    "report": "Ripoti",
+    "comment": "Maoni",
+    "delete": "Futa",
+
+    "alert": {
+      "msg": "Una uhakika unataka kufuta chapisho hili?",
+      "title": "Futa",
+      "actions": {
+        "ok": "Ndio",
+        "no": "Hapana"
+      }
+    }
+  },
+
+  "editProfile": {
+    "title": "Hariri",
+    "choose_a_pic": "Chagua picha",
+    "placeholder_name": "Jina",
+    "placeholder_bio": "Maelezo mafupi",
+    "blank": "Haiwezi kuwa tupu!",
+    "chars": "Inapaswa kuwa na herufi 101 pekee",
+    "role": "Kazi",
+    "geust": "Mgeni",
+    "roles": [
+      "Mgeni",
+      "Mwandishi",
+      "Mshairi",
+      "Msomaji"
+    ],
+    "submit": "Tuma",
+    "letter": {
+      "username": "jina la mtumiaji",
+      "email": "barua pepe",
+      "password": "nenosiri",
+      "age": "umri",
+      "msg": "Uhariri wa {{email}}, {{pssw}}, {{username}} na {{age}} utapatikana hivi karibuni kwani unahitaji uthibitisho mara mbili kabla ya kutuma."
+    }
+  }
+}

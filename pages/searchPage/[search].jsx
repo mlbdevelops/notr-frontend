@@ -5,9 +5,11 @@ import styles from '../../styles/query.module.scss';
 import Post from '../../components/post.jsx';
 import ProfileDiv from '../../components/profileDiv.jsx';
 import Loader from '../../components/loading_spinner.jsx';
+import { useTranslation } from 'react-i18next';
 
 export default function query(){
   const router = useRouter();
+  const {t} = useTranslation();
   const [q, setQ] = useState('');
   const [user, setUser] = useState('');
   const [token, setToken] = useState('');
@@ -86,14 +88,14 @@ export default function query(){
               color: tabIndex == 1? 'white' : '#717171',
             }}
             onClick={() => setTabIndex(1)}
-          ><Type size={17}/> Notes</span>
+          ><Type size={17}/>{t('searchPage.notes')}</span>
           <span 
             className={styles.tab}
             style={{
               color: tabIndex == 2? 'white' : '#717171',
             }}
             onClick={() => setTabIndex(2)}
-          ><Users size={17}/> Accounts</span>
+          ><Users size={17}/>{t('searchPage.accounts')}</span>
         </div>
       </div>
       
@@ -111,7 +113,7 @@ export default function query(){
           color: '#878787',
           width: '89%',
           wordBreak: 'break-word'
-        }}>Results for <span style={{color: 'white'}}>{q ||router.query.q}</span></p>
+        }}>{t('searchPage.result')} <span style={{color: 'white'}}>{q ||router.query.q}</span></p>
         {posts?.length >= 1? 
           posts?.map((post, i) => (
             <Post 
@@ -140,7 +142,7 @@ export default function query(){
               marginTop: '150px',
               color: 'white',
             }}
-          >Nothing was found with {q || router.query.q}!</p>}
+          >{t('searchPage.no_result')} {q || router.query.q}!</p>}
       </div>
       
       <div style={{
@@ -158,7 +160,7 @@ export default function query(){
           color: '#878787',
           width: '89%',
           wordBreak: 'break-word'
-        }}>Results for <span style={{color: 'white'}}>{q || router.query.q}</span></p> 
+        }}>{t('searchPage.result')} <span style={{color: 'white'}}>{q || router.query.q}</span></p> 
         <div style={{
           width: '95%',
           display: 'flex',
@@ -179,7 +181,7 @@ export default function query(){
                 textAlign: 'center',
                 marginTop: '150px',
               }}
-            >Nothing was found with {q || router.query.q}!</p>}
+            >{t('searchPage.no_result')} {q || router.query.q}!</p>}
         </div>
       </div>
     </div>

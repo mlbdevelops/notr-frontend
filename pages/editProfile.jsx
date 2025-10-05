@@ -5,9 +5,11 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Loader from '../components/loading_spinner.jsx';
 import Question from '../components/confirm.jsx';
+import { useTranslation } from 'react-i18next';
 
 export default function EditProfile(){
   const router = useRouter();
+  const { t } = useTranslation();
   
   const [username, setUsername] = useState('');
   const [name, setName] = useState('');
@@ -44,12 +46,8 @@ export default function EditProfile(){
     getUser(token)
   }, [user && token])
   
-  const usersRoles = [
-    'Geust',
-    'Writer',
-    'Poet',
-    'Reader',
-  ];
+  const usersRoles = t('editProfile.roles', {returnObjects: true})
+  console.log(usersRoles)
   
   const chooseProfile = e => {
     e.preventDefault()
@@ -96,7 +94,7 @@ export default function EditProfile(){
       }}
     >
       <Header 
-        text='Edit profile'
+        text={t('editProfile.title')}
         isTransparent={true}
         blur={'20px'}
         leftIcon={
@@ -135,7 +133,7 @@ export default function EditProfile(){
         }}>
         
         <button type='reset' className={styles.uploadB}>
-          Choose a picture
+          {t('editProfile.choose_a_pic')}
           <input 
             type='file' 
             accept='image/*'
@@ -168,41 +166,41 @@ export default function EditProfile(){
         
         
         {/* name */}
-        <label className={styles.label} for='name'>Name</label>
+        <label className={styles.label} for='name'>{t('editProfile.placeholder_name')}</label>
         <input 
           className={styles.inp} 
           name='name' 
           type="text"
-          placeholder='Name'
+          placeholder={t('editProfile.placeholder_name')}
           value={name}
           onChange={(e) => setName(e.target.value.substring(0, 20))}
         />
         {name.length <= 0? <small style={{color: '#7f7f7f', margin: '10px 0',}}>
-          Cannot be blank!
+          {t('editProfile.blank')}
         </small> : ''}
         {/* bio */}
-        <label className={styles.label} for='bio'>Bio</label>
+        <label className={styles.label} for='bio'>{t('editProfile.placeholder_bio')}</label>
         <textarea 
           className={styles.inp} 
           name='bio'
           rows={7}
-          placeholder='Bio'
+          placeholder={t('editProfile.placeholder_bio')}
           value={bio.substring(0, 105)}
           onInput={(e) => {
             e.target.value.length >= 105? '' : setBio(e.target.value)
           }}
         />
         <small style={{color: '#7f7f7f', margin: '10px 0',}}>
-          Only 100 characters 
+          {t('editProfile.chars')}
         </small>
         {/* role */}
-        <label className={styles.label} for='role'>Role</label> 
+        <label className={styles.label} for='role'>{t('editProfile.role')}</label> 
         <div 
           onClick={() => {
             isRole? setIsRole(false) : setIsRole(true)
           }}
           className={styles.roleSelection}>
-          {role || 'Geust'}<ChevronDown/>
+          {role || t('editProfile.geust')}<ChevronDown/>
           {isRole? 
             <div className={styles.roleDiv}>
               {usersRoles.map((role, i) => (
@@ -217,14 +215,14 @@ export default function EditProfile(){
         </div>
       
       <button className={styles.updateButton} onClick={updateData}>
-        Submit
+        {t('editProfile.submit')}
       </button>
       
       <small style={{
         textAlign: 'center',
         color: '#757575',
         marginTop: '50px',
-      }}><strong style={{color:'white'}}>Email</strong>, <strong style={{color:'white'}}>Username</strong> and <strong style={{color:'white'}}>Password</strong> editing are coming soon because they need to be double checked before submission.</small>
+      }}>{t('editProfile.letter.msg', {email: t('editProfile.letter.email'), pssw: t('editProfile.letter.password'), age : t('editProfile.letter.age'), username: t('editProfile.letter.username')})}</small>
       
       </div>
     </div>

@@ -1,0 +1,310 @@
+{
+  "app": {
+    "name": "Notr"
+  },
+  "login": {
+    "login_message": "ログイン",
+    "email": "メール",
+    "password": "パスワード",
+    "login_button": "ログイン",
+    "account_not_exist": "アカウントをお持ちでないですか？ ",
+    "register_link": "登録",
+    "alert_title": "ログイン",
+    "alert_ok": "OK"
+  },
+
+  "header": {
+    "setting": "設定",
+    "privacy": "プライバシー",
+    "accessibility": "アクセシビリティ",
+    "buy_coffee": "コーヒーを買う",
+    "deleteAcc": "アカウントを削除",
+    "langs": "言語",
+    "update": "更新",
+    "support": "サポート",
+    "about": "情報"
+  },
+
+  "register": {
+    "alerts": {
+      "password_mismatch": "パスワードが一致しません",
+      "age_restriction": "13歳未満の方は登録できません",
+      "email_registered": "このメールは既に登録されています。他のメールを試してください",
+      "incorrect_code": "コードが間違っています",
+      "alert_ok": "OK",
+      "ageTitle": "年齢"
+    },
+    "steps": {
+      "name_username": {
+        "title": "名前とユーザー名",
+        "desc": "名前とユーザー名を選んでください",
+        "name": "名前",
+        "username": "ユーザー名",
+        "username_note": "ユーザー名は21文字未満である必要があります！",
+        "continue": "続ける"
+      },
+      "birthday": {
+        "title": "生年月日",
+        "desc": "生年月日を入力してください",
+        "date": "日付",
+        "back": "戻る",
+        "continue": "続ける"
+      },
+      "email": {
+        "title": "メール",
+        "desc": "確認のためメールを入力してください",
+        "email": "メール",
+        "back": "戻る",
+        "continue": "続ける"
+      },
+      "verification": {
+        "title": "認証",
+        "desc": "{{email}} に送信されたコードを入力してください",
+        "code": "コード",
+        "back": "戻る",
+        "verify": "確認"
+      },
+      "password": {
+        "title": "パスワード",
+        "desc": "アカウントを保護するために強力なパスワードを作成してください",
+        "password": "パスワード",
+        "verify_password": "パスワード確認",
+        "privacy_policy_text": "続行することで、私たちの",
+        "and_text": "と",
+        "privacy_policy": "プライバシーポリシー",
+        "terms_of_use": "利用規約",
+        "back": "戻る",
+        "finish": "完了"
+      }
+    }
+  },
+
+  "language": {
+    "change_language": "言語を変更",
+    "language_changed": "言語が {{language}} に変更されました",
+    "languages": {
+      "en": "英語",
+      "zh": "中国語 / 汉语",
+      "hi": "ヒンディー語",
+      "es": "スペイン語",
+      "fr": "フランス語",
+      "ar": "アラビア語",
+      "bn": "ベンガル語",
+      "ru": "ロシア語",
+      "pt": "ポルトガル語",
+      "ur": "ウルドゥー語",
+      "id": "インドネシア語",
+      "de": "ドイツ語",
+      "ja": "日本語",
+      "sw": "スワヒリ語",
+      "mr": "マラーティー語",
+      "te": "テルグ語",
+      "tr": "トルコ語",
+      "ta": "タミル語",
+      "vi": "ベトナム語",
+      "ko": "韓国語"
+    }
+  },
+
+  "notePage": {
+    "noteLengthText": "{{notesLength}} 件のノートがあります",
+    "networkStatusTrue": "オンライン",
+    "networkStatusFalse": "オフライン",
+    "addNotesText": "リストは空です",
+    "addNote": "追加",
+    "addNoteTitle": "ノートを追加",
+    "cancel": "キャンセル",
+    "enter_a_name": "名前を入力",
+    "empty": "空です！"
+  },
+
+  "indivuNote": {
+    "post_note_b": "このノートを投稿",
+    "placeholder": "何か書いてください...",
+    "addTag": "タグを追加",
+    "save": "保存",
+    "set_secret": "秘密にする",
+    "set_public": "公開する",
+    "copy": "コピー",
+    "share": "共有",
+    "delete": "削除",
+    "title": "タイトル",
+
+    "deleteAlert": {
+      "title": "削除",
+      "msg": "このノートを削除してもよろしいですか？",
+      "boxBs": {
+        "no": "いいえ",
+        "yes": "削除"
+      }
+    },
+
+    "shareAlert": {
+      "msg": "内容がないため共有できません。",
+      "title": "共有",
+      "ok": "OK"
+    },
+
+    "clearAlert": {
+      "msg": "内容をクリアしてもよろしいですか？",
+      "title": "削除",
+      "ok": "はい",
+      "no": "いいえ"
+    }
+  },
+
+  "noteSettings": {
+    "acc": "アカウント",
+    "secret": "秘密のノート"
+  },
+
+  "account": {
+    "edit": "編集",
+    "create": "投稿",
+    "no_post": "まだ投稿していません。",
+    "posts": "投稿",
+    "notes": "ノート",
+
+    "options": {
+      "share": "プロフィールを共有",
+      "copy_link": "リンクをコピー",
+      "moreSets": "設定"
+    }
+  },
+
+  "accSettings": {
+    "privacy": "プライバシー",
+    "accessibility": "アクセシビリティ",
+    "buy_coffee": "コーヒーを買う",
+    "logout": "ログアウト",
+    "deleteAcc": "アカウントを削除",
+    "langs": "言語",
+    "update": "更新",
+    "support": "サポート",
+    "about": "情報",
+
+    "privacyPage": {
+      "privacy_option": {
+        "description": "このオプションを有効にすると、誰も以下のことはできません：",
+        "list": {
+          "item1": "プロフィールの詳細を見る、",
+          "item2": "接続する、",
+          "item3": "プロフィール上の投稿を見る。"
+        },
+        "note_title": "注意：",
+        "note": {
+          "item1": "投稿はフィード上で引き続き表示されます。",
+          "item2": "13歳以上のティーンの場合、このオプションはアカウント作成時に自動で有効になります。"
+        }
+      }
+    }
+  },
+
+  "accessibility": {
+    "fontsize": "文字サイズ"
+  },
+
+  "support": {
+    "report_a_prob": "問題を報告",
+    "ask": "質問する"
+  },
+
+  "about": {
+    "policy": "プライバシーポリシー",
+    "term": "利用規約"
+  },
+
+  "searchPage": {
+    "placeholder": "検索...",
+    "result": "結果：",
+    "accounts": "アカウント",
+    "notes": "ノート",
+    "no_result": "結果がありません"
+  },
+
+  "create_post": {
+    "add_note": "ノートを追加",
+    "add_tag": "タグを追加",
+    "add_images": "画像を追加",
+    "add_fontFam": "フォントファミリー",
+    "post": "投稿",
+    "msg": "ノートが見つかりません",
+    "close": "閉じる",
+    "create_post": "投稿を作成"
+  },
+
+  "otherUserProfile": {
+    "connect": "接続",
+    "connected": "接続済み"
+  },
+
+  "harmfulContents": [
+    "嫌がらせまたはいじめ",
+    "ヘイトスピーチ",
+    "盗作",
+    "攻撃的または侮辱的な言語",
+    "ヌード / 性的に露骨なコンテンツ",
+    "自傷行為や自殺促進",
+    "暴力や流血",
+    "誤情報や偽情報",
+    "違法行為（薬物、武器、海賊行為）",
+    "スパムや詐欺",
+    "テロリズムや過激派コンテンツ",
+    "児童虐待素材（CSAM）",
+    "なりすまし",
+    "マルウェアや有害リンク"
+  ],
+
+  "reportMsgBox": {
+    "reason": "報告理由",
+    "title": "報告前に",
+    "msg": "報告する前に有効な理由を選択してください。あなたのフィードバックはサービス向上とコミュニティの快適さ維持に役立ちます。ありがとうございます！",
+    "alert": {
+      "title": "報告",
+      "msg": "この投稿を報告してもよろしいですか？",
+      "ok": "はい",
+      "no": "いいえ"
+    }
+  },
+
+  "post": {
+    "share": "共有",
+    "report": "報告",
+    "comment": "コメント",
+    "delete": "削除",
+
+    "alert": {
+      "msg": "この投稿を削除してもよろしいですか？",
+      "title": "削除",
+      "actions": {
+        "ok": "はい",
+        "no": "いいえ"
+      }
+    }
+  },
+
+  "editProfile": {
+    "title": "編集",
+    "choose_a_pic": "写真を選択",
+    "placeholder_name": "名前",
+    "placeholder_bio": "自己紹介",
+    "blank": "空にできません！",
+    "chars": "101文字以内で入力してください",
+    "role": "役割",
+    "geust": "ゲスト",
+    "roles": [
+      "ゲスト",
+      "作家",
+      "詩人",
+      "読者"
+    ],
+    "submit": "送信",
+    "letter": {
+      "username": "ユーザー名",
+      "email": "メール",
+      "password": "パスワード",
+      "age": "年齢",
+      "msg": "{{email}}, {{pssw}}, {{username}} と {{age}} の編集は、提出前に二重認証が必要なため、近日中に利用可能になります。"
+    }
+  }
+}

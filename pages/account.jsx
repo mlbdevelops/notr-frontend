@@ -17,9 +17,10 @@ import { useRouter } from 'next/router'
 import styles from '../styles/accInfo.module.scss'
 import Post from '../components/post.jsx'
 import { Share as CapShare } from '@capacitor/share';
+import { useTranslation } from 'react-i18next';
 
 export default function account(){
-  
+  const { t } = useTranslation()
   const router = useRouter()
   const [user, setUser] = useState({})
   const [userId, setUserId] = useState('')
@@ -121,13 +122,13 @@ https://notr-app.vercel.app/user?id=${user?._id}
         <div onClick={() => setIsMore(false)} className={styles.blur}>
           <div className={styles.optionsDiv}>
             
-            <span onClick={shareProfile} className={styles.option}><Share size={20}/> Share profile</span>
+            <span onClick={shareProfile} className={styles.option}><Share size={20}/>{t('account.options.share')}</span>
             
-            <span onClick={copyFunc} className={styles.option}><Link size={20}/> Copy link to profile</span>
+            <span onClick={copyFunc} className={styles.option}><Link size={20}/>{t('account.options.copy_link')}</span>
             
             <span 
               className={styles.option}
-              onClick={() => router.push('/accountSettings')}><Settings size={20}/>Settings</span>
+              onClick={() => router.push('/accountSettings')}><Settings size={20}/>{t('account.options.moreSets')}</span>
             
           </div>
         </div>
@@ -158,16 +159,16 @@ https://notr-app.vercel.app/user?id=${user?._id}
       </div> : ''}
       
       <div className={styles.buttonsDiv}>
-        <button onClick={() => router.push('/editProfile')} className={styles.btn}>Edit profile</button>
-        <button onClick={() => router.push('/create/createNew')} className={styles.btn}>Create a post</button>
+        <button onClick={() => router.push('/editProfile')} className={styles.btn}>{t('account.edit')}</button>
+        <button onClick={() => router.push('/create/createNew')} className={styles.btn}>{t('account.create')}</button>
       </div>
       <div className={styles.metrics}>
         <span>
-          {`${posts.length} posts`}
+          {`${posts.length} ${t('account.posts')}`}
         </span>
         •
         <span>
-          {note || 0} Notes
+          {note || 0} {t('account.notes')}
         </span>
       </div>
       <div className={styles.postsDiv}>
@@ -211,7 +212,7 @@ https://notr-app.vercel.app/user?id=${user?._id}
         : 
           !isLoading && posts.length == 0? <div className={styles.empty}>
             <Camera size={60} className={styles.cam}/>
-            <strong>You haven't posted yet</strong>
+            <strong>{t('account.no_post')}</strong>
           </div>
         : ''}
       </div>

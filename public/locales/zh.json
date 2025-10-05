@@ -1,0 +1,310 @@
+{
+  "app": {
+    "name": "Notr"
+  },
+  "login": {
+    "login_message": "登录",
+    "email": "电子邮箱",
+    "password": "密码",
+    "login_button": "登录",
+    "account_not_exist": "还没有账户？ ",
+    "register_link": "注册",
+    "alert_title": "登录",
+    "alert_ok": "确定"
+  },
+
+  "header": {
+    "setting": "设置",
+    "privacy": "隐私",
+    "accessibility": "辅助功能",
+    "buy_coffee": "请我喝咖啡",
+    "deleteAcc": "删除账户",
+    "langs": "语言",
+    "update": "更新",
+    "support": "支持",
+    "about": "关于"
+  },
+
+  "register": {
+    "alerts": {
+      "password_mismatch": "两次输入的密码不匹配",
+      "age_restriction": "13岁以下的用户无法注册",
+      "email_registered": "该邮箱已注册，请尝试其他邮箱",
+      "incorrect_code": "验证码错误",
+      "alert_ok": "确定",
+      "ageTitle": "年龄"
+    },
+    "steps": {
+      "name_username": {
+        "title": "姓名和用户名",
+        "desc": "选择一个姓名和用户名",
+        "name": "姓名",
+        "username": "用户名",
+        "username_note": "用户名必须少于21个字符！",
+        "continue": "继续"
+      },
+      "birthday": {
+        "title": "出生日期",
+        "desc": "请输入您的出生日期",
+        "date": "日期",
+        "back": "返回",
+        "continue": "继续"
+      },
+      "email": {
+        "title": "电子邮箱",
+        "desc": "请输入您的邮箱以进行确认",
+        "email": "电子邮箱",
+        "back": "返回",
+        "continue": "继续"
+      },
+      "verification": {
+        "title": "验证",
+        "desc": "输入发送到 {{email}} 的验证码",
+        "code": "验证码",
+        "back": "返回",
+        "verify": "验证"
+      },
+      "password": {
+        "title": "密码",
+        "desc": "创建一个强密码以保护您的账户",
+        "password": "密码",
+        "verify_password": "确认密码",
+        "privacy_policy_text": "继续即表示您同意我们的",
+        "and_text": "和",
+        "privacy_policy": "隐私政策",
+        "terms_of_use": "使用条款",
+        "back": "返回",
+        "finish": "完成"
+      }
+    }
+  },
+
+  "language": {
+    "change_language": "更改语言",
+    "language_changed": "语言已更改为 {{language}}",
+    "languages": {
+      "en": "英语",
+      "zh": "普通话 / 汉语",
+      "hi": "印地语",
+      "es": "西班牙语",
+      "fr": "法语",
+      "ar": "阿拉伯语",
+      "bn": "孟加拉语",
+      "ru": "俄语",
+      "pt": "葡萄牙语",
+      "ur": "乌尔都语",
+      "id": "印尼语",
+      "de": "德语",
+      "ja": "日语",
+      "sw": "斯瓦希里语",
+      "mr": "马拉地语",
+      "te": "泰卢固语",
+      "tr": "土耳其语",
+      "ta": "泰米尔语",
+      "vi": "越南语",
+      "ko": "韩语"
+    }
+  },
+
+  "notePage": {
+    "noteLengthText": "您有 {{notesLength}} 条笔记",
+    "networkStatusTrue": "在线",
+    "networkStatusFalse": "离线",
+    "addNotesText": "列表为空",
+    "addNote": "添加",
+    "addNoteTitle": "添加笔记",
+    "cancel": "取消",
+    "enter_a_name": "输入名称",
+    "empty": "空！"
+  },
+
+  "indivuNote": {
+    "post_note_b": "发布此笔记",
+    "placeholder": "写点什么……",
+    "addTag": "添加标签",
+    "save": "保存",
+    "set_secret": "设为私密",
+    "set_public": "设为公开",
+    "copy": "复制",
+    "share": "分享",
+    "delete": "删除",
+    "title": "标题",
+
+    "deleteAlert": {
+      "title": "删除",
+      "msg": "确定要删除此笔记吗？",
+      "boxBs": {
+        "no": "否",
+        "yes": "删除"
+      }
+    },
+
+    "shareAlert": {
+      "msg": "没有内容，无法分享。",
+      "title": "分享",
+      "ok": "确定"
+    },
+
+    "clearAlert": {
+      "msg": "确定要清空内容吗？",
+      "title": "删除",
+      "ok": "是",
+      "no": "否"
+    }
+  },
+
+  "noteSettings": {
+    "acc": "账户",
+    "secret": "私密笔记"
+  },
+
+  "account": {
+    "edit": "编辑",
+    "create": "发布",
+    "no_post": "您还没有发布任何内容。",
+    "posts": "帖子",
+    "notes": "笔记",
+
+    "options": {
+      "share": "分享个人资料",
+      "copy_link": "复制链接",
+      "moreSets": "设置"
+    }
+  },
+
+  "accSettings": {
+    "privacy": "隐私",
+    "accessibility": "辅助功能",
+    "buy_coffee": "请我喝咖啡",
+    "logout": "退出登录",
+    "deleteAcc": "删除账户",
+    "langs": "语言",
+    "update": "更新",
+    "support": "支持",
+    "about": "关于",
+
+    "privacyPage": {
+      "privacy_option": {
+        "description": "启用此选项后，任何人都无法：",
+        "list": {
+          "item1": "查看您的个人资料详情，",
+          "item2": "与您建立连接，",
+          "item3": "查看您在个人资料中的帖子。"
+        },
+        "note_title": "注意：",
+        "note": {
+          "item1": "您的帖子仍会显示在动态中。",
+          "item2": "如果您是青少年，创建账户时此选项将自动启用。"
+        }
+      }
+    }
+  },
+
+  "accessibility": {
+    "fontsize": "文字大小"
+  },
+
+  "support": {
+    "report_a_prob": "报告问题",
+    "ask": "提问"
+  },
+
+  "about": {
+    "policy": "隐私政策",
+    "term": "使用条款"
+  },
+
+  "searchPage": {
+    "placeholder": "搜索……",
+    "result": "搜索结果：",
+    "accounts": "账户",
+    "notes": "笔记",
+    "no_result": "没有结果"
+  },
+
+  "create_post": {
+    "add_note": "添加笔记",
+    "add_tag": "添加标签",
+    "add_images": "添加图片",
+    "add_fontFam": "字体",
+    "post": "发布",
+    "msg": "未找到笔记",
+    "close": "关闭",
+    "create_post": "创建帖子"
+  },
+
+  "otherUserProfile": {
+    "connect": "连接",
+    "connected": "已连接"
+  },
+
+  "harmfulContents": [
+    "骚扰或欺凌",
+    "仇恨言论",
+    "抄袭",
+    "冒犯性或辱骂性语言",
+    "裸露 / 性露骨内容",
+    "自残或自杀宣传",
+    "暴力或血腥内容",
+    "虚假或误导性信息",
+    "非法活动（毒品、武器、盗版）",
+    "垃圾信息或诈骗内容",
+    "恐怖主义或极端主义内容",
+    "儿童性虐待材料（CSAM）",
+    "冒充他人",
+    "恶意软件或有害链接"
+  ],
+
+  "reportMsgBox": {
+    "reason": "举报原因",
+    "title": "举报前",
+    "msg": "请在举报前选择合适的原因。您的反馈将帮助我们改进服务，让社区对所有人更友好。谢谢！",
+    "alert": {
+      "title": "举报",
+      "msg": "您确定要举报此帖子吗？",
+      "ok": "是",
+      "no": "否"
+    }
+  },
+
+  "post": {
+    "share": "分享",
+    "report": "举报",
+    "comment": "评论",
+    "delete": "删除",
+
+    "alert": {
+      "msg": "确定要删除此帖子吗？",
+      "title": "删除",
+      "actions": {
+        "ok": "是",
+        "no": "否"
+      }
+    }
+  },
+
+  "editProfile": {
+    "title": "编辑",
+    "choose_a_pic": "选择照片",
+    "placeholder_name": "姓名",
+    "placeholder_bio": "简介",
+    "blank": "不能为空！",
+    "chars": "最多只能包含101个字符",
+    "role": "角色",
+    "geust": "访客",
+    "roles": [
+      "访客",
+      "作家",
+      "诗人",
+      "读者"
+    ],
+    "submit": "提交",
+    "letter": {
+      "username": "用户名",
+      "email": "邮箱",
+      "password": "密码",
+      "age": "年龄",
+      "msg": "修改 {{email}}、{{pssw}}、{{username}} 和 {{age}} 将在稍后开放，因为这些操作需要双重验证。"
+    }
+  }
+}

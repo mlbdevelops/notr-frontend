@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { Trash, Tag } from 'lucide-react';
 
-export default function Note({title, note, time, noteId, tag, deleteFunc}){
+export default function Note({title, note, time, noteId, tag, deleteFunc, networkStatus, token}){
   const router = useRouter();
   
   const deleteNote = async (note) => {
@@ -43,9 +43,9 @@ export default function Note({title, note, time, noteId, tag, deleteFunc}){
             backgroundColor: '#262626',
           }}>{tag}</span> : <Tag className={noteStyles.tagIcon} size={12}/>}
         </div>
-        <Link href={`/notes/${encodeURIComponent(noteId)}`}>
-          <div className={noteStyles.linkToPage}></div> 
-        </Link>
+        {networkStatus !== 'offline'? <Link href={`/notes/${encodeURIComponent(noteId)}`}>
+          <div className={noteStyles.linkToPage}></div>
+        </Link> : ''}
       </div>
     
   );

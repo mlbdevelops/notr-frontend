@@ -1,0 +1,310 @@
+{
+  "app": {
+    "name": "Notr"
+  },
+  "login": {
+    "login_message": "Anmelden",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "login_button": "Anmelden",
+    "account_not_exist": "Noch keinen Account? ",
+    "register_link": "Registrieren",
+    "alert_title": "Anmelden",
+    "alert_ok": "Ok"
+  },
+
+  "header": {
+    "setting": "Einstellungen",
+    "privacy": "Datenschutz",
+    "accessibility": "Barrierefreiheit",
+    "buy_coffee": "Kauf mir einen Kaffee",
+    "deleteAcc": "Account löschen",
+    "langs": "Sprachen",
+    "update": "Aktualisieren",
+    "support": "Support",
+    "about": "Über"
+  },
+
+  "register": {
+    "alerts": {
+      "password_mismatch": "Passwörter stimmen nicht überein",
+      "age_restriction": "Du kannst dich nicht registrieren, wenn du unter 13 Jahre alt bist",
+      "email_registered": "Diese E-Mail ist bereits registriert. Versuch eine andere",
+      "incorrect_code": "Falscher Code",
+      "alert_ok": "Ok",
+      "ageTitle": "Alter"
+    },
+    "steps": {
+      "name_username": {
+        "title": "Name und Benutzername",
+        "desc": "Wähle einen Namen und Benutzername",
+        "name": "Name",
+        "username": "Benutzername",
+        "username_note": "Der Benutzername muss weniger als 21 Zeichen haben!",
+        "continue": "Weiter"
+      },
+      "birthday": {
+        "title": "Geburtsdatum",
+        "desc": "Gib dein Geburtsdatum ein",
+        "date": "Datum",
+        "back": "Zurück",
+        "continue": "Weiter"
+      },
+      "email": {
+        "title": "E-Mail",
+        "desc": "Gib deine E-Mail zur Bestätigung ein",
+        "email": "E-Mail",
+        "back": "Zurück",
+        "continue": "Weiter"
+      },
+      "verification": {
+        "title": "Verifizierung",
+        "desc": "Gib den Code ein, der an {{email}} gesendet wurde",
+        "code": "Code",
+        "back": "Zurück",
+        "verify": "Überprüfen"
+      },
+      "password": {
+        "title": "Passwort",
+        "desc": "Erstelle ein starkes Passwort, um dein Konto zu sichern",
+        "password": "Passwort",
+        "verify_password": "Passwort bestätigen",
+        "privacy_policy_text": "Indem du fortfährst, stimmst du unseren",
+        "and_text": "und",
+        "privacy_policy": "Datenschutzrichtlinien",
+        "terms_of_use": "Nutzungsbedingungen",
+        "back": "Zurück",
+        "finish": "Fertig"
+      }
+    }
+  },
+
+  "language": {
+    "change_language": "Sprache ändern",
+    "language_changed": "Sprache geändert zu {{language}}",
+    "languages": {
+      "en": "Englisch",
+      "zh": "Mandarin / 汉语",
+      "hi": "Hindi",
+      "es": "Spanisch",
+      "fr": "Französisch",
+      "ar": "Arabisch",
+      "bn": "Bengalisch",
+      "ru": "Russisch",
+      "pt": "Portugiesisch",
+      "ur": "Urdu",
+      "id": "Indonesisch",
+      "de": "Deutsch",
+      "ja": "Japanisch",
+      "sw": "Swahili",
+      "mr": "Marathi",
+      "te": "Telugu",
+      "tr": "Türkisch",
+      "ta": "Tamil",
+      "vi": "Vietnamesisch",
+      "ko": "Koreanisch"
+    }
+  },
+
+  "notePage": {
+    "noteLengthText": "Du hast {{notesLength}} Notizen",
+    "networkStatusTrue": "online",
+    "networkStatusFalse": "offline",
+    "addNotesText": "Die Liste ist leer",
+    "addNote": "Hinzufügen",
+    "addNoteTitle": "Füge eine Notiz hinzu",
+    "cancel": "Abbrechen",
+    "enter_a_name": "Gib einen Namen ein",
+    "empty": "Leer!"
+  },
+
+  "indivuNote": {
+    "post_note_b": "Diese Notiz posten",
+    "placeholder": "Schreibe etwas...",
+    "addTag": "Tag hinzufügen",
+    "save": "Speichern",
+    "set_secret": "Als geheim festlegen",
+    "set_public": "Öffentlich machen",
+    "copy": "Kopieren",
+    "share": "Teilen",
+    "delete": "Löschen",
+    "title": "Titel",
+
+    "deleteAlert": {
+      "title": "Löschen",
+      "msg": "Bist du sicher, dass du diese Notiz löschen möchtest?",
+      "boxBs": {
+        "no": "Nein",
+        "yes": "Löschen"
+      }
+    },
+
+    "shareAlert": {
+      "msg": "Ohne Inhalt kann nicht geteilt werden.",
+      "title": "Teilen",
+      "ok": "Ok"
+    },
+
+    "clearAlert": {
+      "msg": "Bist du sicher, dass du den Inhalt löschen möchtest?",
+      "title": "Löschen",
+      "ok": "Ja",
+      "no": "Nein"
+    }
+  },
+
+  "noteSettings": {
+    "acc": "Konto",
+    "secret": "Geheime Notizen"
+  },
+
+  "account": {
+    "edit": "Bearbeiten",
+    "create": "Posten",
+    "no_post": "Du hast noch nichts gepostet.",
+    "posts": "Beiträge",
+    "notes": "Notizen",
+
+    "options": {
+      "share": "Profil teilen",
+      "copy_link": "Link kopieren",
+      "moreSets": "Einstellungen"
+    }
+  },
+
+  "accSettings": {
+    "privacy": "Datenschutz",
+    "accessibility": "Barrierefreiheit",
+    "buy_coffee": "Kauf mir einen Kaffee",
+    "logout": "Abmelden",
+    "deleteAcc": "Account löschen",
+    "langs": "Sprachen",
+    "update": "Aktualisieren",
+    "support": "Support",
+    "about": "Über",
+
+    "privacyPage": {
+      "privacy_option": {
+        "description": "Wenn diese Option aktiviert ist, kann niemand:",
+        "list": {
+          "item1": "Deine Profildetails sehen,",
+          "item2": "Mit dir verbinden,",
+          "item3": "Deine Beiträge auf deinem Profil sehen."
+        },
+        "note_title": "Hinweis:",
+        "note": {
+          "item1": "Deine Beiträge bleiben trotzdem im Feed sichtbar.",
+          "item2": "Wenn du ein Teenager bist, wird diese Option beim Erstellen deines Kontos automatisch aktiviert."
+        }
+      }
+    }
+  },
+
+  "accessibility": {
+    "fontsize": "Textgröße"
+  },
+
+  "support": {
+    "report_a_prob": "Ein Problem melden",
+    "ask": "Fragen"
+  },
+
+  "about": {
+    "policy": "Datenschutzrichtlinien",
+    "term": "Nutzungsbedingungen"
+  },
+
+  "searchPage": {
+    "placeholder": "Suchen...",
+    "result": "Ergebnis für",
+    "accounts": "Konten",
+    "notes": "Notizen",
+    "no_result": "Keine Ergebnisse"
+  },
+
+  "create_post": {
+    "add_note": "Notiz hinzufügen",
+    "add_tag": "Tags hinzufügen",
+    "add_images": "Bilder hinzufügen",
+    "add_fontFam": "Schriftart",
+    "post": "Posten",
+    "msg": "Keine Notiz gefunden",
+    "close": "Schließen",
+    "create_post": "Einen Beitrag erstellen"
+  },
+
+  "otherUserProfile": {
+    "connect": "Verbinden",
+    "connected": "Verbunden"
+  },
+
+  "harmfulContents": [
+    "Belästigung oder Mobbing",
+    "Hassrede",
+    "Plagiat",
+    "Beleidigende oder anstößige Sprache",
+    "Nacktheit / sexuell explizite Inhalte",
+    "Selbstverletzung oder Suizidförderung",
+    "Gewalt oder Blut",
+    "Fehlinformation oder Desinformation",
+    "Illegale Aktivitäten (Drogen, Waffen, Piraterie)",
+    "Spam oder Betrug",
+    "Terrorismus oder extremistische Inhalte",
+    "Kindesmissbrauchsmaterial (CSAM)",
+    "Identitätsfälschung",
+    "Malware oder schädliche Links"
+  ],
+
+  "reportMsgBox": {
+    "reason": "Grund für die Meldung",
+    "title": "Vor dem Melden",
+    "msg": "Bitte wähle einen gültigen Grund, bevor du meldest. Dein Feedback hilft uns, unseren Service zu verbessern und diese Community für alle angenehm zu halten. Danke!",
+    "alert": {
+      "title": "Melden",
+      "msg": "Bist du sicher, dass du diesen Beitrag melden möchtest?",
+      "ok": "Ja",
+      "no": "Nein"
+    }
+  },
+
+  "post": {
+    "share": "Teilen",
+    "report": "Melden",
+    "comment": "Kommentar",
+    "delete": "Löschen",
+
+    "alert": {
+      "msg": "Bist du sicher, dass du diesen Beitrag löschen möchtest?",
+      "title": "Löschen",
+      "actions": {
+        "ok": "Ja",
+        "no": "Nein"
+      }
+    }
+  },
+
+  "editProfile": {
+    "title": "Bearbeiten",
+    "choose_a_pic": "Wähle ein Foto",
+    "placeholder_name": "Name",
+    "placeholder_bio": "Bio",
+    "blank": "Darf nicht leer sein!",
+    "chars": "Darf nur 101 Zeichen enthalten",
+    "role": "Rolle",
+    "geust": "Gast",
+    "roles": [
+      "Gast",
+      "Schreiber",
+      "Dichter",
+      "Leser"
+    ],
+    "submit": "Absenden",
+    "letter": {
+      "username": "Benutzername",
+      "email": "E-Mail",
+      "password": "Passwort",
+      "age": "Alter",
+      "msg": "Die Bearbeitung von {{email}}, {{pssw}}, {{username}} und {{age}} wird bald verfügbar sein, da eine doppelte Verifizierung vor der Übermittlung erforderlich ist."
+    }
+  }
+}

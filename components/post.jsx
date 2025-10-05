@@ -10,9 +10,12 @@ import { Clipboard as CapClip } from '@capacitor/clipboard';
 import { Share as CapShare } from '@capacitor/share';
 import styles2 from '../styles/comment.module.scss';
 import { Browser } from '@capacitor/browser'
+import { useTranslation } from 'react-i18next';
 
 export default function Post({tag, note, title, username, name, ownerId, _id, photos, loggedUser, likes, fontFamily, textAlign, fontStyle, fontWeight, time, accProfile, likedByUser}){
   const router = useRouter()
+  const trans = useTranslation()
+  const t = trans.t
   const [image, setImage] = useState('')
   const [noUser, setNoUser] = useState(false)
   const [isRed, setIsRed] = useState(likedByUser)
@@ -241,9 +244,9 @@ Notr - https://notr-sigma.vercel.app`
     <div ref={menuRef} onClick={() => menuOpen? setMenuOpen(false) : ''} className={styles.post}>
         {menuOpen? 
           <div className={styles.menuDiv}>
-              <span onClick={shareFunc} className={styles.elem}><Share size={15}/> Share</span>
-              {loggedUser == ownerId? <span onClick={() => setIsDelete(true)} className={styles.elem}><Trash size={15}/> Delete</span> : ''} 
-              <span onClick={reportFunc} className={styles.elem}><AlertTriangle size={15}/>Report</span> 
+              <span onClick={shareFunc} className={styles.elem}><Share size={15}/> {t('post.share')}</span>
+              {loggedUser == ownerId? <span onClick={() => setIsDelete(true)} className={styles.elem}><Trash size={15}/>{t('post.delete')}</span> : ''} 
+              <span onClick={reportFunc} className={styles.elem}><AlertTriangle size={15}/>{t('post.report')}</span> 
           </div>
         : ''}
       <div className={styles.postHeader}>
@@ -270,12 +273,12 @@ Notr - https://notr-sigma.vercel.app`
       {/*delete comp*/}
       
       { isDelete?
-        <Question msg='Are you sure you want to delete?' title='Delete' actions={[
-          <p onClick={() => setIsDelete(false)}>No</p>,
+        <Question msg={t('post.alert.msg')} title={t('post.alert.title')} actions={[
+          <p onClick={() => setIsDelete(false)}>{t('post.alert.actions.no')}</p>,
           <p onClick={() => {
             setIsDelete(false)
             deleteFunc()
-          }}>Yes</p>
+          }}>{t('post.alert.actions.ok')}</p>
           ]}/>
       : ''}
       
@@ -372,7 +375,7 @@ Notr - https://notr-sigma.vercel.app`
         {note.length > 400 && !image && (
           <span 
             onClick={() => setExpanded(!expanded)} 
-            style={{ color: '#4da3ff', cursor: 'pointer', margin: '10px 0' }}
+            style={{ color: '#4da3ff', cursor: 'pointer', margin: '10px 0', fontFamily: 'Arial' }}
           >
             {expanded ? 'See less' : 'See more'}
           </span>
@@ -442,7 +445,7 @@ Notr - https://notr-sigma.vercel.app`
           <span style={{
             fontSize: '12px',
           }}>
-            comments
+            {t('post.comment')}
           </span>
         </div>
       </div>

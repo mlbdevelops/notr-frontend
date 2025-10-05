@@ -1,0 +1,310 @@
+{
+  "app": {
+    "name": "Notr"
+  },
+  "login": {
+    "login_message": "Entrar",
+    "email": "Email",
+    "password": "Senha",
+    "login_button": "Entrar",
+    "account_not_exist": "Não tem uma conta? ",
+    "register_link": "Cadastre-se",
+    "alert_title": "Entrar",
+    "alert_ok": "Ok"
+  },
+
+  "header": {
+    "setting": "Configurações",
+    "privacy": "Privacidade",
+    "accessibility": "Acessibilidade",
+    "buy_coffee": "Compre-me um café",
+    "deleteAcc": "Excluir conta",
+    "langs": "Idiomas",
+    "update": "Atualizar",
+    "support": "Suporte",
+    "about": "Sobre"
+  },
+
+  "register": {
+    "alerts": {
+      "password_mismatch": "As senhas não coincidem",
+      "age_restriction": "Você não pode se registrar se tiver menos de 13 anos",
+      "email_registered": "Este email já está registrado. Tente outro",
+      "incorrect_code": "Código incorreto",
+      "alert_ok": "Ok",
+      "ageTitle": "Idade"
+    },
+    "steps": {
+      "name_username": {
+        "title": "Nome e Nome de usuário",
+        "desc": "Escolha um nome e nome de usuário",
+        "name": "Nome",
+        "username": "Nome de usuário",
+        "username_note": "O nome de usuário deve ter menos de 21 caracteres!",
+        "continue": "Continuar"
+      },
+      "birthday": {
+        "title": "Data de Nascimento",
+        "desc": "Digite sua data de nascimento",
+        "date": "Data",
+        "back": "Voltar",
+        "continue": "Continuar"
+      },
+      "email": {
+        "title": "Email",
+        "desc": "Digite seu email para confirmação",
+        "email": "Email",
+        "back": "Voltar",
+        "continue": "Continuar"
+      },
+      "verification": {
+        "title": "Verificação",
+        "desc": "Digite o código enviado para {{email}}",
+        "code": "Código",
+        "back": "Voltar",
+        "verify": "Verificar"
+      },
+      "password": {
+        "title": "Senha",
+        "desc": "Crie uma senha forte para proteger sua conta",
+        "password": "Senha",
+        "verify_password": "Verificar senha",
+        "privacy_policy_text": "Ao continuar, você concorda com nossa",
+        "and_text": "e",
+        "privacy_policy": "Política de Privacidade",
+        "terms_of_use": "Termos de Uso",
+        "back": "Voltar",
+        "finish": "Concluir"
+      }
+    }
+  },
+
+  "language": {
+    "change_language": "Mudar idioma",
+    "language_changed": "Idioma alterado para {{language}}",
+    "languages": {
+      "en": "Inglês",
+      "zh": "Mandarim / 汉语",
+      "hi": "Hindi",
+      "es": "Espanhol",
+      "fr": "Francês",
+      "ar": "Árabe",
+      "bn": "Bengali",
+      "ru": "Russo",
+      "pt": "Português",
+      "ur": "Urdu",
+      "id": "Indonésio",
+      "de": "Alemão",
+      "ja": "Japonês",
+      "sw": "Suaíli",
+      "mr": "Marathi",
+      "te": "Telugu",
+      "tr": "Turco",
+      "ta": "Tâmil",
+      "vi": "Vietnamita",
+      "ko": "Coreano"
+    }
+  },
+
+  "notePage": {
+    "noteLengthText": "Você tem {{notesLength}} notas",
+    "networkStatusTrue": "online",
+    "networkStatusFalse": "offline",
+    "addNotesText": "A lista está vazia",
+    "addNote": "Adicionar",
+    "addNoteTitle": "Adicionar uma nota",
+    "cancel": "Cancelar",
+    "enter_a_name": "Digite um nome",
+    "empty": "Vazio!"
+  },
+
+  "indivuNote": {
+    "post_note_b": "Publicar esta nota",
+    "placeholder": "Escreva algo...",
+    "addTag": "Adicionar uma tag",
+    "save": "Salvar",
+    "set_secret": "Tornar secreta",
+    "set_public": "Tornar pública",
+    "copy": "Copiar",
+    "share": "Compartilhar",
+    "delete": "Excluir",
+    "title": "Título",
+
+    "deleteAlert": {
+      "title": "Excluir",
+      "msg": "Tem certeza de que deseja excluir esta nota?",
+      "boxBs": {
+        "no": "Não",
+        "yes": "Excluir"
+      }
+    },
+
+    "shareAlert": {
+      "msg": "Não é possível compartilhar sem conteúdo.",
+      "title": "Compartilhar",
+      "ok": "Ok"
+    },
+
+    "clearAlert": {
+      "msg": "Tem certeza de que deseja limpar o conteúdo?",
+      "title": "Excluir",
+      "ok": "Sim",
+      "no": "Não"
+    }
+  },
+
+  "noteSettings": {
+    "acc": "Conta",
+    "secret": "Notas secretas"
+  },
+
+  "account": {
+    "edit": "Editar",
+    "create": "Publicar",
+    "no_post": "Você ainda não publicou nada.",
+    "posts": "publicações",
+    "notes": "notas",
+
+    "options": {
+      "share": "Compartilhar perfil",
+      "copy_link": "Copiar link",
+      "moreSets": "Configurações"
+    }
+  },
+
+  "accSettings": {
+    "privacy": "Privacidade",
+    "accessibility": "Acessibilidade",
+    "buy_coffee": "Compre-me um café",
+    "logout": "Sair",
+    "deleteAcc": "Excluir conta",
+    "langs": "Idiomas",
+    "update": "Atualizar",
+    "support": "Suporte",
+    "about": "Sobre",
+
+    "privacyPage": {
+      "privacy_option": {
+        "description": "Se esta opção estiver ativada, ninguém poderá:",
+        "list": {
+          "item1": "Ver os detalhes do seu perfil,",
+          "item2": "Conectar-se com você,",
+          "item3": "Ver suas publicações no perfil."
+        },
+        "note_title": "Nota:",
+        "note": {
+          "item1": "Suas publicações ainda estarão visíveis no feed.",
+          "item2": "Se você for adolescente, esta opção será ativada automaticamente ao criar sua conta."
+        }
+      }
+    }
+  },
+
+  "accessibility": {
+    "fontsize": "Tamanho do texto"
+  },
+
+  "support": {
+    "report_a_prob": "Relatar um problema",
+    "ask": "Perguntar"
+  },
+
+  "about": {
+    "policy": "Política de Privacidade",
+    "term": "Termos de Uso"
+  },
+
+  "searchPage": {
+    "placeholder": "Pesquisar...",
+    "result": "Resultado para",
+    "accounts": "Contas",
+    "notes": "Notas",
+    "no_result": "Nenhum resultado"
+  },
+
+  "create_post": {
+    "add_note": "Adicionar nota",
+    "add_tag": "Adicionar tags",
+    "add_images": "Adicionar imagens",
+    "add_fontFam": "Fonte",
+    "post": "Publicar",
+    "msg": "Nenhuma nota encontrada",
+    "close": "Fechar",
+    "create_post": "Criar publicação"
+  },
+
+  "otherUserProfile": {
+    "connect": "Conectar",
+    "connected": "Conectado"
+  },
+
+  "harmfulContents": [
+    "Assédio ou bullying",
+    "Discurso de ódio",
+    "Plágio",
+    "Linguagem ofensiva ou abusiva",
+    "Nudez / conteúdo sexualmente explícito",
+    "Promoção de autoagressão ou suicídio",
+    "Violência ou gore",
+    "Desinformação",
+    "Atividades ilegais (drogas, armas, pirataria)",
+    "Spam ou golpe",
+    "Terrorismo ou conteúdo extremista",
+    "Material de abuso sexual infantil (CSAM)",
+    "Personificação",
+    "Malware ou links prejudiciais"
+  ],
+
+  "reportMsgBox": {
+    "reason": "Motivo da denúncia",
+    "title": "Antes de denunciar",
+    "msg": "Escolha um motivo válido antes de denunciar. Seu feedback nos ajuda a melhorar nossos serviços e manter esta comunidade agradável para todos. Obrigado!",
+    "alert": {
+      "title": "Denunciar",
+      "msg": "Tem certeza de que deseja denunciar esta publicação?",
+      "ok": "Sim",
+      "no": "Não"
+    }
+  },
+
+  "post": {
+    "share": "Compartilhar",
+    "report": "Denunciar",
+    "comment": "Comentar",
+    "delete": "Excluir",
+
+    "alert": {
+      "msg": "Tem certeza de que deseja excluir esta publicação?",
+      "title": "Excluir",
+      "actions": {
+        "ok": "Sim",
+        "no": "Não"
+      }
+    }
+  },
+
+  "editProfile": {
+    "title": "Editar",
+    "choose_a_pic": "Escolher uma foto",
+    "placeholder_name": "Nome",
+    "placeholder_bio": "Bio",
+    "blank": "Não pode estar vazio!",
+    "chars": "Deve conter no máximo 101 caracteres",
+    "role": "Função",
+    "geust": "Convidado",
+    "roles": [
+      "Convidado",
+      "Escritor",
+      "Poeta",
+      "Leitor"
+    ],
+    "submit": "Enviar",
+    "letter": {
+      "username": "nome de usuário",
+      "email": "email",
+      "password": "senha",
+      "age": "idade",
+      "msg": "Editar {{email}}, {{pssw}}, {{username}} e {{age}} estará disponível em breve, pois requer dupla verificação antes do envio."
+    }
+  }
+}

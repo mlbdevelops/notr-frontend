@@ -1,0 +1,310 @@
+{
+  "app": {
+    "name": "Notr"
+  },
+  "login": {
+    "login_message": "Masuk",
+    "email": "Email",
+    "password": "Kata sandi",
+    "login_button": "Masuk",
+    "account_not_exist": "Belum punya akun? ",
+    "register_link": "Daftar",
+    "alert_title": "Masuk",
+    "alert_ok": "Ok"
+  },
+
+  "header": {
+    "setting": "Pengaturan",
+    "privacy": "Privasi",
+    "accessibility": "Aksesibilitas",
+    "buy_coffee": "Belikan saya kopi",
+    "deleteAcc": "Hapus akun",
+    "langs": "Bahasa",
+    "update": "Perbarui",
+    "support": "Dukungan",
+    "about": "Tentang"
+  },
+
+  "register": {
+    "alerts": {
+      "password_mismatch": "Kata sandi tidak cocok",
+      "age_restriction": "Anda tidak dapat mendaftar jika berusia di bawah 13 tahun",
+      "email_registered": "Email ini sudah terdaftar. Coba yang lain",
+      "incorrect_code": "Kode salah",
+      "alert_ok": "Ok",
+      "ageTitle": "Usia"
+    },
+    "steps": {
+      "name_username": {
+        "title": "Nama dan Nama Pengguna",
+        "desc": "Pilih nama dan nama pengguna",
+        "name": "Nama",
+        "username": "Nama pengguna",
+        "username_note": "Nama pengguna harus kurang dari 21 karakter!",
+        "continue": "Lanjutkan"
+      },
+      "birthday": {
+        "title": "Tanggal Lahir",
+        "desc": "Masukkan tanggal lahir Anda",
+        "date": "Tanggal",
+        "back": "Kembali",
+        "continue": "Lanjutkan"
+      },
+      "email": {
+        "title": "Email",
+        "desc": "Masukkan email Anda untuk konfirmasi",
+        "email": "Email",
+        "back": "Kembali",
+        "continue": "Lanjutkan"
+      },
+      "verification": {
+        "title": "Verifikasi",
+        "desc": "Masukkan kode yang dikirim ke {{email}}",
+        "code": "Kode",
+        "back": "Kembali",
+        "verify": "Verifikasi"
+      },
+      "password": {
+        "title": "Kata Sandi",
+        "desc": "Buat kata sandi yang kuat untuk mengamankan akun Anda",
+        "password": "Kata sandi",
+        "verify_password": "Verifikasi kata sandi",
+        "privacy_policy_text": "Dengan melanjutkan, Anda setuju dengan",
+        "and_text": "dan",
+        "privacy_policy": "Kebijakan Privasi",
+        "terms_of_use": "Syarat Penggunaan",
+        "back": "Kembali",
+        "finish": "Selesai"
+      }
+    }
+  },
+
+  "language": {
+    "change_language": "Ganti bahasa",
+    "language_changed": "Bahasa diubah menjadi {{language}}",
+    "languages": {
+      "en": "Inggris",
+      "zh": "Mandarin / 汉语",
+      "hi": "Hindi",
+      "es": "Spanyol",
+      "fr": "Prancis",
+      "ar": "Arab",
+      "bn": "Benggala",
+      "ru": "Rusia",
+      "pt": "Portugis",
+      "ur": "Urdu",
+      "id": "Indonesia",
+      "de": "Jerman",
+      "ja": "Jepang",
+      "sw": "Swahili",
+      "mr": "Marathi",
+      "te": "Telugu",
+      "tr": "Turki",
+      "ta": "Tamil",
+      "vi": "Vietnam",
+      "ko": "Korea"
+    }
+  },
+
+  "notePage": {
+    "noteLengthText": "Anda memiliki {{notesLength}} catatan",
+    "networkStatusTrue": "online",
+    "networkStatusFalse": "offline",
+    "addNotesText": "Daftar kosong",
+    "addNote": "Tambah",
+    "addNoteTitle": "Tambah catatan",
+    "cancel": "Batal",
+    "enter_a_name": "Masukkan nama",
+    "empty": "Kosong!"
+  },
+
+  "indivuNote": {
+    "post_note_b": "Posting catatan ini",
+    "placeholder": "Tulis sesuatu...",
+    "addTag": "Tambah tag",
+    "save": "Simpan",
+    "set_secret": "Jadikan rahasia",
+    "set_public": "Jadikan publik",
+    "copy": "Salin",
+    "share": "Bagikan",
+    "delete": "Hapus",
+    "title": "Judul",
+
+    "deleteAlert": {
+      "title": "Hapus",
+      "msg": "Apakah Anda yakin ingin menghapus catatan ini?",
+      "boxBs": {
+        "no": "Tidak",
+        "yes": "Hapus"
+      }
+    },
+
+    "shareAlert": {
+      "msg": "Tidak dapat membagikan tanpa konten.",
+      "title": "Bagikan",
+      "ok": "Ok"
+    },
+
+    "clearAlert": {
+      "msg": "Apakah Anda yakin ingin menghapus konten?",
+      "title": "Hapus",
+      "ok": "Ya",
+      "no": "Tidak"
+    }
+  },
+
+  "noteSettings": {
+    "acc": "Akun",
+    "secret": "Catatan rahasia"
+  },
+
+  "account": {
+    "edit": "Edit",
+    "create": "Posting",
+    "no_post": "Anda belum memposting apa pun.",
+    "posts": "posting",
+    "notes": "catatan",
+
+    "options": {
+      "share": "Bagikan profil",
+      "copy_link": "Salin tautan",
+      "moreSets": "Pengaturan"
+    }
+  },
+
+  "accSettings": {
+    "privacy": "Privasi",
+    "accessibility": "Aksesibilitas",
+    "buy_coffee": "Belikan saya kopi",
+    "logout": "Keluar",
+    "deleteAcc": "Hapus akun",
+    "langs": "Bahasa",
+    "update": "Perbarui",
+    "support": "Dukungan",
+    "about": "Tentang",
+
+    "privacyPage": {
+      "privacy_option": {
+        "description": "Jika opsi ini diaktifkan, tidak ada yang dapat:",
+        "list": {
+          "item1": "Melihat detail profil Anda,",
+          "item2": "Terhubung dengan Anda,",
+          "item3": "Melihat postingan Anda di profil."
+        },
+        "note_title": "Catatan:",
+        "note": {
+          "item1": "Postingan Anda tetap akan terlihat di feed.",
+          "item2": "Jika Anda remaja, opsi ini akan otomatis diaktifkan saat membuat akun."
+        }
+      }
+    }
+  },
+
+  "accessibility": {
+    "fontsize": "Ukuran teks"
+  },
+
+  "support": {
+    "report_a_prob": "Laporkan masalah",
+    "ask": "Tanya"
+  },
+
+  "about": {
+    "policy": "Kebijakan Privasi",
+    "term": "Syarat Penggunaan"
+  },
+
+  "searchPage": {
+    "placeholder": "Cari...",
+    "result": "Hasil untuk",
+    "accounts": "Akun",
+    "notes": "Catatan",
+    "no_result": "Tidak ada hasil"
+  },
+
+  "create_post": {
+    "add_note": "Tambah catatan",
+    "add_tag": "Tambah tag",
+    "add_images": "Tambah gambar",
+    "add_fontFam": "Jenis font",
+    "post": "Posting",
+    "msg": "Catatan tidak ditemukan",
+    "close": "Tutup",
+    "create_post": "Buat posting"
+  },
+
+  "otherUserProfile": {
+    "connect": "Terhubung",
+    "connected": "Terhubung"
+  },
+
+  "harmfulContents": [
+    "Perundungan atau intimidasi",
+    "Ucapan kebencian",
+    "Plagiarisme",
+    "Bahasa yang menyinggung atau kasar",
+    "Ketelanjangan / konten seksual eksplisit",
+    "Mendorong menyakiti diri sendiri atau bunuh diri",
+    "Kekerasan atau darah",
+    "Informasi salah atau disinformasi",
+    "Kegiatan ilegal (obat-obatan, senjata, pembajakan)",
+    "Spam atau penipuan",
+    "Terorisme atau konten ekstremis",
+    "Materi pelecehan seksual anak (CSAM)",
+    "Peniruan identitas",
+    "Malware atau tautan berbahaya"
+  ],
+
+  "reportMsgBox": {
+    "reason": "Alasan laporan",
+    "title": "Sebelum melaporkan",
+    "msg": "Silakan pilih alasan yang valid sebelum melaporkan. Masukan Anda membantu kami meningkatkan layanan dan menjaga komunitas ini menyenangkan untuk semua orang. Terima kasih!",
+    "alert": {
+      "title": "Laporkan",
+      "msg": "Apakah Anda yakin ingin melaporkan postingan ini?",
+      "ok": "Ya",
+      "no": "Tidak"
+    }
+  },
+
+  "post": {
+    "share": "Bagikan",
+    "report": "Laporkan",
+    "comment": "Komentar",
+    "delete": "Hapus",
+
+    "alert": {
+      "msg": "Apakah Anda yakin ingin menghapus postingan ini?",
+      "title": "Hapus",
+      "actions": {
+        "ok": "Ya",
+        "no": "Tidak"
+      }
+    }
+  },
+
+  "editProfile": {
+    "title": "Edit",
+    "choose_a_pic": "Pilih foto",
+    "placeholder_name": "Nama",
+    "placeholder_bio": "Bio",
+    "blank": "Tidak boleh kosong!",
+    "chars": "Hanya boleh berisi 101 karakter",
+    "role": "Peran",
+    "geust": "Tamu",
+    "roles": [
+      "Tamu",
+      "Penulis",
+      "Penyair",
+      "Pembaca"
+    ],
+    "submit": "Kirim",
+    "letter": {
+      "username": "nama pengguna",
+      "email": "email",
+      "password": "kata sandi",
+      "age": "usia",
+      "msg": "Pengeditan {{email}}, {{pssw}}, {{username}} dan {{age}} akan segera tersedia karena memerlukan verifikasi ganda sebelum pengiriman."
+    }
+  }
+}

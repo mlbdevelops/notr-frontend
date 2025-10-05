@@ -11,7 +11,7 @@ export default function Loader({loaderColor, loaderDirection}){
       top: '60px',
       position: 'fixed',
       borderRadius: '10px',
-      backgroundColor: 'transparend',
+      backgroundColor: 'transparent',
       zIndex: 99988888888,
     }}>
       <div style={{
@@ -28,7 +28,8 @@ export default function Loader({loaderColor, loaderDirection}){
           height: '45px',
           width: '45px',
           border: `1px solid ${loaderColor? loaderColor : 'black'}`,
-          borderTopColor: 'transparent',
+          borderBottomColor: '#3e3e3e',
+          borderRightColor: '#3e3e3e',
           borderRadius: '100px',
         }}></div> 
       </div>

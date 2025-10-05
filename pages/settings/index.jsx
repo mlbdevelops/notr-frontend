@@ -4,14 +4,16 @@ import { useRouter } from 'next/router'
 import styles from '../../styles/settings.module.scss'
 import Question from '../../components/confirm.jsx'
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next';
 
 export default function settings(){
   const router = useRouter()
+  const { t } = useTranslation()
   
   return(
     <div>
       <Header
-        text={'Settings'} 
+        text={t('header.setting')} 
         isTransparent={true}
         blur={'10px'}
         leftIcon={<ChevronLeft style={{padding:'10px'}} onClick={() => router.back()} />}
@@ -46,7 +48,7 @@ export default function settings(){
         }} className={styles.component}>
           <span className={styles.span}>
             <User size={20}/>
-            Account info
+            {t('noteSettings.acc')}
           </span>
           <ChevronRight/>
         </div>
@@ -56,21 +58,11 @@ export default function settings(){
         }} className={styles.component}>
           <span className={styles.span}>
             <Lock size={20}/>
-            Secret notes
+            {t('noteSettings.secret')}
           </span>
           <ChevronRight/>
         </div>
       </div>
-      <p style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '5px',
-        fontSize: '12px',
-        bottom: '10px',
-        color: '#5f5f5f',
-        position: 'fixed',
-        placeSelf: 'center',
-      }}><Bug size={13.5}/> Report any bugs to the <a style={{textDecoration: 'none', fontWeight: 'bold', color: 'white'}} href='https://www.facebook.com/mlbdev'>developer</a></p>
     </div>
   );
 }

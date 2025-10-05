@@ -4,9 +4,16 @@ import {
 } from 'lucide-react'
 import styles from '../styles/header.module.scss'
 import { useRouter } from 'next/router'
+import { useState, useEffect } from 'react'
 
 export default function Header({text, leftIcon, textColor, rightIcons, isTransparent, blur, bgc}){
   const router = useRouter()
+  const [theme, setTheme] = useState('');
+  
+  useEffect(() => {
+    setTheme(localStorage.getItem('theme') || 'dark')
+  }, [theme]);
+  
   return(
     <header style={{
       backdropFilter: isTransparent? `blur(${blur})` : '',
@@ -15,7 +22,7 @@ export default function Header({text, leftIcon, textColor, rightIcons, isTranspa
       <div style={{
         display: 'flex',
         alignItems: 'center',
-        color: 'white'
+        color: 'white',
       }}>
         {leftIcon}
         <h1 style={{

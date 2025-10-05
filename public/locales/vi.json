@@ -1,0 +1,152 @@
+{
+  "app": {
+    "name": "Notr"
+  },
+  "login": {
+    "login_message": "Đăng nhập",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "login_button": "Đăng nhập",
+    "account_not_exist": "Chưa có tài khoản? ",
+    "register_link": "Đăng ký",
+    "alert_title": "Đăng nhập",
+    "alert_ok": "Ok"
+  },
+
+  "header": {
+    "setting": "Cài đặt",
+    "privacy": "Quyền riêng tư",
+    "accessibility": "Khả năng truy cập",
+    "buy_coffee": "Mua cà phê cho tôi",
+    "deleteAcc": "Xóa tài khoản",
+    "langs": "Ngôn ngữ",
+    "update": "Cập nhật",
+    "support": "Hỗ trợ",
+    "about": "Về chúng tôi"
+  },
+
+  "register": {
+    "alerts": {
+      "password_mismatch": "Mật khẩu không khớp",
+      "age_restriction": "Bạn không thể đăng ký nếu dưới 13 tuổi",
+      "email_registered": "Email này đã được đăng ký. Hãy thử email khác",
+      "incorrect_code": "Mã không đúng",
+      "alert_ok": "Ok",
+      "ageTitle": "Tuổi"
+    },
+    "steps": {
+      "name_username": {
+        "title": "Tên và tên người dùng",
+        "desc": "Chọn tên và tên người dùng",
+        "name": "Tên",
+        "username": "Tên người dùng",
+        "username_note": "Tên người dùng phải dưới 21 ký tự!",
+        "continue": "Tiếp tục"
+      },
+      "birthday": {
+        "title": "Ngày sinh",
+        "desc": "Nhập ngày sinh của bạn",
+        "date": "Ngày",
+        "back": "Quay lại",
+        "continue": "Tiếp tục"
+      },
+      "email": {
+        "title": "Email",
+        "desc": "Nhập email của bạn để xác nhận",
+        "email": "Email",
+        "back": "Quay lại",
+        "continue": "Tiếp tục"
+      },
+      "verification": {
+        "title": "Xác minh",
+        "desc": "Nhập mã gửi tới {{email}}",
+        "code": "Mã",
+        "back": "Quay lại",
+        "verify": "Xác minh"
+      },
+      "password": {
+        "title": "Mật khẩu",
+        "desc": "Tạo mật khẩu mạnh để bảo vệ tài khoản của bạn",
+        "password": "Mật khẩu",
+        "verify_password": "Xác nhận mật khẩu",
+        "privacy_policy_text": "Tiếp tục, bạn đồng ý với",
+        "and_text": "và",
+        "privacy_policy": "Chính sách quyền riêng tư",
+        "terms_of_use": "Điều khoản sử dụng",
+        "back": "Quay lại",
+        "finish": "Hoàn tất"
+      }
+    }
+  },
+
+  "language": {
+    "change_language": "Thay đổi ngôn ngữ",
+    "language_changed": "Ngôn ngữ đã thay đổi thành {{language}}",
+    "languages": {
+      "en": "Tiếng Anh",
+      "zh": "Tiếng Quan Thoại / 汉语",
+      "hi": "Tiếng Hindi",
+      "es": "Tiếng Tây Ban Nha",
+      "fr": "Tiếng Pháp",
+      "ar": "Tiếng Ả Rập",
+      "bn": "Tiếng Bengal",
+      "ru": "Tiếng Nga",
+      "pt": "Tiếng Bồ Đào Nha",
+      "ur": "Tiếng Urdu",
+      "id": "Tiếng Indonesia",
+      "de": "Tiếng Đức",
+      "ja": "Tiếng Nhật",
+      "sw": "Tiếng Swahili",
+      "mr": "Tiếng Marathi",
+      "te": "Tiếng Telugu",
+      "tr": "Tiếng Thổ Nhĩ Kỳ",
+      "ta": "Tiếng Tamil",
+      "vi": "Tiếng Việt",
+      "ko": "Tiếng Hàn"
+    }
+  },
+
+  "notePage": {
+    "noteLengthText": "Bạn có {{notesLength}} ghi chú",
+    "networkStatusTrue": "Trực tuyến",
+    "networkStatusFalse": "Ngoại tuyến",
+    "addNotesText": "Danh sách trống",
+    "addNote": "Thêm",
+    "addNoteTitle": "Thêm ghi chú",
+    "cancel": "Hủy",
+    "enter_a_name": "Nhập tên",
+    "empty": "Trống!"
+  },
+
+  "indivuNote": {
+    "post_note_b": "Đăng ghi chú này",
+    "placeholder": "Viết gì đó...",
+    "addTag": "Thêm thẻ",
+    "save": "Lưu",
+    "set_secret": "Đặt thành bí mật",
+    "set_public": "Đặt thành công khai",
+    "copy": "Sao chép",
+    "share": "Chia sẻ",
+    "delete": "Xóa",
+    "title": "Tiêu đề",
+    "deleteAlert": {
+      "title": "Xóa",
+      "msg": "Bạn có chắc muốn xóa ghi chú này không?",
+      "boxBs": {
+        "no": "Không",
+        "yes": "Xóa"
+      }
+    },
+    "shareAlert": {
+      "msg": "Không thể chia sẻ khi không có nội dung.",
+      "title": "Chia sẻ",
+      "ok": "Ok"
+    },
+    "clearAlert": {
+      "msg": "Bạn có chắc muốn xóa nội dung không?",
+      "title": "Xóa",
+      "ok": "Có",
+      "no": "Không"
+    }
+  }
+}

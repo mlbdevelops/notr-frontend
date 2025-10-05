@@ -3,10 +3,12 @@ import { ChevronLeft, Search, Users, Type } from 'lucide-react';
 import { useRouter } from 'next/router';
 import styles from '../styles/search.module.scss';
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export default function search(){
   const router = useRouter();
-  const historyList = []
+  const { t } = useTranslation();
+  const historyList = [];
   const [q, setQ] = useState('');
   const [token, setToken] = useState('');
   const [history, setHistory] = useState([]);
@@ -39,7 +41,7 @@ export default function search(){
         <ChevronLeft onClick={() => router.back()}/>
         <input 
           type='text' 
-          placeholder='Search...'
+          placeholder={t('searchPage.placeholder')}
           value={q}
           className={styles.inp}
           onChange={(e) => setQ(e.target.value)}

@@ -16,9 +16,10 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import styles from '../../styles/accInfo.module.scss'
 import Post from '../../components/post.jsx'
 import Loader from '../../components/loading_spinner.jsx'
+import { useTranslation } from 'react-i18next';
 
 export default function account(){
-  
+  const {t} = useTranslation()
   const router = useRouter()
   const searchParams = useSearchParams()
   const [user, setUser] = useState({})
@@ -157,7 +158,7 @@ export default function account(){
         <button 
           onClick={connect} 
           className={styles.connectB}
-        >{isConnected? <span style={{display: 'flex', alignItems: 'center',}}>Connected <Check className={styles.icon} size={15}/></span> : 'connect'}</button>
+        >{isConnected? <span style={{display: 'flex', alignItems: 'center',}}>{t('otherUserProfile.connected')} <Check className={styles.icon} size={15}/></span> : t('otherUserProfile.connect')}</button>
       </div>
       <div style={{display: user?.isPrivate? 'none' : 'flex'}} className={styles.metrics}>
         <span>

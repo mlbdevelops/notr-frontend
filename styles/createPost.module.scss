@@ -215,10 +215,11 @@
   background-color: #1d1d1d;
   border-radius: 20px;
   height: auto;
-  max-height: 300px;
+  max-height: 330px;
   padding: 20px ;
   word-break: break-word;
   gap: 10px;
+  overflow: hidden;
   
   .noteTitle{
     font-size: 23.5px;

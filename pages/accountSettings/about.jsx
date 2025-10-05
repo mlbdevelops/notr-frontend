@@ -7,9 +7,11 @@ import {
 import Header from '../../components/header.jsx';
 import { useRouter } from 'next/router';
 import styles from '../../styles/settings.module.scss'
+import { useTranslation } from 'react-i18next';
 
 export default function about() {
   const router = useRouter()
+  const { t } = useTranslation();
   return(
     <div style={{
       margin: '70px 0',
@@ -19,7 +21,7 @@ export default function about() {
       marginTop: '100px',
     }}>
       <Header 
-        text='About'
+        text={t('header.about')}
         isTransparent={true}
         blur={'10px'}
         leftIcon={<ChevronLeft style={{padding: '10px'}} onClick={() => router.back()}/>}
@@ -29,7 +31,7 @@ export default function about() {
           router.push('/privacy_policy')
         }} className={styles.component}>
           <span className={styles.span}>
-            Privacy policy
+            {t('about.policy')}
           </span>
           <ChevronRight/>
         </div>
@@ -38,7 +40,7 @@ export default function about() {
           router.push('/term_of_use')
         }} className={styles.component}>
           <span className={styles.span}>
-            Term of use
+            {t('about.term')}
           </span>
           <ChevronRight/>
         </div>

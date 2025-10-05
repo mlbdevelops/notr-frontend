@@ -1,0 +1,310 @@
+{
+  "app": {
+    "name": "Notr"
+  },
+  "login": {
+    "login_message": "Iniciar sesión",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "login_button": "Entrar",
+    "account_not_exist": "¿No tienes una cuenta? ",
+    "register_link": "Regístrate",
+    "alert_title": "Inicio de sesión",
+    "alert_ok": "Ok"
+  },
+
+  "header": {
+    "setting": "Configuraciones",
+    "privacy": "Privacidad",
+    "accessibility": "Accesibilidad",
+    "buy_coffee": "Cómprame un café",
+    "deleteAcc": "Eliminar cuenta",
+    "langs": "Idiomas",
+    "update": "Actualizar",
+    "support": "Soporte",
+    "about": "Acerca de"
+  },
+
+  "register": {
+    "alerts": {
+      "password_mismatch": "Las contraseñas no coinciden",
+      "age_restriction": "No puedes registrarte si eres menor de 13 años",
+      "email_registered": "Este correo electrónico ya está registrado. Prueba con otro",
+      "incorrect_code": "Código incorrecto",
+      "alert_ok": "Ok",
+      "ageTitle": "Edad"
+    },
+    "steps": {
+      "name_username": {
+        "title": "Nombre y nombre de usuario",
+        "desc": "Elige un nombre y un nombre de usuario",
+        "name": "Nombre",
+        "username": "Nombre de usuario",
+        "username_note": "¡El nombre de usuario debe tener menos de 21 caracteres!",
+        "continue": "Continuar"
+      },
+      "birthday": {
+        "title": "Fecha de nacimiento",
+        "desc": "Ingresa tu fecha de nacimiento",
+        "date": "Fecha",
+        "back": "Atrás",
+        "continue": "Continuar"
+      },
+      "email": {
+        "title": "Correo electrónico",
+        "desc": "Ingresa tu correo electrónico para confirmación",
+        "email": "Correo electrónico",
+        "back": "Atrás",
+        "continue": "Continuar"
+      },
+      "verification": {
+        "title": "Verificación",
+        "desc": "Ingresa el código enviado a {{email}}",
+        "code": "Código",
+        "back": "Atrás",
+        "verify": "Verificar"
+      },
+      "password": {
+        "title": "Contraseña",
+        "desc": "Crea una contraseña segura para proteger tu cuenta",
+        "password": "Contraseña",
+        "verify_password": "Verificar contraseña",
+        "privacy_policy_text": "Al continuar, aceptas nuestra",
+        "and_text": "y",
+        "privacy_policy": "Política de privacidad",
+        "terms_of_use": "Términos de uso",
+        "back": "Atrás",
+        "finish": "Finalizar"
+      }
+    }
+  },
+
+  "language": {
+    "change_language": "Cambiar idioma",
+    "language_changed": "Idioma cambiado a {{language}}",
+    "languages": {
+      "en": "Inglés",
+      "zh": "Mandarín / 汉语",
+      "hi": "Hindi",
+      "es": "Español",
+      "fr": "Francés",
+      "ar": "Árabe",
+      "bn": "Bengalí",
+      "ru": "Ruso",
+      "pt": "Portugués",
+      "ur": "Urdu",
+      "id": "Indonesio",
+      "de": "Alemán",
+      "ja": "Japonés",
+      "sw": "Suajili",
+      "mr": "Maratí",
+      "te": "Telugu",
+      "tr": "Turco",
+      "ta": "Tamil",
+      "vi": "Vietnamita",
+      "ko": "Coreano"
+    }
+  },
+
+  "notePage": {
+    "noteLengthText": "Tienes {{notesLength}} notas",
+    "networkStatusTrue": "en línea",
+    "networkStatusFalse": "sin conexión",
+    "addNotesText": "La lista está vacía",
+    "addNote": "Agregar",
+    "addNoteTitle": "Agregar una nota",
+    "cancel": "Cancelar",
+    "enter_a_name": "Introduce un nombre",
+    "empty": "¡Vacío!"
+  },
+
+  "indivuNote": {
+    "post_note_b": "Publicar esta nota",
+    "placeholder": "Escribe algo...",
+    "addTag": "Agregar una etiqueta",
+    "save": "Guardar",
+    "set_secret": "Hacer secreta",
+    "set_public": "Hacer pública",
+    "copy": "Copiar",
+    "share": "Compartir",
+    "delete": "Eliminar",
+    "title": "Título",
+
+    "deleteAlert": {
+      "title": "Eliminar",
+      "msg": "¿Estás seguro de que deseas eliminar esta nota?",
+      "boxBs": {
+        "no": "No",
+        "yes": "Eliminar"
+      }
+    },
+
+    "shareAlert": {
+      "msg": "No se puede compartir sin contenido.",
+      "title": "Compartir",
+      "ok": "Ok"
+    },
+
+    "clearAlert": {
+      "msg": "¿Estás seguro de que deseas borrar el contenido?",
+      "title": "Eliminar",
+      "ok": "Sí",
+      "no": "No"
+    }
+  },
+
+  "noteSettings": {
+    "acc": "Cuenta",
+    "secret": "Notas secretas"
+  },
+
+  "account": {
+    "edit": "Editar",
+    "create": "Publicar",
+    "no_post": "Aún no has publicado nada.",
+    "posts": "publicaciones",
+    "notes": "notas",
+
+    "options": {
+      "share": "Compartir perfil",
+      "copy_link": "Copiar enlace",
+      "moreSets": "Configuraciones"
+    }
+  },
+
+  "accSettings": {
+    "privacy": "Privacidad",
+    "accessibility": "Accesibilidad",
+    "buy_coffee": "Cómprame un café",
+    "logout": "Cerrar sesión",
+    "deleteAcc": "Eliminar cuenta",
+    "langs": "Idiomas",
+    "update": "Actualizar",
+    "support": "Soporte",
+    "about": "Acerca de",
+
+    "privacyPage": {
+      "privacy_option": {
+        "description": "Si esta opción está habilitada, nadie podrá:",
+        "list": {
+          "item1": "Ver los detalles de tu perfil,",
+          "item2": "Conectarse contigo,",
+          "item3": "Ver tus publicaciones en tu perfil."
+        },
+        "note_title": "Nota:",
+        "note": {
+          "item1": "Tus publicaciones seguirán siendo visibles en el feed.",
+          "item2": "Si eres adolescente, esta opción se activará automáticamente al crear tu cuenta."
+        }
+      }
+    }
+  },
+
+  "accessibility": {
+    "fontsize": "Tamaño del texto"
+  },
+
+  "support": {
+    "report_a_prob": "Reportar un problema",
+    "ask": "Preguntar"
+  },
+
+  "about": {
+    "policy": "Política de privacidad",
+    "term": "Términos de uso"
+  },
+
+  "searchPage": {
+    "placeholder": "Buscar...",
+    "result": "Resultado para",
+    "accounts": "Cuentas",
+    "notes": "Notas",
+    "no_result": "Sin resultados"
+  },
+
+  "create_post": {
+    "add_note": "Agregar nota",
+    "add_tag": "Agregar etiquetas",
+    "add_images": "Agregar imágenes",
+    "add_fontFam": "Familia de fuentes",
+    "post": "Publicar",
+    "msg": "No se encontró ninguna nota",
+    "close": "Cerrar",
+    "create_post": "Crear publicación"
+  },
+
+  "otherUserProfile": {
+    "connect": "Conectar",
+    "connected": "Conectado"
+  },
+
+  "harmfulContents": [
+    "Acoso o intimidación",
+    "Discurso de odio",
+    "Plagio",
+    "Lenguaje ofensivo o abusivo",
+    "Desnudez / contenido sexualmente explícito",
+    "Promoción del suicidio o autolesiones",
+    "Violencia o gore",
+    "Desinformación o noticias falsas",
+    "Actividades ilegales (drogas, armas, piratería)",
+    "Contenido de spam o estafa",
+    "Terrorismo o contenido extremista",
+    "Material de abuso sexual infantil (CSAM)",
+    "Suplantación de identidad",
+    "Malware o enlaces dañinos"
+  ],
+
+  "reportMsgBox": {
+    "reason": "Motivo del reporte",
+    "title": "Antes de reportar",
+    "msg": "Por favor, elige un motivo válido antes de reportar. Tu opinión nos ayuda a mejorar nuestros servicios y mantener esta comunidad agradable para todos. ¡Gracias!",
+    "alert": {
+      "title": "Reportar",
+      "msg": "¿Estás seguro de que deseas reportar esta publicación?",
+      "ok": "Sí",
+      "no": "No"
+    }
+  },
+
+  "post": {
+    "share": "Compartir",
+    "report": "Reportar",
+    "comment": "Comentar",
+    "delete": "Eliminar",
+
+    "alert": {
+      "msg": "¿Estás seguro de que deseas eliminar esta publicación?",
+      "title": "Eliminar",
+      "actions": {
+        "ok": "Sí",
+        "no": "No"
+      }
+    }
+  },
+
+  "editProfile": {
+    "title": "Editar",
+    "choose_a_pic": "Elegir una foto",
+    "placeholder_name": "Nombre",
+    "placeholder_bio": "Biografía",
+    "blank": "¡No debe estar vacío!",
+    "chars": "Debe contener solo 101 caracteres",
+    "role": "Rol",
+    "geust": "Invitado",
+    "roles": [
+      "Invitado",
+      "Escritor",
+      "Poeta",
+      "Lector"
+    ],
+    "submit": "Enviar",
+    "letter": {
+      "username": "nombre de usuario",
+      "email": "correo electrónico",
+      "password": "contraseña",
+      "age": "edad",
+      "msg": "Editar {{email}}, {{pssw}}, {{username}} y {{age}} estará disponible pronto, ya que requieren doble verificación antes del envío."
+    }
+  }
+}

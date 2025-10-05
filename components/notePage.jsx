@@ -1,3 +1,4 @@
+
 import { Search, Heart, Menu, Trash, Plus, User, List, Edit, Settings } from 'lucide-react';
 import styles2 from '../styles/addNote.module.scss';
 import styles1 from '../styles/header.module.scss';
@@ -12,8 +13,10 @@ import { Capacitor } from '@capacitor/core';
 import { Network } from '@capacitor/network';
 import { useRouter } from 'next/router'
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
+import { useTranslation } from 'react-i18next';
 
 export default function home(){
+  const { t } = useTranslation()
   const router = useRouter()
   const [user, setUser] = useState('')
   const [userName, setUserName] = useState('')
@@ -29,7 +32,20 @@ export default function home(){
   const [token, setToken] = useState('')
   const [list, setList] = useState()
   
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    const token = JSON.parse(localStorage.getItem('token'));
+    if (user && token) {
+      setUser(user._id);
+      setUserName(user.name);
+      setToken(token);
+    }
+  }, []);
+  
   const saveNoteData = async () => {
+    if (notes.length == 0) {
+      return;
+    }
     if (Capacitor.isNativePlatform()) {
       try {
         await Filesystem.writeFile({
@@ -52,12 +68,36 @@ export default function home(){
           directory: Directory.Data,
           encoding: Encoding.UTF8,
         });
-        return JSON.parse(file.data);
+        return JSON.parse(file?.data);
       } catch (error) {
         alert('Something went wrong while getting your notes, try again later.');
       }
     }
   };
+  
+  useEffect(() => {
+    let listener;
+    const initNetworkListener = async () => {
+      if (Capacitor.isNativePlatform()) {
+        const status = await Network.getStatus();
+        setNetworkConn(status.connected? t('notePage.networkStatusTrue') : t('notePage.networkStatusFalse'))
+        setMode(status.connected? 'Online' : 'Offline')
+        
+        listener = Network.addListener('networkStatusChange', async (status) => {
+          setNetworkConn(status.connected? t('notePage.networkStatusTrue') : t('notePage.networkStatusFalse'))
+          const offlineNotes = await readFile()
+          if (status.connected) getNotesFunc()
+          setMode(status.connected? 'Online' : 'Offline')
+          if (!status.connected) {
+            setNotes(offlineNotes)
+          }
+        });
+      }
+    }
+    initNetworkListener();
+
+    return () => { if (listener) listener.remove(); };
+  }, [user, token])
   
   useEffect(() => {
     const setOfflineNotes = async () => {
@@ -67,42 +107,12 @@ export default function home(){
       }
     }
     setOfflineNotes()
-  }, [user, token, mode]);
-  
-  useEffect(() => {
-    let listener;
-    const initNetworkListener = async () => {
-      if (Capacitor.isNativePlatform()) {
-        const status = await Network.getStatus();
-        setNetworkConn(status.connected? 'Online' : 'Offline')
-        setMode(status.connected? 'Online' : 'Offline')
-        listener = Network.addListener('networkStatusChange', async (status) => {
-          setNetworkConn(status.connected? 'Online': 'Offline');
-          const offlineNotes = await readFile()
-          if (status.connected) getNotesFunc()
-          setMode(status.connected? 'Online': 'Offline')
-          if (!status.connected) {
-            setNotes(offlineNotes)
-          }
-        });
-      }
-    }
-    initNetworkListener();
-
-    return () => { if (listener) listener.remove(); }
-  }, [user, token])
-  
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    const token = JSON.parse(localStorage.getItem('token'));
-    if (user && token) {
-      setUser(user._id);
-      setUserName(user.name);
-      setToken(token);
-    }
- }, []);
+  }, [token, mode]);
  
   const getNotesFunc = async () => {
+    if (mode == 'Offline') {
+      return;
+    }
     try{
       setIsLoading(true)
       if (!user) return;
@@ -128,33 +138,43 @@ export default function home(){
   }
   
   useEffect(() => {
-    getNotesFunc()
-  }, [user, token, networkConn !== 'Offline'])
+    if (user && token && mode !== 'Offline') {
+      getNotesFunc()
+    }
+  }, [user, token, mode])
   
   const addNote = async () => {
-    try{
-    setIsLoading(true)
-    const res = await fetch('https://notrbackend.vercel.app/api/addNote', {
-      method: 'POST',
-      headers: {
-        'Content-Type' : 'application/json',
-        'token' : token
-      },
-      body: JSON.stringify({
-        title : title.trim(),
-      })
-    });
-    const data = await res.json();
-    if (res.ok) {
-      data.length >= 1? setIsLoading(false) : null
-      getNotesFunc();
+    if (mode === 'Offline') {
+      return;
     }
+    try{
+      setIsLoading(true)
+      const res = await fetch('https://notrbackend.vercel.app/api/addNote', {
+        method: 'POST',
+        headers: {
+          'Content-Type' : 'application/json',
+          'token' : token
+        },
+        body: JSON.stringify({
+          title : title.trim(),
+        })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        data.length >= 1? setIsLoading(false) : null
+        getNotesFunc();
+      }
     }catch(err){
       alert(err)
     }
   };
   
   const deleteNote = async (note, token) => {
+    if (mode == 'Offline') {
+      setNotes((prev) => prev.filter(item => item._id !== note ))
+      await saveNoteData()
+      await readFile()
+    }
     const res = await fetch(`https://notrbackend.vercel.app/api/delete/${note}`, {
       method: 'DELETE',
       headers: {
@@ -168,23 +188,23 @@ export default function home(){
   
   return(
     <div style={{marginTop: '100px'}} className={styles.body}>
-    <div className={styles.networkDiv}>
+    { user && token? <div className={styles.networkDiv}>
       <p>
-        You have {notes.length} notes
+        {t('notePage.noteLengthText', {returnsObject: true, notesLength: notes.length})}
       </p>
       <div style={{
-        border: '1px solid',
-        borderColor: networkConn == 'Online'? '#03b500' : '#ff4646',
+        border: '1px solid #262626',
+        backgroundColor: '#1d1d1d',
       }} className={styles.networkMsg}>
         <div style={{
           outline: networkConn == 'Online'? '1px solid #03b500' : '1px solid #ff4646',
           backgroundColor: networkConn == 'Online'? '#03b500' : '#ff4646'
         }} className={styles.networkPoint}></div>
         <span style={{color: 'darkgray', fontSize: '10px',}}>
-          {networkConn}
+          {networkConn || 'Offline'}
         </span>
       </div>
-    </div>
+    </div> : ''}
     
       { user? 
         <div className={styles.notesContainer}>
@@ -192,9 +212,11 @@ export default function home(){
             <Note 
               noteId={note._id} 
               tag={note.tag}
-              key={i} 
+              key={i}
+              networkStatus={mode}
+              token={token}
               title={`${note.title.substring(0, 20)}`} 
-              note={note.note.length <= 0? 'Empty' : note?.note?.length > 35? `${note.note.substring(0, 35)}...` : `${note.note}`}
+              note={note.note.length <= 0? t('notePage.empty') : note?.note?.length > 35? `${note.note.substring(0, 35)}...` : `${note.note}`}
               time={`${note.updatedAt.substring(0, 10)} • ${userName}`}
               deleteFunc={<Trash 
                 size={15}
@@ -213,7 +235,7 @@ export default function home(){
       {user && token? <Plus onClick={() => {
         user != null? setAdd(true) : null
       }} style={{
-        bottom: networkConn == 'Offline'? '30px' : '65px'
+        bottom: mode == 'Offline'? '30px' : '65px'
       }} className={styles.add}/> : ''}
       
       { user && notes.length < 1?
@@ -221,7 +243,7 @@ export default function home(){
           <Plus onClick={() => {
             setAdd(true)
           }} size={50} className={styles.icon}/>
-          <p className={styles.text}>Empty list, add new notes</p>
+          <p className={styles.text}>{t('notePage.addNotesText')}</p>
         </div>
       : '' }
       
@@ -235,7 +257,7 @@ export default function home(){
           <strong style={{
             fontSize: '20px',
             margin: '25px 0 0 0',
-          }}>Add a note</strong>
+          }}>{t('notePage.addNoteTitle')}</strong>
           {user? 
             <input 
               onChange={(e) => setTitle(e.target.value)} 
@@ -246,7 +268,7 @@ export default function home(){
                 }
               }}
               className={styles2.input} type="text" 
-              placeholder="Enter a name"
+              placeholder={t('notePage.enter_a_name')}
               style={{
                 marginTop: user? '20px' : '16.5px',
               }}
@@ -258,13 +280,13 @@ export default function home(){
             <button onClick={() => {
               setAdd(false)
             }} className={styles2.btn} type='submit'>
-              Close
+              {t('notePage.cancel')}
             </button>
             <button onClick={() => {
               title? addNote() : ''
               title? setAdd(false) : ''
             }} className={styles2.btn} type='submit'>
-              Submit
+              {t('notePage.addNote')}
             </button>
           </div>
           <p style={{

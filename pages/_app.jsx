@@ -5,13 +5,32 @@ import { App } from '@capacitor/app';
 import { useRouter } from 'next/router';
 import { Capacitor } from '@capacitor/core';
 import { StatusBar, Style } from '@capacitor/status-bar';
+import Header from '../components/header.jsx'
+import '../i18n';
+import { Preferences } from '@capacitor/preferences';
+
 
 export default function app({Component, pageProps}){
   const [size, setSize] = useState();
+  const [theme, setTheme] = useState('');
   
   useEffect(() => {
     setSize(localStorage.getItem('size') || 0)
   }, [!size]);
+  
+  useEffect(() => {
+    const loadLang = async () => {
+      const { value } = await Preferences.get({ key: 'language' });
+      if (value) {
+        import('i18next').then(i18n => i18n.default.changeLanguage(value));
+      }
+    };
+    loadLang();
+  }, []);
+  
+  useEffect(() => {
+    setTheme(localStorage.getItem('theme') || 'dark')
+  }, [theme]);
   
   useEffect(() => {
     StatusBar.setOverlaysWebView({ overlay: true });
@@ -40,6 +59,7 @@ export default function app({Component, pageProps}){
         : size == 4 ? '22px' 
         : '18px',
     }}>
+      
       <Component {...pageProps}/> 
       <Head>
         <link rel="icon" type="image/png" href="/notr.png"/>

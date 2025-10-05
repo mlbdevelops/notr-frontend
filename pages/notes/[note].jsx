@@ -20,6 +20,7 @@ import {
   Key,
   EllipsisVertical
 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { Clipboard as CapClip } from '@capacitor/clipboard';
 import { Share as CapShare } from '@capacitor/share';
 import Link from 'next/link'
@@ -29,10 +30,11 @@ import Question from '../../components/confirm.jsx'
 import Options from '../../components/litlePopup.jsx'
 import styles2 from '../../styles/litlePopup.module.scss';
 import Loader from '../../components/loading_spinner.jsx';
-
+import { Capacitor } from '@capacitor/core'
 
 export default function note(){
   const router = useRouter();
+  const { t } = useTranslation();
   const { note } = router.query;
   const [notes, setNotes] = useState({});
   const [title, setTitle] = useState('');
@@ -189,24 +191,22 @@ Notr - https://notr-sigma.vercel.app`
       console.log(error)
     }
   };
-  
-  const pasteFunc = async () => {
-    if (navigator.clipboard?.readText()) {
-      try {
-        const clbTxt = await navigator.clipboard.readText();
-        setNewNote((prev) => prev + clbTxt)
-      } catch (error) {
-        console.log(error)
-      }
-    }else{
-      try {
-        const { value } = await CapClip.read();
-        setNewNote((prev) => prev + value)
-      } catch (error) {
-        console.error(error);
-      }
+
+const pasteFunc = async () => {
+  try {
+    if (Capacitor.isNativePlatform()) {
+      const { value } = await CapClip.read();
+      if (value) setNewNote((prev) => prev + value);
+      else console.log('Clipboard empty!');
+    } else {
+      const text = await navigator.clipboard.readText();
+      if (text) setNewNote((prev) => prev + text);
+      else console.log('Clipboard empty!');
     }
-  };
+  } catch (error) {
+    console.error('Clipboard error:', error);
+  }
+};
   
   const autosaveFunc = () => {
     setIsTyping(true)
@@ -244,7 +244,7 @@ Notr - https://notr-sigma.vercel.app`
                 saveNote()
                 router.push(`/create/note?note=${notes?._id}`)
               }}
-              className={styles.postThis}>Post this note</p>
+              className={styles.postThis}>{t('indivuNote.post_note_b')}</p>
           </div>,
           <EllipsisVertical size={20} onClick={() => setIsOptions(true)} className={styles.elli}/>
         ]}
@@ -258,18 +258,18 @@ Notr - https://notr-sigma.vercel.app`
                 setIsOptions(false)
               }} className={styles.optionName}>
               <Copy size={20}/>
-              Copy
+              {t('indivuNote.copy')}
             </span>
             <span onClick={() => {
               setIsDelete(true)
               setIsOptions(false)
             }} className={styles.optionName}>
               <Trash size={20} />
-              Delete
+              {t('indivuNote.delete')}
             </span>
             <span onClick={shareNote}  className={styles.optionName}>
               <Share size={20}/>
-              Share
+              {t('indivuNote.share')}
             </span>
             <span onClick={() => {
               setIsOptions(false)
@@ -278,7 +278,7 @@ Notr - https://notr-sigma.vercel.app`
               privateUpdate()
             }} className={styles.optionName}>
               <Key  size={20}/>
-              {isPrivate? 'Set as public' : 'Set as secret'}
+              {isPrivate? t('indivuNote.set_public') : t('indivuNote.set_secret')}
             </span>
           </div>
         </div>
@@ -286,30 +286,30 @@ Notr - https://notr-sigma.vercel.app`
       
       {
         !isShare?
-        <Question title='Share' msg='Cannot share without a note!' actions={<p onClick={() => setIsShare(true)}>Ok</p>}
+        <Question title={t('indivuNote.shareAlert.title')} msg={t('indivuNote.shareAlert.msg')} actions={<p onClick={() => setIsShare(true)}>{t('indivuNote.shareAlert.ok')}</p>}
       />
       : null}
       
       {
         clear?
-        <Question title='Clear' msg='Clear the content?' actions={[
+        <Question title={t('indivuNote.clearAlert.title')} msg={t('indivuNote.clearAlert.msg')} actions={[
           <p onClick={() => setClear(false)}>
-            No
+            {t('indivuNote.clearAlert.no')}
           </p>,
           <p onClick={() => {
             setClear(false)
             setNewNote('')
           }}>
-            Yes
+            {t('indivuNote.clearAlert.ok')}
           </p>
         ]}/>
       : null}
       
       {
         isDelete?
-        <Question msg='Are you sure to delete this note' title='Delete note' actions={[
-          <p onClick={() => setIsDelete(false)}>No</p>,
-          <p onClick={deleteNote}>Yes</p>
+        <Question msg={t('indivuNote.deleteAlert.msg')} title={t('indivuNote.deleteAlert.title')} actions={[
+          <p onClick={() => setIsDelete(false)}>{t('indivuNote.deleteAlert.boxBs.no')}</p>,
+          <p onClick={deleteNote}>{t('indivuNote.deleteAlert.boxBs.yes')}</p>
         ]}/>
       : null}
       
@@ -357,7 +357,7 @@ Notr - https://notr-sigma.vercel.app`
       
       <div className={styles.noteEditingContainer}> 
         <input 
-          placeholder='Title'
+          placeholder={t('indivuNote.title')}
           className={styles.input}
           type='text' 
           onChange={(e) => setNewTitle(e.target.value)}
@@ -372,13 +372,13 @@ Notr - https://notr-sigma.vercel.app`
         }}>
           <div style={{display:'flex', justifyContent: 'center', alignItems: 'center',}}>
             <p className={styles.time}>{notes?.updatedAt?.substring(0, 10)} </p>
-            <span className={styles.tagText} onClick={() => setTagPopUp(true)}>{tag? tag : notes?.tag? notes?.tag : 'Add a tag'}</span>
+            <span className={styles.tagText} onClick={() => setTagPopUp(true)}>{tag? tag : notes?.tag? notes?.tag : t('indivuNote.addTag')}</span>
           </div>
           <button onClick={() => {
             saveNote()
             setIsSave(true)
           }} className={styles.saveButton}>
-            { isSave? 'saving...' : isTyping? 'Typing...' : 'save'}
+            { isSave? 'saving...' : isTyping? 'Typing...' : t('indivuNote.save')}
           </button>
         </div>
         <div style={{
@@ -419,7 +419,7 @@ Notr - https://notr-sigma.vercel.app`
         <div className={styles.noteDiv}>
           <textarea 
             ref={refNote}
-            placeholder='Write something...'
+            placeholder={t('indivuNote.placeholder')}
             cols={35}
             className={styles.noteInput}
             rows={40}
