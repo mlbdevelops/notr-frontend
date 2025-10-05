@@ -195,7 +195,7 @@ export default function settings(){
         </div>
         { /*buy_me_a_coffee*/ }
         <div onClick={() => {
-          router.push('/accountSettings/buy_me_a_coffee.jsx')
+          router.push('/accountSettings/buy_me_a_coffee')
         }} className={styles.component}>
           <span className={styles.span}>
             <HandHeart size={20}/>
