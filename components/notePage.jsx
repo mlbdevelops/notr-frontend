@@ -197,8 +197,8 @@ export default function home(){
         backgroundColor: '#1d1d1d',
       }} className={styles.networkMsg}>
         <div style={{
-          outline: networkConn == 'Online'? '1px solid #03b500' : '1px solid #ff4646',
-          backgroundColor: networkConn == 'Online'? '#03b500' : '#ff4646'
+          outline: mode == 'Online'? '1px solid #03b500' : '1px solid #ff4646',
+          backgroundColor: mode == 'Online'? '#03b500' : '#ff4646'
         }} className={styles.networkPoint}></div>
         <span style={{color: 'darkgray', fontSize: '10px',}}>
           {networkConn || 'Offline'}
