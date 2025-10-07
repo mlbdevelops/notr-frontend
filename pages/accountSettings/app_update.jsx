@@ -1,4 +1,5 @@
-  import { Filesystem, Directory } from '@capacitor/filesystem';
+import { useState } from 'react';
+import { Filesystem, Directory } from '@capacitor/filesystem';
 import { FileOpener } from '@capacitor-community/file-opener';
 import { Device } from '@capacitor/device';
 import Header from '../../components/header.jsx';
@@ -10,14 +11,25 @@ import styles from '../../styles/update.module.scss';
 export default function AppUpdate() {
   const router = useRouter();
   const { t } = useTranslation();
+
+  const [progress, setProgress] = useState(0);
+  const [downloading, setDownloading] = useState(false);
   
-  const linkForD = 'https://pro-app-storage.s3.amazonaws.com/builds/ffae40c5-f93b-4491-b48b-943bbfa18a2a-release.apk?AWSAccessKeyId=ASIAUUWEHETWWELFZA3G&Signature=KlqXfGK9Nh4cAV2%2BPmrDB4%2FAIIU%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEOP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCIFrP%2FQxCyYPCGkxPQaIFD21ZzyqrDktp53HEidiKAoNAAiB7H4Xtd6p5MWzxQ4phpU1GGlQ6ahjTNffwDmiSbJTTFiqbBAh8EAAaDDMxOTMxMjgzMTcyNSIMGQa1sQER3NGXgbiYKvgDLuVwaP7WvMyawrenLgMhhC6l2iEHjWbfkW4yFlgU%2BU4bEImmeGzmki4F4TakhsUdINZBxmZhp56VDQSzHLOu4COSv%2FnKJlaiRlzqW%2FUd1lSuWgAL22sBrlNHy%2BEjT4ZSnGwtErVL0L4WXEUkihEiTFCp4yuW%2F2eUNMqzvwzDg40VX0zD4%2Bjwq%2FQZXUn4IlU%2Fz1NAwzAd04v2KIyNSq%2FDCw9bgJt%2BTOzQ%2BIjSact0ZQ7x4vS8pDNz2pdK4zRd1lM5b%2BCpdfoDwoJbgn2nmpZ40GGc67ud67Sgbpyoc5%2F672V5HQhP8s80tw8n6EKpaS1kTtwuY%2B%2F8GC1NjHpxxK72QPtrW51bXdrVkN16MGIUr1QxNQBDxjgcN3b5UYwYp7dxyH0ehsGvoGU3QUS7CCKP7Y0fwKhNFlW%2Fgwb2aO4FyINqp%2Fzh8Fc30EyJ2wuo%2BwbFXyisUVEXAHuPUB0Zrv%2Fs0cg9fdUeCxDXkZwZxHxdczIQ1Ls023r0VcRbrMlDLY%2F2Ugdi%2BJdcHD%2Fth5sPaGuvirc%2BcFs4NTkRu2vnpMoX7KAMIwxnBtgTzQ5b%2FwL3%2FYkHWJP12QCbwXmkCg2Dx%2B3EWXzT06062tzCs1Ix5PMg004oEhrdcYSzFGay956t9JPRtTmE6gUwv1oLOXU9okEtGLuuJItVEQG4MMuFi8cGOqcBu3tUBb5atNK6eDNPIHKuwHsTnygnbDiePCUbfOGHu4J3x3sU8LrCgeEAPZejFAzGQ3IjrAnSWgc8ugKzwwGhy8LKYsWydq7vgssLPYf%2FGBvh4NJCGll14qWtBiD4%2FnUE0eFDmapqnipFE5aG8BKZC9sYQQ70ihgyKCTIDdwwiyWAqNp6Hg33%2Bkq7nNvJ8H0Uf39QDD%2FFhlP%2FL%2Fx8U0EXvVvAs3VXBWM%3D&Expires=1759700855'
-  
-  // Optional: test trigger
-  const tata = false;
-  if (tata) {
-    downloadAndInstallApk('https://d.apkpure.com/b/APK/com.facebook.lite?versionCode=511500560');
-  }
+  const apkUrl =
+    'https://pro-app-storage.s3.amazonaws.com/builds/a41668d5-47ce-44e3-a46a-ad7047f15d19-release.apk?AWSAccessKeyId=ASIAUUWEHETWYYI7UXEO&Signature=RrT9v8Urd7KIemgD1mZpe6f5rU4%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEAkaCXVzLXdlc3QtMiJIMEYCIQDlndwpSp2jhyt5Tp%2FK5k0e7DFPCoOycmSMo8eiRKxUSgIhAIXbXGKIHT5ySMm1Rl70VpobsrNuZw2ijzV3pqznuhrPKqQECKL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQABoMMzE5MzEyODMxNzI1IgwfIjpVEqeAxNpuVp0q%2BAOR2NmCkWMmp5Wv0kUy8XbhGslsGGeMH8WBzgnepQFOMJ%2Ba7v9FmDs7sIN%2Fj%2BJPJ1SrseH9%2BsZGvY9x32tp6mJ842Adq5bJ8gtcpnZ3BJQj%2FNeV7ER9MI2saoO8A%2FkbLvAt8LxIFcKOGVacgM6lzFD5yz%2FLIQoGnAfZAza%2FDx5lWhZkUIO8u%2BeywKPM3OR%2B7w6LkhU%2BuhWk%2FVruxnO33lzOBBJc%2Fpv94xW%2F4RCgJPeUGBxD75Se3YJHan9uFLlsn5p6LouyU6990Wpw%2B%2F2D4kQvdOZbj%2F5mfxBICWoM%2F4xqLfiaNYU0euz2M0ixzhz4X74DpACE2Q19b1EJxdYUFI4tFWy9Nxk2T0jwAhjKkvvM53oI%2BWqGzIT5Tz25epncjbMU96PGiwdBfAAYvCxk0Oi7ebCN1kot6TjXB69Fnthq5Px5ffob7BP%2F1tVL5uw4TjaPACM00yCbLNKvKR4PZTuzBfkoc7rKP3wavOuVMlXRur9EZoL5GnUYHGvSiOacuvCzsGdo8uOU8VlgEaDuWndPLOjmaPFHKhqViD%2F9nFIEO2Yidt48BOY8YJZHDJpD3lsfYniFyswZawAzidOVKajKwLXznrHvd26qr8Ws5qzxjTZLZ4ehFoAZ7idE%2B5MJEYGRoVzU3TAqfDJ8vE510kjjRd22B7nW4rYwkK6TxwY6pQEVFcdK4N7Uc8ckKR2HCIDEEHN3gOWgghMrNG6zjd8pQuNgwKcyoVzjtn4SeWjRnmz8ifDUn1fQEuDXdK1EppEZW0RcgDkUtq0SJu2EAl3a2vD90lYisljXUZZtCUv%2BDQTV1D8rG0Dh%2BQ6dhl56YnwXr%2B%2BVwkH30HDUElUKexZo4wmRyN6w1wMRRQWaVZgQ%2BY0hcqhNiw%2BIxZ6qD4DUhsEWOcVx3Wc%3D&Expires=1759833499';
+
+  const handleDownload = async () => {
+    if (!confirm('A new version is available. Keep the app open while it downloads.')) return;
+    setDownloading(true);
+    try {
+      await downloadAndInstallApk(apkUrl, setProgress);
+    } catch (err) {
+      alert('Update failed: ' + err.message);
+    } finally {
+      setDownloading(false);
+      setProgress(0);
+    }
+  };
 
   return (
     <div className={styles.body}>
@@ -32,7 +44,7 @@ export default function AppUpdate() {
       <div className={styles.updateMsg}>
         <strong className={styles.updateTitle}>App update available</strong>
         <small className={styles.msg}>
-          A new app update is available, read the section below to know what's new in Notr.
+          A new app update is available. Read below to know what's new in Notr.
         </small>
       </div>
 
@@ -47,19 +59,15 @@ export default function AppUpdate() {
           <li>
             Enhanced search experience
             <small>
-              Post discovery just got smarter — you can now search posts using keywords in notes
-              for faster, more accurate results.
+              Post discovery just got smarter — you can now search posts using keywords in notes.
             </small>
           </li>
-
           <li>
             Performance & stability improvement
             <small>
-              Core optimizations make the app smoother, reduce memory usage, and improve
-              responsiveness across all devices.
+              Core optimizations make the app smoother, reduce memory usage, and improve responsiveness.
             </small>
           </li>
-
           <li>
             Refined user interface
             <small>Subtle design enhancements for a more polished look.</small>
@@ -78,81 +86,90 @@ export default function AppUpdate() {
       <small className={styles.msg}>This version will be obsolete in 3 days.</small>
 
       <button
-        onClick={() =>
-          downloadAndInstallApk(linkForD)
-        }
+        onClick={handleDownload}
         className={styles.downloadButton}
+        disabled={downloading}
       >
-        Download update
+        {downloading ? `Downloading... ${progress}%` : 'Download update'}
       </button>
+
+      {downloading && (
+        <div style={{ marginTop: 10, width: '100%', background: '#ddd', borderRadius: 5 }}>
+          <div
+            style={{
+              width: `${progress}%`,
+              height: 8,
+              background: '#4caf50',
+              borderRadius: 5,
+              transition: 'width 0.2s',
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 }
 
 /* -----------------------------
-   CHECK FOR UPDATE (Optional)
+   DOWNLOAD & INSTALL APK WITH PROGRESS
 --------------------------------*/
-async function checkForUpdate() {
+async function downloadAndInstallApk(apkUrl, setProgress) {
   try {
-    const response = await fetch('https://notrbackend.vercel.app/notr/version.json');
-    const data = await response.json();
-    const info = await Device.getInfo();
-    const currentVersion = info.appVersion || '1.0.0';
+    console.log('Starting APK download:', apkUrl);
 
-    if (currentVersion !== data.latestVersion) {
-      if (confirm(`New version ${data.latestVersion} available. Download now?`)) {
-        await downloadAndInstallApk(data.apkUrl);
-      }
-    }
-  } catch (err) {
-    console.error('Update check failed:', err);
-  }
-}
+    // Fetch with native Http plugin for progress
+    // Using XMLHttpRequest for progress in JS
+    await new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', apkUrl);
+      xhr.responseType = 'blob';
 
-/* -----------------------------
-   DOWNLOAD & INSTALL APK
---------------------------------*/
-async function downloadAndInstallApk(apkUrl) {
-  try {
-    console.log('Downloading APK from:', apkUrl);
+      xhr.onprogress = (event) => {
+        if (event.lengthComputable) {
+          const percent = Math.floor((event.loaded / event.total) * 100);
+          setProgress(percent);
+        }
+      };
 
-    // Fetch APK as blob
-    const response = await fetch(apkUrl);
-    const blob = await response.blob();
-    
-    // Convert blob to Base64
-    const base64Data = await new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onloadend = () => resolve(reader.result.split(',')[1]);
-      reader.onerror = reject;
-      reader.readAsDataURL(blob);
+      xhr.onload = async () => {
+        if (xhr.status !== 200) return reject(new Error('Download failed'));
+
+        const blob = xhr.response;
+        const arrayBuffer = await blob.arrayBuffer();
+        const uint8Array = new Uint8Array(arrayBuffer);
+
+        // Convert to base64
+        let binary = '';
+        for (let i = 0; i < uint8Array.length; i++) {
+          binary += String.fromCharCode(uint8Array[i]);
+        }
+        const base64Data = btoa(binary);
+
+        const filePath = 'notr_update.apk';
+        await Filesystem.writeFile({
+          path: filePath,
+          data: base64Data,
+          directory: Directory.External,
+        });
+
+        const fileUri = await Filesystem.getUri({
+          path: filePath,
+          directory: Directory.External,
+        });
+
+        await FileOpener.open({
+          filePath: fileUri.uri,
+          mimeType: 'application/vnd.android.package-archive',
+        });
+
+        resolve();
+      };
+
+      xhr.onerror = () => reject(new Error('Network error during download'));
+      xhr.send();
     });
-
-    // Save APK file
-    const filePath = 'notr_update.apk';
-    await Filesystem.writeFile({
-      path: filePath,
-      data: base64Data,
-      directory: Directory.External,
-    });
-
-    // Get native URI
-    const fileUri = await Filesystem.getUri({
-      path: filePath,
-      directory: Directory.External,
-    });
-
-    console.log('Saved APK at:', fileUri.uri);
-
-    // Open APK file to trigger installation prompt
-    await FileOpener.open({
-      filePath: fileUri.uri,
-      mimeType: 'application/vnd.android.package-archive',
-    });
-    
-    console.log('Installation prompt opened.')
   } catch (err) {
     console.error('APK download/install failed:', err);
-    alert('Update failed: ' + err.message);
+    throw err;
   }
 }
