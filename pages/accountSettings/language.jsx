@@ -85,7 +85,7 @@ export default function report(){
               style={{ fontWeight: selectedLang === code ? 'bold' : 'normal' }}
             >
               {name}
-              {selectedLang === code && <Check className={styles.check} size={10}/>}
+              {selectedLang === code && <Check className={styles.check} size={12}/>}
             </p>
           ))}
       </div>

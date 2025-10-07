@@ -1,0 +1,50 @@
+.blur{
+  height: 100dvh;
+  width: 100dvw;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+  top: 0;
+  position: fixed;
+  
+  .box{
+    height: 208px;
+    width: auto;
+    max-width: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #1d1d1d;
+    border: 1px solid #262626;
+    border-radius: 20px;
+    padding: 20px 10px;
+    padding-bottom: 10px;
+    
+    .title{
+      font-weight: bold;
+      font-size: 23px;
+    }
+    
+    .descr{
+      text-align: center;
+    }
+    
+    .small{
+      color: darkgray;
+      text-align: center;
+    }
+    
+    .actions{
+      display: flex;
+      width: 100%;
+      gap: 10px;
+      justify-content: space-evenly;
+      border: none;
+      border-top: 1px solid #262626;
+      padding: 0;
+      padding-top: 15px;
+    }
+  }
+}

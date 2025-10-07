@@ -1,4 +1,4 @@
-import { ChevronLeft, Trash, User, ChevronDown } from 'lucide-react';
+import { ChevronLeft, Trash, User, ChevronDown, Images } from 'lucide-react';
 import styles from '../styles/editProfile.module.scss';
 import Header from '../components/header.jsx';
 import { useRouter } from 'next/router';
@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 export default function EditProfile(){
   const router = useRouter();
   const { t } = useTranslation();
-  
+  const lh = 'http://localhost:3001'
   const [username, setUsername] = useState('');
   const [name, setName] = useState('');
   const [role, setRole] = useState('');
@@ -20,6 +20,8 @@ export default function EditProfile(){
   const [user, setUser] = useState('');
   const [token, setToken] = useState('');
   const [profile, setProfile] = useState();
+  const [coverUrl, setCoverUrl] = useState('');
+  const [actualCover, setActualCover] = useState('');
   
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem('user'))?._id);
@@ -40,6 +42,7 @@ export default function EditProfile(){
         setName(data?.user.name)
         setBio(data?.user.bio)
         setProfile(data?.user.photoUrl)
+        setCoverUrl(data?.user?.coverUrl)
         setIsSubmitting(false)
       }
     };
@@ -47,7 +50,6 @@ export default function EditProfile(){
   }, [user && token])
   
   const usersRoles = t('editProfile.roles', {returnObjects: true})
-  console.log(usersRoles)
   
   const chooseProfile = e => {
     e.preventDefault()
@@ -57,33 +59,51 @@ export default function EditProfile(){
     }
   }
   
-  const updateData = async () => {
-    //return console.log(String(profile))
-    if ((!username || !name) || (!username && !name)) {
-      return;
-    }
-    setIsSubmitting(true)
-    const form = new FormData();
-    form.append('name', name)
-    form.append('username', username)
-    form.append('bio', bio)
-    form.append('role', role)
-    typeof profile == 'string'? form.append('actualPhoto', profile) : null
-    form.append('file', typeof profile == 'object'? profile : String(profile))
-    const res = await fetch(`https://notrbackend.vercel.app/api/users/editProfile`, {
-      method: 'PATCH',
-      headers: {
-        'token' : token
-      },
-      body: form
-    })
-    const data = await res.json()
-    if (res.ok) {
-      localStorage.setItem('user', JSON.stringify(data.newData))
-      setIsSubmitting(false)
-      router.back()
+  const setCover = e => {
+    e.preventDefault()
+    const file = Array.from(e.target.files)
+    if (file[0]) {
+      setCoverUrl(file[0])
     }
   }
+  
+  const updateData = async () => {
+  if ((!username || !name) || (!username && !name)) {
+    return;
+  }
+  setIsSubmitting(true);
+  const form = new FormData();
+  form.append('name', name);
+  form.append('username', username);
+  form.append('bio', bio);
+  form.append('role', role);
+
+  // ✅ Send the actual cover URL or file depending on type
+  if (typeof coverUrl === 'string') {
+    form.append('actualCover', coverUrl);
+  } else if (typeof coverUrl === 'object') {
+    form.append('cover', coverUrl);
+  }
+
+  // ✅ Keep your profile logic unchanged
+  if (typeof profile === 'string') {
+    form.append('actualPhoto', profile);
+  }
+  form.append('file', typeof profile === 'object' ? profile : String(profile));
+  
+  const res = await fetch(`${lh}/api/users/editProfile`, {
+    method: 'PATCH',
+    headers: { 'token': token },
+    body: form
+  });
+  
+  const data = await res.json();
+  if (res.ok) {
+    localStorage.setItem('user', JSON.stringify(data.newData));
+    setIsSubmitting(false);
+    router.back();
+  }
+};
   
   return(
     <div 
@@ -101,7 +121,6 @@ export default function EditProfile(){
           <ChevronLeft onClick={() => router.back()}/>
         }
       />
-      
       {isSubmitting? <Loader loaderColor='white'/> : ''}
       <form 
         className={styles.form}
@@ -112,12 +131,22 @@ export default function EditProfile(){
         onSubmit={(e) => e.preventDefault()}
         onSubmit={() => alert('Salut')}
       >
+      <div className={styles.cover}>
+        <input onChange={setCover} type='file' className={styles.coverSelect} accept='image/*'/>
+        {coverUrl? <img className={styles.coverPic} src={typeof coverUrl == 'object'? URL.createObjectURL(coverUrl) : coverUrl} alt=""/> : <Images className={styles.noCover} size={30}/>}
+        {coverUrl? <Trash 
+          size={18} 
+          onClick={() => {
+            coverUrl? setCoverUrl('removed') : null
+          }}
+          className={styles.deleteCover}/> : ''}
+      </div>
+      
       <div className={styles.choose}>
         {profile != 'removed' && !profile == ''?
           <img className={styles.photo} src={typeof profile == 'object'? URL.createObjectURL(profile) : profile} height={150} width={150}/>
         : <User size={40} className={styles.profileIcon}/>}
-        
-        {profile?
+        {profile && profile != 'removed'?
           <Trash
             size={18} 
             onClick={() => {
@@ -125,13 +154,11 @@ export default function EditProfile(){
             }}
             className={styles.trashI}/> 
         : ''}
-        
         <div style={{
           display: 'flex',
           alignItems: 'center',
           flexDirection: 'column',
         }}>
-        
         <button type='reset' className={styles.uploadB}>
           {t('editProfile.choose_a_pic')}
           <input 
@@ -145,7 +172,6 @@ export default function EditProfile(){
         </div>
       </div>
       </form>
-      
       <div className={styles.inpBody}>
         {/* username */}
         

@@ -131,7 +131,7 @@
     
     "deleteAlert": {
       "title": "Effacer",
-      "msg": "Est-vous sûr de supprimer cette note?",
+      "msg": "Êtes-vous sûr de vouloir supprimer cette note?",
       "boxBs": {
         "no" : "Non",
         "yes" : "Effacer"
@@ -291,7 +291,7 @@
     "role": "Rôle",
     "geust": "Invité",
     "roles": [
-      "Invité",
+      "Invité(e)",
       "Écrivain(e)",
       "Poete",
       "Lecteur"

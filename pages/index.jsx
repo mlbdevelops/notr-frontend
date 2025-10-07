@@ -64,7 +64,7 @@ export default function home(){
  }, []);
  
   useEffect(() => {
-    const tab = JSON.parse(localStorage.getItem('tab'));
+    const tab = JSON.parse(sessionStorage.getItem('tab'));
     if (user) {
       if (tab) {
         setTabIndex(tab);
@@ -75,7 +75,7 @@ export default function home(){
   }, [user]);
   
  useEffect(() => {
-    tabIndex != 0? localStorage.setItem('tab', tabIndex) : null;
+    tabIndex != 0? sessionStorage.setItem('tab', tabIndex) : null;
     if (scrollPositions[tabIndex] !== undefined) {
       window.scrollTo(0, scrollPositions[tabIndex])
     } else {

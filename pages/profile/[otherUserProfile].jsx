@@ -9,7 +9,8 @@ import {
   Camera,
   Menu,
   Check,
-  Lock
+  Lock,
+  Images
 } from 'lucide-react';
 import { useEffect, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -117,7 +118,7 @@ export default function account(){
     <div style={{marginTop: '95px'}} className={styles.body}>
       <Header
         leftIcon={<ChevronLeft style={{padding:'10px'}} onClick={() => router.back()}/>}
-        text={<small>{user?.username}</small>}
+        text={<small>{user?.name || '•••'}</small>}
         isTransparent={true}
         blur={'15px'}
       />
@@ -130,23 +131,23 @@ export default function account(){
       
       {isLoading? <Loader loaderColor='white'/> : ''}
       
+      <div className={styles.cover}>
+        {user?.coverUrl? <img className={styles.coverPic} src={user?.coverUrl} alt=""/> : <Images className={styles.noCover} size={30}/>}
+        <div className={styles.profileDiv}>
+          {user?.photoUrl? <img onClick={() => user?.isPrivate? null : setIsPicShown(true)} src={user?.photoUrl} height={80} width={80} className={styles.profilePic}/> : <User size={30} className={styles.userIcon}/>}
+          <span className={styles.role}>
+            {user?.role || 'Geust'}
+          </span>
+        </div>
+      </div>
+      
       <div className={styles.container}>
         <div className={styles.info}>
-          <span className={styles.name}>
-            {user?.name || ' •••'}
-          </span>
           <span className={styles.username}>
             @{user?.username || ' •••'}
           </span>
           <span className={styles.conn}>
             {connections} connections
-          </span>
-        </div>
-        
-        <div className={styles.profileDiv}>
-          {user?.photoUrl? <img onClick={() => user?.isPrivate? null : setIsPicShown(true)} src={user?.photoUrl} height={80} width={80} className={styles.profilePic}/> : <User size={30} className={styles.userIcon}/>}
-          <span className={styles.role}>
-            {user?.role || 'Geust'}
           </span>
         </div>
         

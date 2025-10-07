@@ -36,13 +36,13 @@ export default function settings(){
   const [autoSave, setAutoSave] = useState('')
   const [user, setUser] = useState('')
   const [token, setToken] = useState('')
+  const [update, setUpdate] = useState(true)
   
   useEffect(() => {
     const userid = JSON.parse(localStorage.getItem('user'))?._id || ''
     const token = JSON.parse(localStorage.getItem('token')) || ''
     setToken(token)
   }, [])
-  
   
   const logOut = () => {
     localStorage.removeItem('user')
@@ -191,7 +191,12 @@ export default function settings(){
             }} size={12.5}/>
             {t('accSettings.update')}
           </span>
-          <ChevronRight/>
+          <div style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
+            {update? <span style={{padding: '7px', borderRadius: '50px', backgroundColor: '#6a69fe',}}>
+              
+            </span> : ''}
+            <ChevronRight/>
+          </div>
         </div>
         { /*buy_me_a_coffee*/ }
         <div onClick={() => {
