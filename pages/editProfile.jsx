@@ -68,42 +68,38 @@ export default function EditProfile(){
   }
   
   const updateData = async () => {
-  if ((!username || !name) || (!username && !name)) {
-    return;
-  }
-  setIsSubmitting(true);
-  const form = new FormData();
-  form.append('name', name);
-  form.append('username', username);
-  form.append('bio', bio);
-  form.append('role', role);
-
-  // ✅ Send the actual cover URL or file depending on type
-  if (typeof coverUrl === 'string') {
-    form.append('actualCover', coverUrl);
-  } else if (typeof coverUrl === 'object') {
-    form.append('cover', coverUrl);
-  }
-
-  // ✅ Keep your profile logic unchanged
-  if (typeof profile === 'string') {
-    form.append('actualPhoto', profile);
-  }
-  form.append('file', typeof profile === 'object' ? profile : String(profile));
-  
-  const res = await fetch(`${lh}/api/users/editProfile`, {
-    method: 'PATCH',
-    headers: { 'token': token },
-    body: form
-  });
-  
-  const data = await res.json();
-  if (res.ok) {
-    localStorage.setItem('user', JSON.stringify(data.newData));
-    setIsSubmitting(false);
-    router.back();
-  }
-};
+    if ((!username || !name) || (!username && !name)) {
+      return;
+    }
+    setIsSubmitting(true);
+    const form = new FormData();
+    form.append('name', name);
+    form.append('username', username);
+    form.append('bio', bio);
+    form.append('role', role);
+    if (typeof coverUrl === 'string') {
+      form.append('actualCover', coverUrl);
+    } else if (typeof coverUrl === 'object') {
+      form.append('cover', coverUrl);
+    }
+    if (typeof profile === 'string') {
+      form.append('actualPhoto', profile);
+    }
+    form.append('file', typeof profile === 'object' ? profile : String(profile));
+    
+    const res = await fetch(`https://notrbackend.vercel.app/api/users/editProfile`, {
+      method: 'PATCH',
+      headers: { 'token': token },
+      body: form
+    });
+    
+    const data = await res.json();
+    if (res.ok) {
+      localStorage.setItem('user', JSON.stringify(data.newData));
+      setIsSubmitting(false);
+      router.back();
+    }
+  };
   
   return(
     <div 

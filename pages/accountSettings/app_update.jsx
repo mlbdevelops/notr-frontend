@@ -149,8 +149,8 @@ async function downloadAndInstallApk(apkUrl) {
       filePath: fileUri.uri,
       mimeType: 'application/vnd.android.package-archive',
     });
-
-    console.log('Installation prompt opened.');
+    
+    console.log('Installation prompt opened.')
   } catch (err) {
     console.error('APK download/install failed:', err);
     alert('Update failed: ' + err.message);
