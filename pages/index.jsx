@@ -21,6 +21,7 @@ export default function home(){
   const [theme, setTheme] = useState('')
   const [tabIndex, setTabIndex] = useState(0)
   const [noUser, setNoUser] = useState(false)
+  const [isNewUpdate, setIsNewUpdate] = useState(false)
   const router = useRouter()
   const [scrollPositions, setScrollPositions] = useState({})
   
@@ -90,6 +91,13 @@ export default function home(){
     />
   ]
   
+  useEffect(() => {
+    const isNewUpdate = sessionStorage.getItem('isNewUpdate')
+    if (isNewUpdate) {
+      setIsNewUpdate(true)
+    }
+  }, [isNewUpdate])
+  
   const posts_icons = [
     <Search onClick={() => {
       router.push('/search')
@@ -104,6 +112,7 @@ export default function home(){
       }
       className={styles.profile}
     >{user? (profile? <img height={35} width={35} className={styles.profilePic} src={profile}/> : <User size={18}/>) : '?'}
+      { isNewUpdate? <div className={styles.purplePoint}></div> : null}
     </div>
   ]
   

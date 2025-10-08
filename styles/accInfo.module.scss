@@ -267,3 +267,29 @@
     width: 90%;
   }
 }
+
+.moreIcon{
+  position: relative;
+  height: auto;
+  width: auto;
+  
+  .purplePoint{
+    height: 12px;
+    width: 12px;
+    background-color: #6a69fe;
+    border-radius: 50px;
+    position: absolute;
+    top: -2px;
+    right: -2px;
+  }
+}
+
+.purple{
+  padding: 3px 9px;
+  background-color: #6a69fe;
+  border-radius: 5px;
+  position: absolute;
+  right: 10px;
+  font-weight: normal;
+  font-size: 12px;
+}

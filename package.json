@@ -27,6 +27,7 @@
     "@capacitor/preferences": "^7.0.2",
     "@capacitor/share": "^7.0.2",
     "@capacitor/status-bar": "^7.0.3",
+    "@capacitor/toast": "^7.0.2",
     "capacitor-app-version": "^1.0.31",
     "i18next": "^25.5.3",
     "i18next-browser-languagedetector": "^8.2.0",

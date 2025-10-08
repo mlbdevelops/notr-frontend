@@ -117,6 +117,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 .profilePic{
@@ -148,4 +149,16 @@
       width: 5px;
     }
   }
+}
+
+
+.purplePoint{
+  height: 12px;
+  width: 12px;
+  background-color: #6a69fe;
+  border-radius: 50px;
+  position: absolute;
+  bottom: 0px;
+  right: -3px;
+  border: 1px solid white;
 }

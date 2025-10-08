@@ -33,6 +33,7 @@ export default function account(){
   const [isPicShown, setIsPicShown] = useState(false)
   const [isMore, setIsMore] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [isNewUpdate, setIsNewUpdate] = useState(false)
   
   useEffect(() => {
     const userId = JSON.parse(localStorage.getItem('user')) || ''
@@ -40,6 +41,9 @@ export default function account(){
     userId.photoUrl? setUserProfile(userId.photoUrl) : ''
     const token = JSON.parse(localStorage.getItem('token')) || ''
     
+    if (!token || !userId?._id) {
+      return;
+    }
     const getUser = async (token) => {
       setIsLoading(true)
       const res = await fetch(`https://notrbackend.vercel.app/api/getUserInfo`, {
@@ -61,6 +65,13 @@ export default function account(){
     getUser(token)
   }, [user?._id])
   
+  useEffect(() => {
+    const isNewUpdate = sessionStorage.getItem('isNewUpdate')
+    if (isNewUpdate) {
+      setIsNewUpdate(true)
+    }
+  }, [isNewUpdate])
+  
   const copyFunc = async () => {
     try {
       await navigator.clipboard.writeText(`https://notr-app.vercel.app/user?id=${user?._id}`).trim();
@@ -70,19 +81,17 @@ export default function account(){
     setIsMore(false)
   }
   
+  setInterval(() => {
+    setIsLoading(false)
+  }, 1000 * 10)
+  
   const shareProfile = async () => {
     if (!user) {
       return setIsMore(false)
     }
     const shareData = {
       title: user?.name,
-      text:
-`Hey, it's me ${user?.name}
-
-Let's connect on Notr. Here's my link
-
-https://notr-app.vercel.app/user?id=${user?._id}
-`
+      text:`https://notr-app.vercel.app/user?id=${user?._id}`
     }
     
     if (navigator.share) {
@@ -107,7 +116,10 @@ https://notr-app.vercel.app/user?id=${user?._id}
         leftIcon={<ChevronLeft style={{padding:'10px'}} onClick={() => router.back()}/>}
         text={<small>{user?.name}</small>}
         rightIcons={[
-          <Menu onClick={() => setIsMore(true)}/>,
+          <div className={styles.moreIcon}>
+            <Menu onClick={() => setIsMore(true)}/>
+            {isNewUpdate? <div className={styles.purplePoint}></div> : null}
+          </div>,
         ]}
         isTransparent={true}
         blur={'15px'}
@@ -128,8 +140,16 @@ https://notr-app.vercel.app/user?id=${user?._id}
             <span onClick={copyFunc} className={styles.option}><Link size={20}/>{t('account.options.copy_link')}</span>
             
             <span 
+              style={{
+                position: 'relative',
+              }}
               className={styles.option}
-              onClick={() => router.push('/accountSettings')}><Settings size={20}/>{t('account.options.moreSets')}</span>
+              onClick={() => router.push('/accountSettings')}>
+              <Settings size={20}/>{t('account.options.moreSets')}
+              {isNewUpdate? <small className={styles.purple}>
+                Update
+              </small> : ''}
+            </span>
             
           </div>
         </div>
@@ -211,7 +231,7 @@ https://notr-app.vercel.app/user?id=${user?._id}
             ))}
           </div>
         : 
-          !isLoading && posts.length == 0? <div className={styles.empty}>
+          !isLoading && posts.length == 0 && connections >= 0? <div className={styles.empty}>
             <Camera size={60} className={styles.cam}/>
             <strong>{t('account.no_post')}</strong>
           </div>

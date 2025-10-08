@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Filesystem, Directory } from '@capacitor/filesystem';
 import { FileOpener } from '@capacitor-community/file-opener';
 import Header from '../../components/header.jsx';
@@ -6,21 +6,44 @@ import { useRouter } from 'next/router';
 import { ChevronLeft, CheckCircle2, Rocket } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import styles from '../../styles/update.module.scss';
+import { Capacitor } from '@capacitor/core'
+import { Toast } from '@capacitor/toast'
 
 export default function AppUpdate() {
   const router = useRouter();
   const { t } = useTranslation();
 
   const [progress, setProgress] = useState(0);
+  const [updateNote, setReleaseNote] = useState({});
   const [downloading, setDownloading] = useState(false);
-  const [status, setStatus] = useState('Idle');
+  const [status, setStatus] = useState('•••');
 
   const apkUrl =
-    'https://pro-app-storage.s3.amazonaws.com/builds/d505ed31-6ea2-4651-830f-3a0fa4561daf-release.apk?AWSAccessKeyId=ASIAUUWEHETWW4PPDNAA&Signature=N1PSdFbqNemGjCB4YkGGjzBoeTU%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEAoaCXVzLXdlc3QtMiJGMEQCICuT8rQdv%2Fr2EPrAVaF3OExAl6cArW02F2T165ZR47qJAiAhRc3sSVrVHWsmqBbOBjTgDoHb%2FS3EdepaKa%2BWUG6R0SqkBAij%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDMxOTMxMjgzMTcyNSIM1H%2FMOtyDjPmg1UDfKvgDZd5oihq%2B6EPbE7dFZ05Zwk%2B5J49geuneg3cT5Lo2IQlhV1SH3R5Ez4b%2Fbiq6occcQkGiygjKU5AtRdKX0bvpVrMNxKrxXesae2CPV%2F%2FWsbVG0g2UL4JTW5YR48Rtk%2FT8VXowu%2BNoEu8SuKDVsok%2Byj6KkjOsbPTMj9FzigVzeudbJjCKbMlIOf3O9%2BL%2FCMz6OMXb9UV3gsTdxgVzqr24KD%2F6W3tAlpM3yOmRU58kF2rdLxPcmj3BYYkdBKWdbeux9WAJ3xyb5C4KD4Q0r9pqfVs%2FrUFW2cWayfo9fo4vUA%2F3tZVRMth3HjNbcR0sif7PqvZs2%2B%2BoyVaHSuOQ15MV2PDHVzaltsHfFzwPjDEmK0dyzXHd7dkZXXwVHVXcf%2Br1GjoYyUcfuydqgKTnpfkQ15sMONLo%2BStn8MZF8kFj0UbTbTkfrRKFAoApTn5N97PeCKP%2B0OnRePAvRyvkIF0qgImdJd7qwke7h6AGtq4Ffwbdc8xTRD1NyMHP9P7lFMB4bpejIFeHCSLG%2FjoO0vovOFlIP0SPmSgjXFO3bXPcALDPrK54kTnDQx4CXqbZcmT2j1KUJRnXmhKMZ7STJx7K3uSNXUQn9MFM3lvJbzdaUj5eZ%2FIvQ0EUZiaz8oQ0o8p6kWfTkBQ80d8qAj4NlAtT3G2%2F0X5GFNhEMM%2FEk8cGOqcBjvYNgAVI1XPnReukxW1ZgTVS6N8Cbviu7Jeactg8iRAy66fT%2Byl%2BzFLhybWQXD0%2BrKBfsMm%2BKSnpdJ%2BmO7w1ekrcCNWMrf1pLmT5Jr68yTr6BQzo6cD8wti6NNjqCw6DT4BKs1%2B%2BtN2jEBQMufS7KdsVIeNjzWoipj5HJvXXGPCJSRJvC7yWjYOx331hg89qeBiH43poFzeeOKs96744VJrg0YXCxNc%3D&Expires=1759837876';
+    'https://pro-app-storage.s3.amazonaws.com/builds/2e9b1198-bef1-4207-ac14-a5e97f01e90e-release.apk?AWSAccessKeyId=ASIAUUWEHETWZFVSUM3J&Signature=4NKzuFd6U2HvJT9TROP4KmEg%2BHc%3D&x-amz-security-token=IQoJb3JpZ2luX2VjECwaCXVzLXdlc3QtMiJGMEQCIGP17Ou3BLF6dcIixOrgsmHuWVPaNNW9IQfObUtMjRZcAiBPiUaV%2BJfXfJwqHE3pZGGVmAADKbso%2Fj87XFCn7jhXqyqkBAjF%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDMxOTMxMjgzMTcyNSIMnIYeLXzgP%2BVXQnsgKvgDr2t8A2R985jxTQ%2FI%2BKzenyCNo8o8J8CkthAYk9xf3sPC4uhJjHaHhC2TXrUMnC9GoOcz8vlsE91VhqBV2ORHNFDe7d4vLneDcecyHGD6leOuOn4%2FMapFRXMR4ishIxZpEGkxqMbfFQl2d%2FIcseMCMnT2zt%2FyUBAuaC19M0%2FNL%2BPSDtSuMAUOaQa6%2FRqE3m1UjfY1Yt7rmkLLHgMmjOxwkSyIUMISemMn7rjtgCsMtYqqfnhruHlU1%2BDhMBEPh%2FnfLqprUW65casqRL8cybYrmp9frPPYAXTbchIjmc7eNzJrL2X3590E2q90tX8ju6JRaHd11n4D%2FT3n3VDTRBnF08WG7h5nmiyr3KoeX9mtiAs8OIsM6acSCPFrNiza1DAZop17im0X2hC2jQJf6Gwces2cAsTGV1KSN%2Bp7AVIs9RKdl5kv9bo41uaFiWb9oBUUHBsW%2FbmjdynE7a0Ni0HG2mlSQ8%2BPBtBtft7LdIko1LoBO2VExNiE8ouA8ldY4JNod76JBgT91B2WtCUm0QAaQAQ2%2FQ9idrg9jXxz4zMaZd6DtF015QmIUrwX5tCPlyCE7TLevH%2BZ%2FJxGfqq1SvPjBo32jt7IR4yveFbr9eMGwt%2FK3RQu9%2BRxYxuUcZZNJXlA09WjMX86MAqnqSBj9o3OHuS9%2BjEFWzOAMKaJm8cGOqcB%2BirBalSl67WD6C9NVyGyyyI4xG1FVe4mBLxkQ%2FQTy8zOzBvu22qanngp9%2BYzcfDzProVZMP3Jlo0ofk2mpnkhpSnoAcR1EFuNr9wryu3eR1yf%2F8LVdtQFINX4jmVCmdza%2F7IOBGB9j1qIudVRfDzII7NtJ9EFO29O0XBrxRkyeMCXloGBXrMZks8dI8ZGNuwzrowFVkniZcqiUAT6GC8Kv%2Fm0TznD28%3D&Expires=1759963881';
+  
   const apkFileName = 'notr_update.apk';
+  
+  useEffect(() => {
+    const getNote = async () => {
+      const response = await fetch('https://notrbackend.vercel.app/notr/app/version');
+      const data = await response.json();
+      if (res.ok) {
+        setReleaseNote(data.note)
+      }
+    }
+  }, [])
 
   const handleDownload = async () => {
-    if (!confirm('Keep the app open while downloading the update.')) return;
+    if (Capacitor.isNativePlatform()) {
+      await Toast.show({
+        text: 'Keep the app open while downloading the update.',
+        duration: 'long',
+        position: 'botttom',
+      })
+    }else{
+      if (!confirm('Keep the app open while downloading the update.')) return
+    }
+    
     setDownloading(true);
     setStatus('Starting download...');
     try {
@@ -47,25 +70,26 @@ export default function AppUpdate() {
       <div className={styles.updateMsg}>
         <strong className={styles.updateTitle}>App update available</strong>
         <small className={styles.msg}>Read below to see what's new in Notr.</small>
+        <p className={styles.updateDate}>
+          <Rocket color='#6a69fe' size={20} /> Version 1.0.5 - October 2025
+          <Rocket color='#6a69fe' size={20} />
+        </p>
       </div>
 
       <div className={styles.updateNote}>
-        <span className={styles.updateDate}>
-          <Rocket size={20} /> Version 1.0.5 - October 2025
-        </span>
         <small>Highlights</small>
         <ul className={styles.ul}>
-          <li>
+          <li className={styles.li}>
             Enhanced search experience
-            <small>Search posts using keywords in notes.</small>
+            <small className={styles.small}>Search posts using keywords in notes.</small>
           </li>
-          <li>
+          <li className={styles.li}>
             Performance & stability improvement
-            <small>Core optimizations make the app smoother.</small>
+            <small className={styles.small}>Core optimizations make the app smoother.</small>
           </li>
-          <li>
+          <li className={styles.li}>
             Refined UI
-            <small>Subtle design enhancements for a polished look.</small>
+            <small className={styles.small}>Subtle design enhancements for a polished look.</small>
           </li>
         </ul>
         <small>Bug fixes</small>
@@ -83,13 +107,13 @@ export default function AppUpdate() {
       </button>
 
       {downloading && (
-        <div style={{ marginTop: 20, width: '85%', maxWidth: 300, background: '#ddd', borderRadius: 5 }}>
+        <div style={{ marginTop: 20, width: '85%', maxWidth: 300, background: '#dddddd', borderRadius: 10, padding: 1, }}>
           <div
             style={{
               width: `${progress}%`,
               height: 10,
               background: '#6b59ff',
-              borderRadius: 5,
+              borderRadius: 50,
               transition: 'width 0.2s',
             }}
           />
@@ -100,7 +124,7 @@ export default function AppUpdate() {
         Make sure "Install unknown apps" permission is enabled.
       </div>
 
-      <div style={{ marginTop: 5, fontSize: 12, color: '#555' }}>Status: {status}</div>
+      <div style={{ marginTop: 10, fontSize: 12, color: 'white' }}>Status: {status}</div>
     </div>
   );
 }
@@ -121,12 +145,9 @@ async function downloadAndInstall(url, fileName, setProgress, setStatus) {
 
     xhr.onload = async () => {
       if (xhr.status !== 200) return reject(new Error('Download failed'));
-
       const blob = xhr.response;
       const arrayBuffer = await blob.arrayBuffer();
       const uint8Array = new Uint8Array(arrayBuffer);
-
-      // Convert in chunks to avoid memory issues
       let binary = '';
       const chunkSize = 0x8000;
       for (let i = 0; i < uint8Array.length; i += chunkSize) {
@@ -134,16 +155,13 @@ async function downloadAndInstall(url, fileName, setProgress, setStatus) {
         binary += String.fromCharCode.apply(null, chunk);
       }
       const base64Data = btoa(binary);
-
       await Filesystem.writeFile({
         path: fileName,
         data: base64Data,
         directory: Directory.External,
       });
-
       const fileUri = await Filesystem.getUri({ path: fileName, directory: Directory.External });
       await FileOpener.open({ filePath: fileUri.uri, mimeType: 'application/vnd.android.package-archive' });
-
       resolve();
     };
 
