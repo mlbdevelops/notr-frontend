@@ -39,14 +39,9 @@ export default function AppUpdate() {
   const handleDownload = async () => {
     if (Capacitor.isNativePlatform()) {
       await Toast.show({
-        text: 'Please keep the app open while downloading...',
+        text: 'Please keep the app open.',
         duration: 'long',
         position: 'bottom',
-      });
-      
-      await Toast.show({
-        text: 'Make sure "Install unknown apps" permission is enabled for this app.',
-        duration: 'long',
       });
       
     } else {
@@ -147,13 +142,12 @@ export default function AppUpdate() {
   );
 }
 
-// ✅ Download and install APK
 async function downloadAndInstall(url, fileName, setProgress, setStatus) {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', url);
     xhr.responseType = 'blob';
-
+    
     xhr.onprogress = (event) => {
       if (event.lengthComputable) {
         const percent = Math.floor((event.loaded / event.total) * 100);
@@ -161,30 +155,27 @@ async function downloadAndInstall(url, fileName, setProgress, setStatus) {
         setStatus(`Downloading... ${percent}%`);
       }
     };
-
+    
     xhr.onload = async () => {
       if (xhr.status !== 200) return reject(new Error('Download failed'));
-
       try {
         const blob = xhr.response;
         const arrayBuffer = await blob.arrayBuffer();
         const base64Data = btoa(
           new Uint8Array(arrayBuffer).reduce((data, byte) => data + String.fromCharCode(byte), '')
         );
-
-        // Save APK inside app sandbox
+        
         await Filesystem.writeFile({
           path: fileName,
           data: base64Data,
           directory: Directory.Data,
         });
-
+        
         const fileUri = await Filesystem.getUri({
           path: fileName,
           directory: Directory.Data,
         });
-
-        // Open APK installer
+        
         await FileOpener.open({
           filePath: fileUri.uri,
           contentType: 'application/vnd.android.package-archive',
@@ -195,7 +186,6 @@ async function downloadAndInstall(url, fileName, setProgress, setStatus) {
         reject(e);
       }
     };
-
     xhr.onerror = () => reject(new Error('Network error during download'));
     xhr.send();
   });

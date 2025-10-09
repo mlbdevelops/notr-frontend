@@ -1,4 +1,3 @@
-
 import { Search, Heart, Menu, Trash, Plus, User, List, Edit, Settings } from 'lucide-react';
 import styles2 from '../styles/addNote.module.scss';
 import styles1 from '../styles/header.module.scss';
@@ -50,13 +49,13 @@ export default function home(){
     if (Capacitor.isNativePlatform()) {
       try {
         await Filesystem.writeFile({
-          path: 'notr_offline.json',
+          path: 'notes/notr_offline.json',
           data: JSON.stringify(notes),
-          directory: Directory.Data,
+          directory: Directory.Documents,
           encoding: Encoding.UTF8,
         });
       } catch (e) {
-        alert('Something went wrong, if the problem persists, contact us.')
+        alert('Something went wrong, if the problem persists, contact us.', e)
       }
     }
   };
@@ -65,13 +64,13 @@ export default function home(){
     if (Capacitor.isNativePlatform()) {
       try {
         const file = await Filesystem.readFile({
-          path: 'notr_offline.json',
-          directory: Directory.Data,
+          path: 'notes/notr_offline.json',
+          directory: Directory.Documents,
           encoding: Encoding.UTF8,
         });
         return JSON.parse(file?.data);
       } catch (error) {
-        alert('Something went wrong while getting your notes, try again later.');
+        console.log(error)
       }
     }
   };
@@ -102,7 +101,7 @@ export default function home(){
   
   useEffect(() => {
     const setOfflineNotes = async () => {
-      if (user && token && mode === 'Offline') {
+      if (token && mode === 'Offline') {
         const offlineNotes = await readFile()
         setNotes(offlineNotes);
       }

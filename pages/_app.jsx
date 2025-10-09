@@ -20,8 +20,7 @@ export default function AppWrapper({ Component, pageProps }) {
   const [isUpdate, setIsUpdate] = useState(false);
   const [isUpdateCheckDone, setIsUpdateCheckDone] = useState(false);
   const router = useRouter();
-
-  // Load stored settings
+  
   useEffect(() => {
     setSize(localStorage.getItem('size') || 0);
     setTheme(localStorage.getItem('theme') || 'dark');
@@ -33,20 +32,17 @@ export default function AppWrapper({ Component, pageProps }) {
     };
     loadLang();
   }, []);
-
-  // Control body overflow on update popup
+  
   useEffect(() => {
     document.body.style.overflow = isUpdate ? 'hidden' : '';
     return () => (document.body.style.overflow = '');
   }, [isUpdate]);
-
-  // StatusBar setup
+  
   useEffect(() => {
     StatusBar.setOverlaysWebView({ overlay: true });
     StatusBar.setBackgroundColor({ color: 'transparent' });
   }, []);
-
-  // Handle back button
+  
   useEffect(() => {
     const handler = App.addListener('backButton', () => {
       if (window.location.pathname === '/') App.exitApp();
@@ -54,8 +50,7 @@ export default function AppWrapper({ Component, pageProps }) {
     });
     return () => handler.remove();
   }, []);
-
-  // Check for updates
+  
   useEffect(() => {
     const checkForUpdate = async () => {
       if (!Capacitor.isNativePlatform()) {
@@ -69,7 +64,7 @@ export default function AppWrapper({ Component, pageProps }) {
         setCurrentV(currentVersion)
         setNewV(data.latestVersion)
         
-        if (Number(currentVersion) !== Number(data.latestVersion) && data.apkUrl) {
+        if (currentVersion !== data.latestVersion && data.apkUrl) {
           setIsUpdate(true);
           if (versionCheckedNum >= 1) {
             localStorage.setItem('versionCheckedNum', versionCheckedNum + 1);
@@ -105,7 +100,7 @@ export default function AppWrapper({ Component, pageProps }) {
       {isUpdate && router.pathname !== '/accountSettings/app_update' && (
         <UpdatePopUp
           currentV={`Your version: ${currentV || 0}`}
-          newV={`The new: ${newV || 0}`}
+          newV={`The latest version: ${newV || 0}`}
           actions={[
             <span onClick={() => setIsUpdate(false)}>Later</span>,
             <span
