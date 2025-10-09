@@ -21,7 +21,7 @@ export default function AppUpdate() {
   const [status, setStatus] = useState('•••');
 
   const apkUrl =
-    'https://your-s3-apk-url.apk'; // <-- Make sure to replace with a valid APK URL
+    'https://pro-app-storage.s3.amazonaws.com/builds/4d743419-2766-47af-9e54-65784b800476-release.apk?AWSAccessKeyId=ASIAUUWEHETWZ57ZH7Y6&Signature=0rHBOrQDqd9Pw2E4WV1Mpdv5fxg%3D&x-amz-security-token=IQoJb3JpZ2luX2VjED0aCXVzLXdlc3QtMiJHMEUCIGpj8xeiMSrrXtGRQe3a2BmSzSFjnUINYeIYRyjccHlYAiEA3%2BFnXqGbKu3JOlk%2F83EACW6CLI6MNqxsFySFBfV9OGAqpAQI1v%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgwzMTkzMTI4MzE3MjUiDJQ6X0KexTwB1Gxx7ir4A%2B1%2FdZphchhP8vWjsKV6uzeAWmlPjHI4CcrHI0a4YKdlpww3U0nc%2BfS1IpQ7c6QjPF5skzCnPi9gzl6tv9cCFGlxYalMxZSIWdydbdAFrv0hzN84nO9P0UHoNA%2BDseMHVzOktiILK37n9OSHRvoZexNMiSi58%2FmUve4HI6vNq%2FjX3y0TXlwq1nMorprorefKn7mlaAN%2BcKQe%2FhU9D%2Bgrw1yCncQexRsuQ0FFUmZlJEDHCVj56muGsnk0n9AyKjZQLzjRWfjw0l4KuymHHO%2B5OC%2FugUDeDb0vaU78mXhM8AFpF2kuWUGl%2FK8XgIbLlpNvEs%2Fv6o9tdQWzAqFV9lDxohn8r%2FnBbsr4h8Yqg09KHoEvufK2qh8W6ibH%2BScRoTnG9WAnK%2F2zFWtYxuiOKMF95905%2FRj0SPaUejs18EcQgEPYiql1HVJIJxWBAgWM1jlXnk3BZ%2FmDOY38zFtINDe7GWWy%2FmfKjxWK8Tw7k5yFJSMLgMtn%2F%2Bo5TP3S%2FtoBSvP%2BGxxfdHwhbM5UW%2Fz%2F9lmo0b0Q41A1syXSib2RiiCHQyjy5ItIWdNKSDxAVcMTA1hYiQEDzEqe4JrosFRieLvXPwxM43M7vZwvElvrVqwNqP8fK6M6W5nPFnjLiWezLqMo%2BsfLPo6BQhGaZEd4OhWSQ5ob9%2FUIfNW0ejDE0p7HBjqmARYFFeU7H1pmtr6My%2Byt1yCeS0Rvl8C0PoTqCuYv108%2FRV6OoZwrnaDhlyYjaRFr5UgK00WPLYdIbNWjPZXNY%2FPUHhZU9rx11buZ%2BcJwVAaoVOGDmTFZrrHKZZsQgWj9K5uY1pzjzEgds9%2B65TvuqpBV8e3IRE8IXWlcePmUNyEFWv1TmXgShiHfQXKpLV4o613y1Yx%2BYfqeh3%2FzBTo5obIl0Ay4qxU%3D&Expires=1760016884'; // <-- Make sure to replace with a valid APK URL
 
   const apkFileName = 'notr_update.apk';
 
