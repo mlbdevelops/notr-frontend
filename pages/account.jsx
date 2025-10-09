@@ -13,7 +13,8 @@ import {
   Settings,
   Images,
   Wend2,
-  RotateCw
+  RotateCw,
+  Heart
 } from 'lucide-react';
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
@@ -59,7 +60,8 @@ export default function account(){
   }
   
   useEffect(() => {
-    const userId = JSON.parse(localStorage.getItem('user')) || ''
+    const userId = JSON.parse(localStorage.getItem('user')) || {}
+    userId._id = 'localId'
     setUser(userId)
     userId.photoUrl? setUserProfile(userId.photoUrl) : ''
     const token = JSON.parse(localStorage.getItem('token')) || ''
@@ -100,12 +102,30 @@ export default function account(){
   
   const timeOut = setTimeout(() => {
     setIsLoading(false)
-    !user? setIsManualReload(true) : null
+    user._id == 'localId'? setIsManualReload(true) : null
   }, 1000 * 10)
   
   clearTimeout(() => {
     timeOut
-  }, 1000 * 10)
+  }, 1000 * 10) 
+  
+  const shareApp = async () => {
+    try {
+      const shareData = {
+        title: 'Notr',
+        text:`https://notrapp.vercel.app`
+      }
+      if (Capacitor.isNativePlatform()) {
+        await CapShare.share(shareData)
+      }else{
+        if (navigator.share) {
+          await navigator.share(shareData)
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
   
   const shareProfile = async () => {
     if (!user) {
@@ -160,6 +180,8 @@ export default function account(){
             <span onClick={shareProfile} className={styles.option}><Share size={20}/>{t('account.options.share')}</span>
             
             <span onClick={copyFunc} className={styles.option}><Link size={20}/>{t('account.options.copy_link')}</span>
+            
+            <span onClick={shareApp} className={styles.option}><Heart size={20}/>{t('account.options.share_app')}</span>
             
             <span 
               style={{

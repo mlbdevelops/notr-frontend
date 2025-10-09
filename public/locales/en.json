@@ -167,6 +167,7 @@
 
     "options": {
       "share": "Share profile",
+      "share_app" : "Invite friends",
       "copy_link": "Copy link",
       "moreSets": "Settings"
     }

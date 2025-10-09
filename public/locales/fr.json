@@ -167,7 +167,8 @@
     "options": {
       "share": "Partager le profile",
       "copy_link": "Copier le lien",
-      "moreSets": "Parameters"
+      "moreSets": "Parameters",
+      "share_app" : "Invite les amis"
     }
   },
   
