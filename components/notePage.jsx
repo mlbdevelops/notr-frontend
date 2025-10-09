@@ -49,7 +49,7 @@ export default function home(){
     if (Capacitor.isNativePlatform()) {
       try {
         await Filesystem.writeFile({
-          path: 'notes/notr_offline.json',
+          path: 'notr_offline.json',
           data: JSON.stringify(notes),
           directory: Directory.Documents,
           encoding: Encoding.UTF8,
@@ -64,7 +64,7 @@ export default function home(){
     if (Capacitor.isNativePlatform()) {
       try {
         const file = await Filesystem.readFile({
-          path: 'notes/notr_offline.json',
+          path: 'notr_offline.json',
           directory: Directory.Documents,
           encoding: Encoding.UTF8,
         });
@@ -218,7 +218,7 @@ export default function home(){
               key={i}
               networkStatus={mode}
               token={token}
-              title={`${note.title.substring(0, 25)}`} 
+              title={`${note.title.substring(0, 35)}`} 
               note={note.note.length <= 0? t('notePage.empty') : note?.note?.length > 35? `${note.note.substring(0, 35)}...` : `${note.note}`}
               time={`${note.updatedAt.substring(0, 10)} • ${userName}`}
               deleteFunc={<Trash 

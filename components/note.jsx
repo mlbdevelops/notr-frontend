@@ -2,6 +2,7 @@ import noteStyles from '../styles/noteStyles.module.scss';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { Trash, Tag } from 'lucide-react';
+import { Toast } from '@capacitor/toast';
 
 export default function Note({title, note, time, noteId, tag, deleteFunc, networkStatus, token}){
   const router = useRouter();
@@ -14,6 +15,14 @@ export default function Note({title, note, time, noteId, tag, deleteFunc, networ
       }
     });
   };
+  
+  const showToast = async () => {
+    return await Toast.show({
+      text: "You're offline!",
+      duration: 'long',
+      position: 'bottom',
+    })
+  }
 
   return(
       <div className={noteStyles.noteBox}>
@@ -43,9 +52,9 @@ export default function Note({title, note, time, noteId, tag, deleteFunc, networ
             backgroundColor: '#262626',
           }}>{tag}</span> : <Tag className={noteStyles.tagIcon} size={12}/>}
         </div>
-        {networkStatus !== 'offline'? <Link href={`/notes/${encodeURIComponent(noteId)}`}>
+        {networkStatus? <Link href={`/notes/${encodeURIComponent(noteId)}`}>
           <div className={noteStyles.linkToPage}></div>
-        </Link> : ''}
+        </Link> : showToast()}
       </div>
     
   );
