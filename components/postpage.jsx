@@ -1,11 +1,14 @@
 import Post from './post.jsx';
 import { useEffect, useState, useRef } from 'react';
 import styles from '../styles/postPage.module.scss';
-import { Book } from 'lucide-react';
+import { Book, WifiOff } from 'lucide-react';
 import { useRouter } from 'next/router';
+import { Network } from '@capacitor/network';
+import { Capacitor } from '@capacitor/core';
 
 export default function PostPage() {
   const [posts, setPosts] = useState([]);
+  const [mode, setMode] = useState();
   const [user, setUser] = useState('');
   const [token, setToken] = useState('');
   const [postsLength, setPostsLength] = useState(0);
@@ -46,24 +49,48 @@ export default function PostPage() {
   };
   
   useEffect(() => {
-    if (user) fetchPosts();
-  }, [user]);
+    let listener;
+    const initNetworkListener = async () => {
+      if (Capacitor.isNativePlatform()) {
+        const status = await Network.getStatus();
+        setMode(status.connected)
+        
+        listener = Network.addListener('networkStatusChange', async (status) => {
+          setMode(status.connected)
+          if (status.connected) fetchPosts()
+        });
+      }
+    }
+    initNetworkListener();
+
+    return () => { if (listener) listener.remove(); };
+  }, [user, token])
+  
+  useEffect(() => {
+    if (user) {
+      if (Capacitor.isNativePlatform() && mode) {
+        fetchPosts()
+      }else{
+        fetchPosts()
+      }
+    }
+  }, [user, mode]);
 
   useEffect(() => {
     if (!loaderRef.current) return;
-
+    
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting && hasMore) {
+        if (entries[0].isIntersecting && hasMore && mode) {
           fetchPosts();
         }
       },
       { threshold: 1.0 }
     );
-
+    
     observer.observe(loaderRef.current);
     return () => observer.disconnect();
-  }, [hasMore, cursor]);
+  }, [hasMore, cursor, mode]);
   
   if (!user) {
     return(
@@ -108,6 +135,33 @@ export default function PostPage() {
           Create an account
         </button>
       </div> 
+    )
+  }
+  
+  if (Capacitor.isNativePlatform() && !mode) {
+    return (
+      <div style={{
+        height: '60dvh',
+        marginTop: 100,
+        width: '100dvw',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}>
+        <span style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexDirection: 'column',
+          textAlign: 'center',
+          fontSize: 12,
+          gap: 20,
+          color: 'darkgray',
+        }}>
+          <WifiOff size={80}/>
+          You're offline, Make sure you are connected and try again.
+        </span>
+      </div>
     )
   }
   

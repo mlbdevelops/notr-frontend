@@ -11,7 +11,9 @@ import {
   Share,
   Link,
   Settings,
-  Images
+  Images,
+  Wend2,
+  RotateCw
 } from 'lucide-react';
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
@@ -19,6 +21,7 @@ import styles from '../styles/accInfo.module.scss'
 import Post from '../components/post.jsx'
 import { Share as CapShare } from '@capacitor/share';
 import { useTranslation } from 'react-i18next';
+import { Toast } from '@capacitor/toast'
 
 export default function account(){
   const { t } = useTranslation()
@@ -34,6 +37,26 @@ export default function account(){
   const [isMore, setIsMore] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [isNewUpdate, setIsNewUpdate] = useState(false)
+  const [isManualReload, setIsManualReload] = useState(false)
+  
+  const getUser = async (token) => {
+    setIsLoading(true)
+    const res = await fetch(`https://notrbackend.vercel.app/api/getUserInfo`, {
+      headers: {
+        'token': token
+      }
+    })
+    const data = await res.json()
+    if (res.ok) {
+      setIsLoading(false)
+      setUser(data.user)
+      setUserProfile(data?.user?.photoUrl)
+      setNotes(data.notes)
+      setPosts(data.posts)
+      setLikeCont(data.likeCount)
+      setConnections(data.connections)
+    }
+  }
   
   useEffect(() => {
     const userId = JSON.parse(localStorage.getItem('user')) || ''
@@ -44,26 +67,8 @@ export default function account(){
     if (!token || !userId?._id) {
       return;
     }
-    const getUser = async (token) => {
-      setIsLoading(true)
-      const res = await fetch(`https://notrbackend.vercel.app/api/getUserInfo`, {
-        headers: {
-          'token': token
-        }
-      })
-      const data = await res.json()
-      if (res.ok) {
-        setIsLoading(false)
-        setUser(data.user)
-        setUserProfile(data?.user?.photoUrl)
-        setNotes(data.notes)
-        setPosts(data.posts)
-        setLikeCont(data.likeCount)
-        setConnections(data.connections)
-      }
-    }
     getUser(token)
-  }, [user?._id])
+  }, [])
   
   useEffect(() => {
     const isNewUpdate = sessionStorage.getItem('isNewUpdate')
@@ -81,8 +86,25 @@ export default function account(){
     setIsMore(false)
   }
   
-  setInterval(() => {
+  const showToast = async (text, duration = "short") => {
+    if (Capacitor.isNativePlatform()) {
+      await Toast.show({
+        text: text,
+        duration : duration,
+        position: 'bottom',
+      })
+    }
+  }
+  
+  isManualReload? showToast('Network error.', 'long') : null
+  
+  const timeOut = setTimeout(() => {
     setIsLoading(false)
+    !user? setIsManualReload(true) : null
+  }, 1000 * 10)
+  
+  clearTimeout(() => {
+    timeOut
   }, 1000 * 10)
   
   const shareProfile = async () => {
@@ -205,7 +227,24 @@ export default function account(){
             backgroundColor: 'rgba(0, 0, 0, 0.1)',
           }}>
             <div className={styles.spinner}></div>
-          </div> : ''}
+          </div> : isManualReload?
+          <div onClick={() => {
+            setIsManualReload(false)
+            getUser()
+          }} style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '100px',
+            width: '100px',
+            borderRadius: '20px',
+            placeSelf: 'center',
+            marginTop: '90px',
+            backgroundColor: 'rgba(0, 0, 0, 0.1)',
+          }}>
+            <RotateCw size={50}/>
+          </div>
+        : ''}
           
         {!isLoading && posts.length >= 1?
           <div>

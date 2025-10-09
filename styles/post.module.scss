@@ -76,6 +76,8 @@
       max-height: 450px;
       border-radius: 10px;
       border: 1px solid #262626;
+      object-fit: cover;
+      transition: opacity 0.3s ease-in-out;
     }
     
     .tag{

@@ -31,24 +31,23 @@
       margin-bottom: 0;
     }
     .comments{
-      overflow-x: scroll;
+      overflow-x: hidden;
       width: 90%;
       display: flex;
       align-items: flex-start;
       flex-direction: column;
       word-break: break-word;
       height: auto;
-      max-height: 400px;
+      max-height: 410px;
       padding: 20px 15px;
-      gap: 15px;
+      gap: 20px;
       
       .comment{
         width: auto;
         padding: 0;
         display: flex;
         gap: 10px;
-        align-items: center;
-        
+        align-items: flex-start;
         
         .profile{
           background-color: #292929;
@@ -59,6 +58,7 @@
           display: flex;
           align-items: center;
           justify-content: center;
+          object-fit: cover;
         }
         
         .usernameAndText{
@@ -97,4 +97,16 @@
   100%{
     transform: rotate(360deg);
   }
+}
+
+.emosDiv{
+  width: 100%; 
+  padding: 10px 0; 
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  position: absolute;
+  bottom: 60px;
+  font-size: 20px;
+  background-color: #1d1d1d;
 }

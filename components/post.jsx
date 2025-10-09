@@ -31,7 +31,16 @@ export default function Post({tag, note, title, username, name, ownerId, _id, ph
   const [expanded, setExpanded] = useState(false)
   const [isLikes, setIsLikes] = useState(likedByUser)
   const [isLoading, setIsLoading] = useState(false)
-  const links = note.split(' ').filter((link => link.includes('.')))
+  const links = note.split(' ').filter((link => link.includes('.') && !link.startsWith('.') && !link.endsWith('.')))
+  const emos = [
+    '❤️',
+    '🥳',
+    '🥰',
+    '😝',
+    '😯',
+    '😡',
+    '🤮',
+  ]
   
   const menuRef = useRef(null)
   useEffect(() => {
@@ -310,9 +319,11 @@ Notr - https://notr-sigma.vercel.app`
                 { !isLoading && commentList.length >= 1?
                   commentList.map((comm, i) => (
                     <div key={i} className={styles2.comment}>
-                      <div className={styles2.profile}>{comm.user?.username[0].toUpperCase() || ''}</div>
+                      <div onClick={() => router.push(comm.user._id === user? '/account' : `/profile/profile?user=${comm.user._id}`)} className={styles2.profile}>
+                      {comm?.user?.profile? <img src={comm?.user?.profile} className={styles2.profile}/> : <User size={15}/>}
+                      </div>
                       <div className={styles2.usernameAndText}>
-                        <strong>{comm.user?.username}</strong>
+                        <strong style={{cursor: 'pointer'}} onClick={() => router.push(comm.user._id === user? '/account' : `/profile/profile?user=${comm.user._id}`)}>{comm.user?.username || 'Notr user'}</strong>
                         <span>{comm.text}</span> 
                       </div>
                     </div>
@@ -324,6 +335,17 @@ Notr - https://notr-sigma.vercel.app`
                 }}>This post has 0 comments</p> : ''}
               </div>
             </div>
+              <div className={styles2.emosDiv}>
+                
+                {emos.map(emo => (
+                  <span onClick={() => {
+                    setCommentText((prev) => prev + emo)
+                  }}>
+                    {emo}
+                  </span>
+                ))}
+                
+              </div>
              <div className={styles.commentInpDiv}>
                 <input 
                   placeholder='Write something...' 
@@ -334,7 +356,9 @@ Notr - https://notr-sigma.vercel.app`
                 />
                 <Send style={{
                   opacity: commentText? 1 : 0.5,
-                }} onClick={sendComment}/>
+                }} onClick={sendComment}
+                fill={commentText? 'white' : ''}
+                />
             </div>
           </div>
         </div>

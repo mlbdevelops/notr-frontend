@@ -10,6 +10,7 @@ import AddNote from './addNote.jsx';
 import Loader from './loading_spinner.jsx'
 import noteStyles from '../styles/noteStyles.module.scss';
 import { Capacitor } from '@capacitor/core';
+import { Toast } from '@capacitor/toast';
 import { Network } from '@capacitor/network';
 import { useRouter } from 'next/router'
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
@@ -170,11 +171,14 @@ export default function home(){
   };
   
   const deleteNote = async (note, token) => {
-    if (mode == 'Offline') {
-      setNotes((prev) => prev.filter(item => item._id !== note ))
-      await saveNoteData()
-      await readFile()
+    if (mode === 'Offline') {
+      return await Toast.show({
+        text: "You're offline.",
+        duration: 'long',
+        position: 'bottom'
+      })
     }
+    
     const res = await fetch(`https://notrbackend.vercel.app/api/delete/${note}`, {
       method: 'DELETE',
       headers: {
@@ -215,7 +219,7 @@ export default function home(){
               key={i}
               networkStatus={mode}
               token={token}
-              title={`${note.title.substring(0, 20)}`} 
+              title={`${note.title.substring(0, 25)}`} 
               note={note.note.length <= 0? t('notePage.empty') : note?.note?.length > 35? `${note.note.substring(0, 35)}...` : `${note.note}`}
               time={`${note.updatedAt.substring(0, 10)} • ${userName}`}
               deleteFunc={<Trash 

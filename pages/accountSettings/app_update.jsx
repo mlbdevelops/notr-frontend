@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import styles from '../../styles/update.module.scss';
 import { Capacitor } from '@capacitor/core'
 import { Toast } from '@capacitor/toast'
+import { App } from '@capacitor/app'
 
 export default function AppUpdate() {
   const router = useRouter();
@@ -28,7 +29,7 @@ export default function AppUpdate() {
       const response = await fetch('https://notrbackend.vercel.app/notr/app/version');
       const data = await response.json();
       if (res.ok) {
-        setReleaseNote(data.note)
+        setReleaseNote(data)
       }
     }
   }, [])
@@ -36,7 +37,7 @@ export default function AppUpdate() {
   const handleDownload = async () => {
     if (Capacitor.isNativePlatform()) {
       await Toast.show({
-        text: 'Keep the app open while downloading the update.',
+        text: 'Please keep the app open.',
         duration: 'long',
         position: 'botttom',
       })

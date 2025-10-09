@@ -64,8 +64,8 @@ export default function AppWrapper({ Component, pageProps }) {
       try {
         const response = await fetch('https://notrbackend.vercel.app/notr/app/version');
         const data = await response.json();
-        const info = await Device.getInfo();
-        const currentVersion = info.appVersion;
+        const info = await App.getInfo();
+        const currentVersion = info.version;
         setCurrentV(currentVersion)
         setNewV(data.latestVersion)
         
