@@ -18,6 +18,9 @@ import styles from '../../styles/accInfo.module.scss'
 import Post from '../../components/post.jsx'
 import Loader from '../../components/loading_spinner.jsx'
 import { useTranslation } from 'react-i18next';
+import { Toast } from '@capacitor/toast'
+import { Capacitor } from '@capacitor/core'
+import PullToRefresh from 'pulltorefreshjs'
 
 export default function account(){
   const {t} = useTranslation()
@@ -50,9 +53,17 @@ export default function account(){
         if (!userId) return
         const res = await fetch(`https://notrbackend.vercel.app/api/users/getOtherProfile/${userId}/logged/${loggedUser}`)
         const data = await res.json()
-        if (!res.ok && res.status === 404) {
+        if (!res.ok || res.status === 404) {
           setIsLoading(false)
-          return alert(data.msg)
+          if (Capacitor.isNativePlatform()) {
+            await Toast.show({
+              text: data.msg || 'Something went wrong, Try to load the page.',
+              duration: 'long',
+              position: 'bottom',
+            });
+          }else{
+            alert(data.msg || 'Something went wrong, Try to load the page.')
+          }
         }
         if (res.ok) {
           setUser(data.user)
@@ -114,8 +125,17 @@ export default function account(){
     setIsConnect(false)
   }
   
+  useEffect(() => {
+    PullToRefresh.init({
+      mainElement: document.getElementById('body'),
+      onRefresh(){
+        alert('Hello')
+      }
+    })
+  }, [])
+  
   return(
-    <div style={{marginTop: '95px'}} className={styles.body}>
+    <div id="body" style={{marginTop: '95px'}} className={styles.body}>
       <Header
         leftIcon={<ChevronLeft style={{padding:'10px'}} onClick={() => router.back()}/>}
         text={<small>{user?.name || '•••'}</small>}

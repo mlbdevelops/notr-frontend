@@ -10,6 +10,7 @@ import { Preferences } from '@capacitor/preferences';
 import UpdatePopUp from '../components/updatePopUp.jsx';
 import { Device } from '@capacitor/device';
 import { Capacitor } from '@capacitor/core';
+import { useCache } from '../hooks/notrCachingHook.js';
 
 export default function AppWrapper({ Component, pageProps }) {
   const [size, setSize] = useState(0);
@@ -20,6 +21,7 @@ export default function AppWrapper({ Component, pageProps }) {
   const [isUpdate, setIsUpdate] = useState(false);
   const [isUpdateCheckDone, setIsUpdateCheckDone] = useState(false);
   const router = useRouter();
+  const { setCache } = useCache('update')
   
   useEffect(() => {
     setSize(localStorage.getItem('size') || 0);
@@ -63,11 +65,19 @@ export default function AppWrapper({ Component, pageProps }) {
         const currentVersion = info.version;
         setCurrentV(currentVersion)
         setNewV(data.latestVersion)
-        
         if (currentVersion !== data.latestVersion && data.apkUrl) {
+          sessionStorage.setItem('update', JSON.stringify(data))
           setIsUpdate(true);
+          if (versionCheckedNum === 3) {
+            return router.push('/accountSettings/app_update')
+          }
           if (versionCheckedNum >= 1) {
-            localStorage.setItem('versionCheckedNum', versionCheckedNum + 1);
+            if (versionCheckedNum === 3) {
+              return;
+            }else{
+              localStorage.setItem('versionCheckedNum', versionCheckedNum + 1)
+              
+            }
           }
         } else {
           setIsUpdate(false);

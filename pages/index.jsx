@@ -152,7 +152,7 @@ export default function home(){
             fill
             className={tabIndex == 1? styles.tabIconActive : styles.tabIcon} size={20}/>,
           <Heart 
-            onClick={() => tabIndex == 2? location.reload() : switchTab(2)} 
+            onClick={() => switchTab(2)} 
             className={tabIndex == 2? styles.tabIconActive : styles.tabIcon}
             size={20}
             fill={tabIndex == 2? 'white' : ''}

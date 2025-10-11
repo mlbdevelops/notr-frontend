@@ -74,7 +74,6 @@ export default function note(){
       } catch (error) {
       }
     }
-    
     clipboard()
   }, [])
   

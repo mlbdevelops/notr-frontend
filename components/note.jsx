@@ -52,7 +52,7 @@ export default function Note({title, note, time, noteId, tag, deleteFunc, networ
             backgroundColor: '#262626',
           }}>{tag}</span> : <Tag className={noteStyles.tagIcon} size={12}/>}
         </div>
-        {networkStatus? <Link href={`/notes/${encodeURIComponent(noteId)}`}>
+        {networkStatus != 'Offline'? <Link href={`/notes/${encodeURIComponent(noteId)}`}>
           <div className={noteStyles.linkToPage}></div>
         </Link> : showToast()}
       </div>

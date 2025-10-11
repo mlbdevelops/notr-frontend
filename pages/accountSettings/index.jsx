@@ -15,7 +15,9 @@ import {
   ArrowUp,
   Globe,
   Moon,
-  Locales
+  Locales,
+  Star,
+  ArrowUpCircle
 } from 'lucide-react';
 import Header from '../../components/header.jsx'
 import { useRouter } from 'next/router'
@@ -37,6 +39,7 @@ export default function settings(){
   const [user, setUser] = useState('')
   const [token, setToken] = useState('')
   const [update, setUpdate] = useState(true)
+  const [isNewUpdate, setIsNewUpdate] = useState(false)
   
   useEffect(() => {
     const userid = JSON.parse(localStorage.getItem('user'))?._id || ''
@@ -57,6 +60,13 @@ export default function settings(){
     }
     value()
   }, [])
+  
+  useEffect(() => {
+    const update = sessionStorage.getItem('isNewUpdate')
+    if (update) {
+      setIsNewUpdate(true)
+    }
+  }, [isNewUpdate])
   
   useEffect(() => {
     const ls = localStorage.getItem('isAutoSave');
@@ -152,7 +162,7 @@ export default function settings(){
           router.push('/accountSettings/accessibility')
         }} className={styles.component}>
           <span className={styles.span}>
-            <Accessibility size={20}/>
+            <Star size={20}/>
             {t('accSettings.accessibility')}
           </span>
           <ChevronRight/>
@@ -179,25 +189,23 @@ export default function settings(){
           </span>
           <ChevronRight/>
         </div>
+        
         { /*app update*/ }
         <div onClick={() => {
           router.push('/accountSettings/app_update')
         }} className={styles.component}>
           <span className={styles.span}>
-            <ArrowUp style={{
-              padding: '2px',
-              borderRadius: '50px',
-              border: '1.5px solid white'
-            }} size={12.5}/>
+            <ArrowUpCircle size={20}/>
             {t('accSettings.update')}
           </span>
           <div style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
-            {update? <span style={{padding: '7px', borderRadius: '50px', backgroundColor: '#6a69fe',}}>
+            {isNewUpdate? <span style={{padding: '7px', borderRadius: '50px', backgroundColor: '#6a69fe',}}>
               
             </span> : ''}
             <ChevronRight/>
           </div>
         </div>
+        
         { /*buy_me_a_coffee*/ }
         <div onClick={() => {
           router.push('/accountSettings/buy_me_a_coffee')
@@ -208,6 +216,7 @@ export default function settings(){
           </span>
           <ChevronRight/>
         </div>
+        
         { /*Support*/ }
         <div onClick={() => {
           router.push('/accountSettings/support')
@@ -218,6 +227,7 @@ export default function settings(){
           </span>
           <ChevronRight/>
         </div>
+        
         { /*About*/ }
         <div onClick={() => {
           router.push('/accountSettings/about')
@@ -228,6 +238,7 @@ export default function settings(){
           </span>
           <ChevronRight/>
         </div>
+        
         { /*Log out*/ }
         <div onClick={() => {
           setIsPopup(true)
@@ -238,6 +249,7 @@ export default function settings(){
             {t('accSettings.logout')}
           </span>
         </div>
+        
         { /*Delete account*/ }
         <div 
           onClick={() => {

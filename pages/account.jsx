@@ -23,6 +23,8 @@ import Post from '../components/post.jsx'
 import { Share as CapShare } from '@capacitor/share';
 import { useTranslation } from 'react-i18next';
 import { Toast } from '@capacitor/toast'
+import { useCache } from '../hooks/notrCachingHook.js';
+import PullToRefresh from 'pulltorefreshjs'
 
 export default function account(){
   const { t } = useTranslation()
@@ -34,28 +36,45 @@ export default function account(){
   const [connections, setConnections] = useState()
   const [posts, setPosts] = useState([])
   const [likeCount, setLikeCont] = useState(0)
+  const [userToken, setToken] = useState('')
   const [isPicShown, setIsPicShown] = useState(false)
   const [isMore, setIsMore] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [isNewUpdate, setIsNewUpdate] = useState(false)
   const [isManualReload, setIsManualReload] = useState(false)
+  const [userData, setUserData] = useState()
+  
+  const { data, setCache } = useCache('user')
   
   const getUser = async (token) => {
-    setIsLoading(true)
-    const res = await fetch(`https://notrbackend.vercel.app/api/getUserInfo`, {
-      headers: {
-        'token': token
+    try {
+      setIsLoading(true)
+      const res = await fetch(`https://notrbackend.vercel.app/api/getUserInfo`, {
+        headers: {
+          'token': token
+        }
+      })
+      const data = await res.json()
+      console.log(data)
+      if (!res.ok) {
+        setIsManualReload(true)
+        setIsLoading(false)
       }
-    })
-    const data = await res.json()
-    if (res.ok) {
+      console.log(data)
+      if (res.ok) {
+        setCache(data)
+        setIsLoading(false)
+        setUserData(data)
+        setUser(data.user)
+        setUserProfile(data?.user?.photoUrl)
+        setNotes(data.notes)
+        setPosts(data.posts)
+        setLikeCont(data.likeCount)
+        setConnections(data.connections)
+      }
+    } catch (error) {
       setIsLoading(false)
-      setUser(data.user)
-      setUserProfile(data?.user?.photoUrl)
-      setNotes(data.notes)
-      setPosts(data.posts)
-      setLikeCont(data.likeCount)
-      setConnections(data.connections)
+      setIsManualReload(true)
     }
   }
   
@@ -66,10 +85,22 @@ export default function account(){
     userId.photoUrl? setUserProfile(userId.photoUrl) : ''
     const token = JSON.parse(localStorage.getItem('token')) || ''
     
+    setToken(token)
     if (!token || !userId?._id) {
       return;
     }
-    getUser(token)
+    
+    if (data?.user?._id) {
+      setIsLoading(false)
+      setUser(data.user)
+      setUserProfile(data?.user?.photoUrl)
+      setNotes(data.notes)
+      setPosts(data.posts)
+      setConnections(data.connections)
+    }else{
+      getUser(token)
+    }
+    
   }, [])
   
   useEffect(() => {
@@ -88,26 +119,75 @@ export default function account(){
     setIsMore(false)
   }
   
-  const showToast = async (text, duration = "short") => {
+  const showToast = async (text) => {
     if (Capacitor.isNativePlatform()) {
       await Toast.show({
         text: text,
-        duration : duration,
+        duration : 'short',
         position: 'bottom',
       })
     }
   }
+  useEffect(() => {
+  const token = JSON.parse(localStorage.getItem('token')) || '';
+
+  const element = document.querySelector('#docBody');
+  if (!element) return;
+
+  PullToRefresh.init({
+    mainElement: '#docBody',
+    onRefresh() {
+      return getUser(userToken);
+    },
+    iconArrow: '<div style="color:transparent; height: 0; width: 0;"></div>',
+    iconRefreshing: `<div className="ptr-spinner" style="
+      border: 3px solid rgba(255,255,255,0.2);
+      border-top-color: white;
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      margin-top: 180px;
+      animation: spin 0.6s linear infinite;
+    "></div>`,
+    getStyles: () => `
+      .ptr--ptr {
+        box-shadow: none !important;
+        background: transparent !important;
+        color: transparent !important;
+        height: 0;
+        z-index: 9999999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+      .ptr--box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        color: white;
+        height: 10px
+      }
+      .ptr--text {
+        display: none !important; /* ✅ completely hides the messages */
+      }
+    `,
+    instructionsPullToRefresh: false,
+    instructionsReleaseToRefresh: false,
+    instructionsRefreshing: false,
+    refreshTimeout: 500,
+  });
+
+  return () => {
+    PullToRefresh.destroyAll();
+  };
+}, [userToken]);
   
-  isManualReload? showToast('Network error.', 'long') : null
   
-  const timeOut = setTimeout(() => {
-    setIsLoading(false)
-    user._id == 'localId'? setIsManualReload(true) : null
-  }, 1000 * 10)
-  
-  clearTimeout(() => {
-    timeOut
-  }, 1000 * 10) 
+  isManualReload? showToast('Network error.') : null
   
   const shareApp = async () => {
     try {
@@ -153,7 +233,7 @@ export default function account(){
   }
   
   return(
-    <div style={{marginTop: '100px'}} className={styles.body}>
+    <div id="docBody" style={{marginTop: '100px'}} className={styles.body}>
       <Header
         leftIcon={<ChevronLeft style={{padding:'10px'}} onClick={() => router.back()}/>}
         text={<small>{user?.name}</small>}
@@ -249,10 +329,10 @@ export default function account(){
             backgroundColor: 'rgba(0, 0, 0, 0.1)',
           }}>
             <div className={styles.spinner}></div>
-          </div> : isManualReload?
+          </div> : isManualReload && posts?.length == 0?
           <div onClick={() => {
             setIsManualReload(false)
-            getUser()
+            getUser(userToken)
           }} style={{
             display: 'flex',
             alignItems: 'center',
@@ -266,9 +346,7 @@ export default function account(){
           }}>
             <RotateCw size={50}/>
           </div>
-        : ''}
-          
-        {!isLoading && posts.length >= 1?
+        : !isLoading && posts.length >= 1?
           <div>
             {posts.map((post, i) => (
               <Post 

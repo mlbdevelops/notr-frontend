@@ -5,6 +5,8 @@ import { Book, WifiOff } from 'lucide-react';
 import { useRouter } from 'next/router';
 import { Network } from '@capacitor/network';
 import { Capacitor } from '@capacitor/core';
+import { useCache } from '../hooks/notrCachingHook.js';
+import PullToRefresh from 'pulltorefreshjs'
 
 export default function PostPage() {
   const [posts, setPosts] = useState([]);
@@ -16,6 +18,8 @@ export default function PostPage() {
   const [hasMore, setHasMore] = useState(true);
   const loaderRef = useRef(null);
   const router = useRouter();
+  const { getCache, setCache } = useCache('posts')
+  
   useEffect(() => {
     const savedUser = JSON.parse(localStorage.getItem('user'));
     const token = JSON.parse(localStorage.getItem('token'));
@@ -31,14 +35,18 @@ export default function PostPage() {
       url.searchParams.append("userId", user);
       url.searchParams.append("limit", 10);
       if (cursor) url.searchParams.append("cursor", cursor);
-
+      
       const res = await fetch(url, {
         headers: {'token' : token}
       });
       const data = await res.json();
-
+      
       if (res.ok) {
-        setPosts(prev => [...prev, ...data.posts]);
+        setPosts(prev => {
+          const newPosts = [...prev, ...data.posts];
+          setCache(newPosts);
+          return newPosts;
+        });
         setCursor(data.nextCursor);
         setHasMore(data.hasMore);
         setPostsLength(data.posts.length);
@@ -67,18 +75,19 @@ export default function PostPage() {
   }, [user, token])
   
   useEffect(() => {
+    const data = getCache('posts')
+    
     if (user) {
       if (Capacitor.isNativePlatform() && mode) {
-        fetchPosts()
+        data? setPosts(data) : fetchPosts()
       }else{
-        fetchPosts()
+        data? setPosts(data) : fetchPosts()
       }
     }
   }, [user, mode]);
 
   useEffect(() => {
     if (!loaderRef.current) return;
-    
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting && hasMore && mode) {
@@ -87,10 +96,25 @@ export default function PostPage() {
       },
       { threshold: 1.0 }
     );
-    
     observer.observe(loaderRef.current);
     return () => observer.disconnect();
   }, [hasMore, cursor, mode]);
+  
+  useEffect(() => {
+    PullToRefresh.init({
+      mainElement: '.body',
+      onRefresh(){
+        try {
+          setPosts([])
+          fetchPosts()
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    })
+    
+    return () => PullToRefresh.destroyAll()
+  }, []);
   
   if (!user) {
     return(
@@ -140,7 +164,7 @@ export default function PostPage() {
   
   if (Capacitor.isNativePlatform() && !mode) {
     return (
-      <div style={{
+      <div id="body" style={{
         height: '60dvh',
         marginTop: 100,
         width: '100dvw',
@@ -166,7 +190,7 @@ export default function PostPage() {
   }
   
   return (
-    <div style={{marginTop: '100px'}} className={styles.body}>
+    <div id="body" style={{marginTop: '100px'}} className={styles.body}>
       {posts.map(post => (
         <Post
           key={post?._id}
