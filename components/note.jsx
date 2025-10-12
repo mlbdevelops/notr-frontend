@@ -17,7 +17,7 @@ export default function Note({title, note, time, noteId, tag, deleteFunc, networ
   };
   
   const showToast = async () => {
-    return await Toast.show({
+    await Toast.show({
       text: "You're offline!",
       duration: 'long',
       position: 'bottom',
@@ -52,9 +52,9 @@ export default function Note({title, note, time, noteId, tag, deleteFunc, networ
             backgroundColor: '#262626',
           }}>{tag}</span> : <Tag className={noteStyles.tagIcon} size={12}/>}
         </div>
-        {networkStatus != 'Offline'? <Link href={`/notes/${encodeURIComponent(noteId)}`}>
+        <Link href={`/notes/${encodeURIComponent(noteId)}`}>
           <div className={noteStyles.linkToPage}></div>
-        </Link> : showToast()}
+        </Link>
       </div>
     
   );
