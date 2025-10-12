@@ -124,6 +124,12 @@ Notr - https://notr-sigma.vercel.app`
     setAutoSave(saved)
   }, [])
   
+  const handleExpend = () => {
+    const element = refNote.current;
+    element.style.height = 'auto';
+    element.style.height = element.scrollHeight + 'px';
+  };
+  
   const tagData=[{category:"Topic/Subject",tags:["ProjectProposal","MeetingNotes","Recipe","Ideas","Quotes","Memories","Challenges","Reflections","Goals","Journaling","Favorites","Stories","Tips","Advice","Opinions"]},{category:"Status",tags:["InProgress","Completed","Blocked","Pending","Reviewed"]},{category:"Priority",tags:["High","Medium","Low","Urgent"]},{category:"Context",tags:["Work","Personal","School","Travel","Fitness","Wellness","Learning","Creativity","Mindfulness"]},{category:"People",tags:["Family","Friends","Girlfriend","Boyfriend","Crush","Myself","Colleagues","Mentors","Dad","Mom","Sister","Brother","Aunt","Uncle","Grandma","Grandpa","Cousin","Neighbors"]},{category:"Date/Time",tags:["Today","Tomorrow","Yesterday","NextWeek","LastMonth","ThisYear","Weekend"]},{category:"Projects&Events",tags:["MarketingCampaign","WebsiteRedesign","WeekendVibes","Conferences","Birthday","Holiday","Party"]},{category:"Location",tags:["Home","Office","Cafe","Outdoors","Gym","NatureLovers","City","Beach"]},{category:"Type",tags:["Idea","Quote","Question","Reflection","Story","Tip","Advice","Opinion","Announcement","GoalSetting"]},{category:"Source",tags:["Article","Book","Website","Podcast","Video"]},{category:"Sentiment",tags:["Positive","Negative","Neutral","Motivational","Gratitude","Inspiration","Mindfulness","Humor","Love","Peace","Hope","Excited"]},{category:"Extras",tags:["CreativityBoost","Focus","LearningCurve","SelfCare","Productivity","Adventure","Relaxation","Growth"]}
   ];
 
@@ -419,13 +425,12 @@ const pasteFunc = async () => {
           <textarea 
             ref={refNote}
             placeholder={t('indivuNote.placeholder')}
-            cols={35}
             className={styles.noteInput}
-            rows={40}
             value={newNote || ''}
             onInput={(e) => {
               setNewNote(e.target.value)
               if(autoSave == 'On') autosaveFunc()
+              handleExpend()
             }}
             style={{
               fontWeight: fontWeight? fontWeight : 'normal',

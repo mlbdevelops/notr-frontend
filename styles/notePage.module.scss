@@ -46,13 +46,14 @@
   }
   
   .noteDiv{
-    padding: 10px;
+    place-self: center;
     width: 94%;
     min-height: 400px;
     background-color: #0f0f0f;
     border: none;
     border-top: 1px solid #262626;
-    
+    display: flex;
+    align-items: center;
     
     .noteInput{
       padding: 20px 10px;
@@ -61,6 +62,9 @@
       font-size: 15px;
       outline: none;
       color: white;
+      width: 100%;
+      min-height: 400px;
+      resize: none;
     }
   }
 }

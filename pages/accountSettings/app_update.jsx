@@ -115,7 +115,7 @@ export default function AppUpdate() {
           Congratulations, you're using the latest version of Notr. Stay tunned for future updates.
         </span>
         {Capacitor.isNativePlatform()? <span style={{color: 'white', position: 'fixed', bottom: 30, }}>
-          {androidVersion}
+          v{androidVersion}
         </span> : ''}
       </div>
     )
