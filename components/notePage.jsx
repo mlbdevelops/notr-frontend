@@ -305,7 +305,7 @@ export default function Home() {
         ''
       )}
 
-      {user && isLoading && networkConn !== 'Offline' && notes.length === 0 ? (
+      {user && isLoading && networkConn !== 'Offline'? (
         <Loader loaderColor={'white'} />
       ) : null}
 

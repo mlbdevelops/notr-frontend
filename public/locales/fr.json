@@ -17,7 +17,7 @@
     "setting" : "Parameters",
     "privacy" : "Vie privée",
     "accessibility" : "Accessibilité",
-    "buy_coffee" : "Acheter moi un café",
+    "buy_coffee" : "Don",
     "deleteAcc" : "Effacer le compte",
     "langs" : "Langues",
     "update" : "Mis a jour",
@@ -175,7 +175,7 @@
   "accSettings":{
     "privacy" : "Vie privée",
     "accessibility" : "Accessibilité",
-    "buy_coffee" : "Acheter moi un café",
+    "buy_coffee" : "Don",
     "logout" : "Déconnexion",
     "deleteAcc" : "Effacer le compte",
     "langs" : "Langues",

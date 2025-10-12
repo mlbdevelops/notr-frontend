@@ -26,6 +26,7 @@ import Question from '../../components/confirm.jsx'
 import Loader from '../../components/loading_spinner.jsx'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next';
+import { useCache } from '../../hooks/notrCachingHook.js';
 
 export default function settings(){
   const { t } = useTranslation()
@@ -40,6 +41,7 @@ export default function settings(){
   const [token, setToken] = useState('')
   const [update, setUpdate] = useState(true)
   const [isNewUpdate, setIsNewUpdate] = useState(false)
+  const { clear } = useCache()
   
   useEffect(() => {
     const userid = JSON.parse(localStorage.getItem('user'))?._id || ''
@@ -243,6 +245,7 @@ export default function settings(){
         <div onClick={() => {
           setIsPopup(true)
           setMsgIndex(0)
+          clear()
         }} className={styles.component}>
           <span className={styles.span}>
             <LogOut size={20}/>
@@ -255,6 +258,7 @@ export default function settings(){
           onClick={() => {
             setIsPopup(true)
             setMsgIndex(1)
+            clear()
           }} 
           style={{color: 'red',justifyContent: 'space-between'}} className={styles.component}>
           <span className={styles.span}>

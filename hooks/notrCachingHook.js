@@ -11,6 +11,14 @@ export function useCache(key, initialValue) {
     console.log(value);
   };
   
+  const clear = () => {
+    cache.clear()
+  }
+  
+  const remove = (elem) => {
+    cache.delete(elem)
+  }
+  
   const getCache = () => cache.get(key);
-  return { data, setCache, getCache };
+  return { data, setCache, getCache, clear, remove };
 }

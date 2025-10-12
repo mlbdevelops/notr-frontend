@@ -30,6 +30,7 @@ export default function account(){
   const [connections, setConnections] = useState()
   const [loggedUser, setLoggedUserId] = useState('')
   const [token, setToken] = useState('')
+  const [userParam, setUserParam] = useState('')
   const [posts, setPosts] = useState([])
   const [likeCount, setLikeCont] = useState(0)
   const [isConnected, setIsConnect] = useState(false)
@@ -45,39 +46,43 @@ export default function account(){
     }
   }, [loggedUser])
   
+  const getUser = async (userId, loggedUser) => {
+    setIsLoading(true)
+    try {
+      if (!userId) return
+      const res = await fetch(`https://notrbackend.vercel.app/api/users/getOtherProfile/${userId}/logged/${loggedUser}`)
+      const data = await res.json()
+      if (!res.ok || res.status === 404) {
+        setIsLoading(false)
+        if (Capacitor.isNativePlatform()) {
+          await Toast.show({
+            text: data.msg || 'Something went wrong, Try to load the page.',
+            duration: 'long',
+            position: 'bottom',
+          });
+        }else{
+          alert(data.msg || 'Something went wrong, Try to load the page.')
+        }
+      }
+      if (res.ok) {
+        setUser(data.user)
+        setPosts(data.posts)
+        setLikeCont(data.likeCount)
+        setConnections(data.connections)
+        setIsLoading(false)
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  
   useEffect(() => {
     const userId = searchParams.get('user')
-    const getUser = async (userId) => {
-      setIsLoading(true)
-      try {
-        if (!userId) return
-        const res = await fetch(`https://notrbackend.vercel.app/api/users/getOtherProfile/${userId}/logged/${loggedUser}`)
-        const data = await res.json()
-        if (!res.ok || res.status === 404) {
-          setIsLoading(false)
-          if (Capacitor.isNativePlatform()) {
-            await Toast.show({
-              text: data.msg || 'Something went wrong, Try to load the page.',
-              duration: 'long',
-              position: 'bottom',
-            });
-          }else{
-            alert(data.msg || 'Something went wrong, Try to load the page.')
-          }
-        }
-        if (res.ok) {
-          setUser(data.user)
-          setPosts(data.posts)
-          setLikeCont(data.likeCount)
-          setConnections(data.connections)
-          setIsLoading(false)
-        }
-      } catch (error) {
-        console.log(error);
-      }
+    if (userId && loggedUser) {
+      setUserParam(userId)
+      getUser(userId, loggedUser)
     }
-    getUser(userId)
-  }, [searchParams && loggedUser])
+  }, [searchParams, loggedUser])
   
   useEffect(() => {
     const getConnected = async () => {
@@ -129,10 +134,14 @@ export default function account(){
     PullToRefresh.init({
       mainElement: document.getElementById('body'),
       onRefresh(){
-        alert('Hello')
-      }
+        if (userParam && loggedUser) {
+          getUser(userParam, loggedUser)
+        }
+      },
+      refreshTimeout: 500
     })
-  }, [])
+    return () => PullToRefresh.destroyAll()
+  }, [userParam, loggedUser])
   
   return(
     <div id="body" style={{marginTop: '95px'}} className={styles.body}>
@@ -156,7 +165,7 @@ export default function account(){
         <div className={styles.profileDiv}>
           {user?.photoUrl? <img onClick={() => user?.isPrivate? null : setIsPicShown(true)} src={user?.photoUrl} height={80} width={80} className={styles.profilePic}/> : <User size={30} className={styles.userIcon}/>}
           <span className={styles.role}>
-            {user?.role || 'Geust'}
+            {user.isPrivate? <Lock size={13}/> : user?.role || 'Geust'}
           </span>
         </div>
       </div>

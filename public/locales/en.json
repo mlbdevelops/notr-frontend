@@ -17,7 +17,7 @@
     "setting": "Settings",
     "privacy": "Privacy",
     "accessibility": "Accessibility",
-    "buy_coffee": "Buy me a coffee",
+    "buy_coffee": "Donate",
     "deleteAcc": "Delete account",
     "langs": "Languages",
     "update": "Update",
@@ -176,7 +176,7 @@
   "accSettings": {
     "privacy": "Privacy",
     "accessibility": "Accessibility",
-    "buy_coffee": "Buy me a coffee",
+    "buy_coffee": "Donate",
     "logout": "Logout",
     "deleteAcc": "Delete account",
     "langs": "Languages",
