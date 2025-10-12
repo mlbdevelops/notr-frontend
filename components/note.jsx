@@ -52,9 +52,9 @@ export default function Note({title, note, time, noteId, tag, deleteFunc, networ
             backgroundColor: '#262626',
           }}>{tag}</span> : <Tag className={noteStyles.tagIcon} size={12}/>}
         </div>
-        <Link href={`/notes/${encodeURIComponent(noteId)}`}>
+        {networkStatus == 'Online'? <Link href={`/notes/${encodeURIComponent(noteId)}`}>
           <div className={noteStyles.linkToPage}></div>
-        </Link>
+        </Link> : <div className={noteStyles.linkToPage} onClick={showToast}></div>}
       </div>
     
   );
