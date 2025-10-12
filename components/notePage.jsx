@@ -98,6 +98,7 @@ export default function Home() {
         removeListener = handler.remove;
       } else {
         setMode('Online');
+        setNetworkConn('Online');
       }
     };
 
