@@ -20,13 +20,14 @@ import styles2 from '../../styles/notePage.module.scss';
 import Quetion from '../../components/confirm.jsx'
 import Loader from '../../components/loading_spinner.jsx';
 import { useTranslation } from 'react-i18next';
+import { useCache } from '../../hooks/notrCachingHook.js';
 
 export default function createPost(){
   const router = useRouter()
   const {t} = useTranslation()
   
   const [noteId, setNoteId] = useState(router.query.create_post);
-  
+  const { remove } = useCache()
   const [images, setImages] = useState([]);
   const [selectedTag, setSelectedTag] = useState([]);
   const [noteList, setNoteList] = useState([]);
@@ -165,6 +166,7 @@ export default function createPost(){
     if (res.ok) {
       setIsLoading(false)
       setSuccess(true)
+      remove('posts')
     }
   }
   

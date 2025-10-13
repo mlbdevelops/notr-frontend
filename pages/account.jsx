@@ -111,6 +111,11 @@ export default function account(){
   }, [isNewUpdate])
   
   const copyFunc = async () => {
+    if (user?._id  == 'localId') {
+      setIsMore(false)
+      return showToast('Network error')
+    }
+    
     try {
       await navigator.clipboard.writeText(`https://notr-app.vercel.app/user?id=${user?._id}`).trim();
     } catch (error) {
@@ -211,6 +216,12 @@ export default function account(){
     if (!user) {
       return setIsMore(false)
     }
+    
+    if (user?._id  == 'localId') {
+      setIsMore(false)
+      return showToast('Network error')
+    }
+    
     const shareData = {
       title: user?.name,
       text:`https://notr-app.vercel.app/user?id=${user?._id}`

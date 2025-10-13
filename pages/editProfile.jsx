@@ -6,11 +6,13 @@ import { useEffect, useState } from 'react';
 import Loader from '../components/loading_spinner.jsx';
 import Question from '../components/confirm.jsx';
 import { useTranslation } from 'react-i18next';
+import { useCache } from '../hooks/notrCachingHook.js';
 
 export default function EditProfile(){
   const router = useRouter();
   const { t } = useTranslation();
   const lh = 'http://localhost:3001'
+  const { remove } = useCache()
   const [username, setUsername] = useState('');
   const [name, setName] = useState('');
   const [role, setRole] = useState('');
@@ -29,24 +31,17 @@ export default function EditProfile(){
   }, []);
   
   useEffect(() => {
-    const getUser = async (token) => {
-      setIsSubmitting(true)
-      const res = await fetch(`https://notrbackend.vercel.app/api/getUserInfo`, {
-        headers: {'token' : token}
-      })
-      const data = await res.json()
-      
-      if (res.ok) {
-        setRole(data?.user.role)
-        setUsername(data?.user.username)
-        setName(data?.user.name)
-        setBio(data?.user.bio)
-        setProfile(data?.user.photoUrl)
-        setCoverUrl(data?.user?.coverUrl)
-        setIsSubmitting(false)
-      }
-    };
-    getUser(token)
+    setIsSubmitting(true)
+    const data = JSON.parse(localStorage.getItem('user'))
+    if (data) {
+      setRole(data?.role)
+      setUsername(data?.username)
+      setName(data?.name)
+      setBio(data?.bio)
+      setProfile(data?.photoUrl)
+      setCoverUrl(data?.coverUrl)
+      setIsSubmitting(false)
+    }
   }, [user && token])
   
   const usersRoles = t('editProfile.roles', {returnObjects: true})
@@ -95,6 +90,7 @@ export default function EditProfile(){
     
     const data = await res.json();
     if (res.ok) {
+      remove('user')
       localStorage.setItem('user', JSON.stringify(data.newData));
       setIsSubmitting(false);
       router.back();
