@@ -79,7 +79,8 @@ export default function account(){
   }
   
   useEffect(() => {
-    const userId = searchParams.get('user')
+    const userId = new URLSearchParams(window.location.search).get('user')
+    
     if (userId && loggedUser) {
       setUserParam(userId)
       getUser(userId, loggedUser)
