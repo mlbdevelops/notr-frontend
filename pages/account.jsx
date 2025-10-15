@@ -29,7 +29,8 @@ import PullToRefresh from 'pulltorefreshjs'
 import { QRCodeCanvas } from "qrcode.react";
 import { useRef } from "react";
 import codeStyles from '../styles/qrcode.module.scss'
-
+import { Filesystem, Directory } from '@capacitor/filesystem';
+import { Capacitor } from '@capacitor/core';
 
 export default function account(){
   const { t } = useTranslation()
@@ -51,15 +52,36 @@ export default function account(){
   const [userData, setUserData] = useState()
   const { data, setCache } = useCache('user')
   const qrRef = useRef();
-  
-  const downloadQRCode = () => {
+
+  const downloadQRCode = async () => {
     const canvas = qrRef.current.querySelector("canvas");
     if (!canvas) return;
+  
     const url = canvas.toDataURL("image/png");
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `${user.username}qrcode${Date.now()}.png`;
-    a.click();
+    const base64Data = url.split(',')[1];
+    const fileName = `${user.username}_qrcode_${Date.now()}.png`;
+  
+    if (Capacitor.isNativePlatform() && Capacitor.getPlatform() === 'android') {
+      try {
+        const savedFile = await Filesystem.writeFile({
+          path: fileName,
+          data: base64Data,
+          directory: Directory.Documents
+        });
+        await Toast.show({
+          text: 'Saved',
+          duration: 'long',
+          position: 'bottom',
+        })
+      } catch (err) {
+        alert(err);
+      }
+    } else {
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = fileName;
+      a.click();
+    }
   };
   
   const getUser = async (token) => {

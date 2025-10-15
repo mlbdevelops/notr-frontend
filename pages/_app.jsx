@@ -38,8 +38,11 @@ export default function AppWrapper({ Component, pageProps }) {
   }, []);
   
   useEffect(() => {
-    scheduleDailyNotifications()
+    if (!Capacitor.isNativePlatform()) {
+      return;
+    }
     
+    scheduleDailyNotifications();
     const listener = LocalNotifications.addListener(
       'localNotificationActionPerformed',
       (notification) => {
