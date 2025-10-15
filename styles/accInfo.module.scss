@@ -309,3 +309,7 @@
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+
+.code:active{
+  background-color: rgb(36,36,36);
+}

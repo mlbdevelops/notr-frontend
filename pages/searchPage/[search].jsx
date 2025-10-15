@@ -24,7 +24,7 @@ export default function query(){
   }, [!token]);
   
   
-  const getPosts = async (q2) => {
+  const getPosts = async (q, token) => {
     if (!q) {
       return
     }
@@ -36,11 +36,12 @@ export default function query(){
         'token' : token
       },
       body: JSON.stringify({
-        query: q2 || q
+        query: q
       })
     });
     
     const data = await res.json();
+    console.log(data)
     if (!res.ok) {
       setNoData(true)
       return setLoad(false)
@@ -54,8 +55,9 @@ export default function query(){
   };
   
   useEffect(() => {
-    if (router.isReady && router.query.q) {
-      getPosts(q)
+    const token = JSON.parse(localStorage.getItem('token'));
+    if (router.isReady && router.query.q && token) {
+      getPosts(q, token)
     }
   }, [router.isReady, router.query.q])
   
@@ -75,7 +77,7 @@ export default function query(){
           className={styles.inp}
           placeholder={router.query.q} 
           onKeyPress={(e) => {
-            getPosts()
+            getPosts(e.target.value, token)
           }}
           onChange={(e) => setQ(e.target.value)}
         /> 
@@ -118,7 +120,7 @@ export default function query(){
           color: '#878787',
           width: '89%',
           wordBreak: 'break-word'
-        }}>{t('searchPage.result')} <span style={{color: 'white'}}>{q ||router.query.q}</span></p>
+        }}>{t('searchPage.result')} <span style={{color: 'white'}}>{q}</span></p>
         {posts?.length >= 1? 
           posts?.map((post, i) => (
             <Post 
@@ -147,7 +149,7 @@ export default function query(){
               marginTop: '150px',
               color: 'white',
             }}
-          >{t('searchPage.no_result')} {q || router.query.q}!</p>}
+          >{t('searchPage.no_result')} {q}!</p>}
       </div>
       
       <div style={{
@@ -165,7 +167,7 @@ export default function query(){
           color: '#878787',
           width: '89%',
           wordBreak: 'break-word'
-        }}>{t('searchPage.result')} <span style={{color: 'white'}}>{q || router.query.q}</span></p> 
+        }}>{t('searchPage.result')} <span style={{color: 'white'}}>{q}</span></p> 
         <div style={{
           width: '95%',
           display: 'flex',
@@ -186,7 +188,7 @@ export default function query(){
                 textAlign: 'center',
                 marginTop: '150px',
               }}
-            >{t('searchPage.no_result')} {q || router.query.q}!</p>}
+            >{t('searchPage.no_result')} {q}!</p>}
         </div>
       </div>
     </div>

@@ -3,25 +3,43 @@ import { ChevronLeft, Save } from 'lucide-react';
 import { useRouter } from 'next/router';
 import styles from '../../styles/cache.module.scss'
 import { useCache } from '../../hooks/notrCachingHook.js';
-import { CapacitorClearCache } from 'capacitor-clear-cache';
+import { Plugins, Capacitor } from '@capacitor/core';
+import { Toast } from '@capacitor/toast';
 import { useState } from 'react'
 
 export default function cache(){
   const router = useRouter();
+  //const { WebViewCache } = Plugins;
+  const WebViewCache = ''
   const { getProvider, remove, clear } = useCache()
   const notes = getProvider('notes')
   const posts = getProvider('posts')
   const onePostSize = 800
   const oneNoteSize = 500
   const [calNotes, setCalNotes] = useState(notes? oneNoteSize*notes?.length/1024/1024 : 0)
-  
   const [calPosts, setCalPosts] = useState(posts? onePostSize*posts?.length/1024/1024 : 0)
   
   const clear_cache = async () => {
-    clear()
-    setCalPosts(0)
-    setCalNotes(0)
-    await CapacitorClearCache.clear();
+    try {
+      remove('user')
+      remove('posts')
+      setCalPosts(0)
+      setCalNotes(0)
+      if (Capacitor.isNativePlatform()) {
+        await WebViewCache.clearCache();
+        return await Toast.show({
+          text: 'Cache cleared',
+          position: 'bottom',
+          duration: 'long'
+        })
+      }
+    } catch (error) {
+      await Toast.show({
+        text: error,
+        position: 'bottom',
+        duration: 'long'
+      })
+    }
   }
   
   return(

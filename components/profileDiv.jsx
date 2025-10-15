@@ -15,7 +15,9 @@ export default function ProfileDiv({username, profile, role, connect, userId}){
   }, [])
   
   return(
-    <div className={styles.profileDiv}>
+    <div className={styles.profileDiv} 
+      onClick={() => router.push(userId === user? '/account' : `/profile/user?user=${userId}`)}
+    >
       <div onClick={() => router.push(userId === user? '/account' : `/profile/user?user=${userId}`)} className={styles.profileInfo}>
       
         {profile? <img className={styles.img} src={profile} height={50} width={50}/> : <div className={styles.profile}><User size={20}/></div>}

@@ -267,7 +267,7 @@ const pasteFunc = async () => {
                   return;
                 }
                 saveNote()
-                router.push(`/create/note?note=${notes?._id}`)
+                router.push(`/create/note?note=${notes?._id}&load=true`)
               }}
               className={styles.postThis}>{t('indivuNote.post_note_b')}</p>
           </div>,

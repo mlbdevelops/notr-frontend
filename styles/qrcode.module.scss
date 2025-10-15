@@ -1,10 +1,41 @@
 .div{
-  padding: 10px;
+  padding: 30px;
   border-radius: 10px;
-  border: 1px solid;
   width: auto !important;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  border: 1px solid #262626;
+  background-color: #0f0f0f;
+}
+
+.blur{
+  height: 100dvh;
+  width: 100dvw;
+  border: none;
+  background-color: rgba(0,0,0,0.9);
+  top: 0;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 9999999999999999;
+}
+
+.saveB{
+  width: 90%;
+  padding: 7px;
+  border-radius: 5px;
+  background-color: white; 
+  color: black; 
+  border: none;
+  margin: 20px 0;
+  transition: 0.2s;
+  
+  &:active{
+    transform: scale(0.98);
+    opacity: 0.7;
+  }
 }

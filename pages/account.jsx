@@ -14,7 +14,8 @@ import {
   Images,
   Wend2,
   RotateCw,
-  Heart
+  Heart,
+  QrCode
 } from 'lucide-react';
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
@@ -25,6 +26,10 @@ import { useTranslation } from 'react-i18next';
 import { Toast } from '@capacitor/toast'
 import { useCache } from '../hooks/notrCachingHook.js';
 import PullToRefresh from 'pulltorefreshjs'
+import { QRCodeCanvas } from "qrcode.react";
+import { useRef } from "react";
+import codeStyles from '../styles/qrcode.module.scss'
+
 
 export default function account(){
   const { t } = useTranslation()
@@ -40,11 +45,22 @@ export default function account(){
   const [isPicShown, setIsPicShown] = useState(false)
   const [isMore, setIsMore] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [isCodeShown, setIsCodeShown] = useState(false)
   const [isNewUpdate, setIsNewUpdate] = useState(false)
   const [isManualReload, setIsManualReload] = useState(false)
   const [userData, setUserData] = useState()
-  
   const { data, setCache } = useCache('user')
+  const qrRef = useRef();
+  
+  const downloadQRCode = () => {
+    const canvas = qrRef.current.querySelector("canvas");
+    if (!canvas) return;
+    const url = canvas.toDataURL("image/png");
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${user.username}qrcode${Date.now()}.png`;
+    a.click();
+  };
   
   const getUser = async (token) => {
     try {
@@ -264,11 +280,33 @@ export default function account(){
         </div>
       : null}
       
+      {user?._id != 'localId' && isCodeShown? <div onClick={() => setIsCodeShown(false)} className={codeStyles.blur}>
+        <div className={codeStyles.div} ref={qrRef}>
+          <QRCodeCanvas style={{border: '1px solid #262626', borderRadius: 10, margin: 0, padding: 10, backgroundColor: '1d1d1d',}} value={`https://notr-app.vercel.app/user?id=${user?._id}`} size={256} />
+        <button className={codeStyles.saveB} onClick={downloadQRCode}>{t('indivuNote.save')}</button>
+        </div>
+      </div> : ''}
+      
       { isMore?
         <div onClick={() => setIsMore(false)} className={styles.blur}>
           <div className={styles.optionsDiv}>
             
-            <span onClick={shareProfile} className={styles.option}><Share size={20}/>{t('account.options.share')}</span>
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              width: '100%',
+              justifyContent: 'space-evenly',
+            }}>
+              <span style={{position: 'relative'}} onClick={shareProfile} className={styles.option}><Share size={20}/>{t('account.options.share')} 
+              </span>
+              <QrCode style={{
+                padding: 10,
+                borderRadius: 10,
+              }}
+              className={styles.code}
+              onClick={() => setIsCodeShown(true)}
+              />
+            </div>
             
             <span onClick={copyFunc} className={styles.option}><Link size={20}/>{t('account.options.copy_link')}</span>
             

@@ -25,7 +25,7 @@ import { useCache } from '../../hooks/notrCachingHook.js';
 export default function createPost(){
   const router = useRouter()
   const {t} = useTranslation()
-  
+  const { load } = router.query
   const [noteId, setNoteId] = useState(router.query.create_post);
   const { remove } = useCache()
   const [images, setImages] = useState([]);
@@ -71,6 +71,9 @@ export default function createPost(){
   }, [isLoading])
  
   const getIndividualNote = async (id, token) => {
+    if (load) {
+      setIsLoading(true)
+    }
     const res = await fetch(`https://notrbackend.vercel.app/api/getIndividualNote/${id}`, {
       headers:{
         'token' : token
@@ -82,6 +85,9 @@ export default function createPost(){
       setNote(data?.response)
       setNewNote(data?.response?.note)
       setNewTitle(data?.response?.title)
+      setTl(data?.response?.textAlign)
+      setFontWeight(data?.response?.fontWeight)
+      setFontStyle(data?.response?.fontStyle)
       data?.response.tag? selectedTag[0] = data?.response?.tag : ''
       if (!data) {
         setNodata(true)
@@ -96,6 +102,7 @@ export default function createPost(){
   const getNotesFunc = async () => {
     try{
       if (!user) return;
+      setIsLoading(true)
       const res = await fetch(`https://notrbackend.vercel.app/api/getNotes`, {
         headers: {'token' : token}
       });
@@ -107,11 +114,7 @@ export default function createPost(){
         setIsLoading(false);
         const note = noteList.response.filter(item => item.note !== '')
         setNoteList(note)
-        return [...noteList]
       }
-      return [
-        err = {error : false}
-      ];
     }catch(err) {
       console.log(err)
     }
@@ -175,9 +178,6 @@ export default function createPost(){
       <Header 
         leftIcon={<ChevronLeft style={{padding: '10px'}} onClick={() => router.back()}/>}
         text={t('create_post.create_post')}
-        rightIcons={
-          <p onClick={create_post} className={styles.iTab}>{t('create_post.post')}</p>
-        }
         isTransparent={true}
         blur={'10px'}
       />

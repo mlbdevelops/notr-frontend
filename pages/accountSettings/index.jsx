@@ -120,15 +120,15 @@ export default function settings(){
   }
   
   const fb = async () => {
-    await Browser.open('https://www.facebook.com/profile.php?id=61582512174009')
+    await Browser.open({url : 'https://www.facebook.com/profile.php?id=61582512174009'})
   }
   
   const wa = async () => {
-    await Browser.open('https://whatsapp.com/channel/0029Vb6JpXGHltY2Vz4Vw01Z')
+    await Browser.open({ url: 'https://whatsapp.com/channel/0029Vb6JpXGHltY2Vz4Vw01Z'})
   }
   
   const insta = async () => {
-    await Browser.open('https://www.instagram.com/notr1571')
+    await Browser.open({url: 'https://www.instagram.com/notr1571'})
   }
   
   return(

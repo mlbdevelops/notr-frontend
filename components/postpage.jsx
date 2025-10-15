@@ -102,7 +102,7 @@ export default function PostPage() {
   
   useEffect(() => {
     PullToRefresh.init({
-      mainElement: '.body',
+      mainElement: '#body',
       onRefresh(){
         try {
           setPosts([])
@@ -115,79 +115,6 @@ export default function PostPage() {
     
     return () => PullToRefresh.destroyAll()
   }, []);
-  
-  if (!user) {
-    return(
-      <div style={{
-        margin: '70px 0',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'column',
-        height: '80dvh',
-        gap: '30px'
-      }}>
-        <small>
-          You have to register yourself to see posts.
-        </small>
-        
-        <button style={{
-          width: '70%',
-          padding: '10px',
-          borderRadius: '5px',
-          border: 'none',
-          color: 'black',
-          cursor: 'pointer',
-          backgroundColor: 'white',
-        }} onClick={() => router.push('/auth/login')}>
-          Login
-        </button>
-        
-        <strong style={{color: 'darkgray'}}>
-          Or
-        </strong>
-        
-        <button style={{
-          cursor: 'pointer',
-          width: '70%',
-          padding: '10px',
-          borderRadius: '5px',
-          border: 'none',
-          color: 'black',
-          backgroundColor: 'white',
-        }} onClick={() => router.push('/auth/register')}>
-          Create an account
-        </button>
-      </div> 
-    )
-  }
-  
-  if (Capacitor.isNativePlatform() && !mode) {
-    return (
-      <div id="body" style={{
-        height: '60dvh',
-        marginTop: 100,
-        width: '100dvw',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}>
-        <span style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexDirection: 'column',
-          textAlign: 'center',
-          fontSize: 12,
-          gap: 20,
-          color: 'darkgray',
-        }}>
-          <WifiOff size={80}/>
-          You're offline, Make sure you are connected and try again.
-        </span>
-      </div>
-    )
-  }
   
   return (
     <div id="body" style={{marginTop: '100px'}} className={styles.body}>

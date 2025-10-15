@@ -11,6 +11,7 @@ import PostPage from '../components/postpage.jsx'
 import Question from '../components/confirm.jsx'
 import { Capacitor } from '@capacitor/core';
 import { Network } from '@capacitor/network';
+import { useCache } from '../hooks/notrCachingHook.js';
 
 export default function home() {
   const [status, setStatus] = useState('');
@@ -23,12 +24,16 @@ export default function home() {
   const [isNewUpdate, setIsNewUpdate] = useState(false);
   const router = useRouter();
   const [scrollPositions, setScrollPositions] = useState({});
-
+  const { getProvider, saveProvider } = useCache()
+  
   const switchTab = (tab) => {
-    setScrollPositions(prev => ({
-      ...prev,
+    const newScrolls = {
+      ...scrollPositions,
       [tabIndex]: window.scrollY
-    }));
+    };
+    setScrollPositions(newScrolls);
+    saveProvider('scrollPositions', newScrolls);
+
     setTabIndex(tab);
   }
   
@@ -73,14 +78,22 @@ export default function home() {
     }
   }, [user]);
 
+  // **Load scroll positions from cache**
+  useEffect(() => {
+    const cachedScrolls = getProvider('scrollPositions');
+    if (cachedScrolls) setScrollPositions(prev => ({ ...prev, ...cachedScrolls }));
+  }, []);
+
   useEffect(() => {
     if (tabIndex != 0) sessionStorage.setItem('tab', tabIndex);
+
+    // restore scroll from state if exists, else 0
     if (scrollPositions[tabIndex] !== undefined) {
       window.scrollTo(0, scrollPositions[tabIndex]);
     } else {
       window.scrollTo(0, 0);
     }
-  }, [tabIndex]);
+  }, [tabIndex, scrollPositions]);
 
   const notes_icons = [
     <Settings 

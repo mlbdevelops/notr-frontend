@@ -12,7 +12,6 @@
     "alert_title": "Login",
     "alert_ok": "Ok"
   },
-
   "header": {
     "setting": "Settings",
     "privacy": "Privacy",
@@ -24,12 +23,11 @@
     "support": "Support",
     "about": "About"
   },
-
   "register": {
     "alerts": {
       "password_mismatch": "Passwords do not match",
       "age_restriction": "You cannot register if you are under 13 years old",
-      "email_registered": "This email is already registered. Try another one",
+      "email_registered": "This email is already registered. Please try another",
       "incorrect_code": "Incorrect code",
       "alert_ok": "Ok",
       "ageTitle": "Age"
@@ -37,7 +35,7 @@
     "steps": {
       "name_username": {
         "title": "Name and Username",
-        "desc": "Choose a name and username",
+        "desc": "Choose a name and a username",
         "name": "Name",
         "username": "Username",
         "username_note": "The username must be less than 21 characters!",
@@ -78,7 +76,6 @@
       }
     }
   },
-
   "language": {
     "change_language": "Change language",
     "language_changed": "Language changed to {{language}}",
@@ -105,7 +102,6 @@
       "ko": "Korean"
     }
   },
-
   "notePage": {
     "noteLengthText": "You have {{notesLength}} notes",
     "networkStatusTrue": "online",
@@ -117,7 +113,6 @@
     "enter_a_name": "Enter a name",
     "empty": "Empty!"
   },
-
   "indivuNote": {
     "post_note_b": "Post this note",
     "placeholder": "Write something...",
@@ -129,7 +124,6 @@
     "share": "Share",
     "delete": "Delete",
     "title": "Title",
-
     "deleteAlert": {
       "title": "Delete",
       "msg": "Are you sure you want to delete this note?",
@@ -138,13 +132,11 @@
         "yes": "Delete"
       }
     },
-
     "shareAlert": {
-      "msg": "Unable to share without content.",
+      "msg": "Cannot share without content.",
       "title": "Share",
       "ok": "Ok"
     },
-
     "clearAlert": {
       "msg": "Are you sure you want to clear the content?",
       "title": "Delete",
@@ -152,27 +144,23 @@
       "no": "No"
     }
   },
-
   "noteSettings": {
     "acc": "Account",
     "secret": "Secret notes"
   },
-
   "account": {
     "edit": "Edit",
     "create": "Post",
     "no_post": "You haven't posted anything yet.",
     "posts": "posts",
     "notes": "notes",
-
     "options": {
       "share": "Share profile",
-      "share_app" : "Invite friends",
+      "share_app": "Invite friends",
       "copy_link": "Copy link",
       "moreSets": "Settings"
     }
   },
-
   "accSettings": {
     "privacy": "Privacy",
     "accessibility": "Accessibility",
@@ -184,7 +172,6 @@
     "support": "Support",
     "about": "About",
     "clear_cache": "Cache",
-
     "privacyPage": {
       "privacy_option": {
         "description": "If this option is enabled, no one will be able to:",
@@ -201,21 +188,17 @@
       }
     }
   },
-
   "accessibility": {
     "fontsize": "Text size"
   },
-
   "support": {
     "report_a_prob": "Report a problem",
     "ask": "Ask"
   },
-
   "about": {
     "policy": "Privacy Policy",
     "term": "Terms of Use"
   },
-
   "searchPage": {
     "placeholder": "Search...",
     "result": "Result for",
@@ -223,7 +206,6 @@
     "notes": "Notes",
     "no_result": "No results"
   },
-
   "create_post": {
     "add_note": "Add note",
     "add_tag": "Add tags",
@@ -234,19 +216,17 @@
     "close": "Close",
     "create_post": "Create a post"
   },
-
   "otherUserProfile": {
     "connect": "Connect",
     "connected": "Connected"
   },
-
   "harmfulContents": [
     "Harassment or bullying",
     "Hate speech",
     "Plagiarism",
     "Offensive or abusive language",
     "Nudity / sexually explicit content",
-    "Self-harm or suicide promotion",
+    "Promotion of self-harm or suicide",
     "Violence or gore",
     "Misinformation or disinformation",
     "Illegal activities (drugs, weapons, piracy)",
@@ -256,7 +236,6 @@
     "Impersonation",
     "Malware or harmful links"
   ],
-
   "reportMsgBox": {
     "reason": "Reason for report",
     "title": "Before reporting",
@@ -268,13 +247,11 @@
       "no": "No"
     }
   },
-
   "post": {
     "share": "Share",
     "report": "Report",
     "comment": "Comment",
     "delete": "Delete",
-
     "alert": {
       "msg": "Are you sure you want to delete this post?",
       "title": "Delete",
@@ -284,14 +261,13 @@
       }
     }
   },
-
   "editProfile": {
     "title": "Edit",
     "choose_a_pic": "Choose a photo",
     "placeholder_name": "Name",
     "placeholder_bio": "Bio",
     "blank": "Must not be empty!",
-    "chars": "Must only contain 101 characters",
+    "chars": "Must contain only up to 101 characters",
     "role": "Role",
     "geust": "Guest",
     "roles": [

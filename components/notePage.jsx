@@ -15,6 +15,8 @@ import { useRouter } from 'next/router';
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 import { useTranslation } from 'react-i18next';
 import { useCache } from '../hooks/notrCachingHook.js';
+import PullToRefresh from 'pulltorefreshjs'
+
 export default function Home() {
   const { t } = useTranslation();
   const router = useRouter();
@@ -205,9 +207,25 @@ export default function Home() {
       console.log('Delete error:', err);
     }
   };
+  
+  useEffect(() => {
+    PullToRefresh.init({
+      mainElement: '#body',
+      onRefresh(){
+        try {
+          setIsLoading(true)
+          getNotesFunc()
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    })
+    
+    return () => PullToRefresh.destroyAll()
+  }, []);
 
   return (
-    <div style={{ marginTop: '100px' }} className={styles.body}>
+    <div id="body" style={{ marginTop: '100px' }} className={styles.body}>
       {user && token ? (
         <div className={styles.networkDiv}>
           <p>{t('notePage.noteLengthText', { returnsObject: true, notesLength: notes.length })}</p>

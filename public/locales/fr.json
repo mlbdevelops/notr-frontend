@@ -4,35 +4,35 @@
   },
   "login": {
     "login_message": "Connexion",
-    "email": "Email",
+    "email": "E-mail",
     "password": "Mot de passe",
     "login_button": "Connexion",
     "account_not_exist": "Vous n'avez pas de compte ? ",
     "register_link": "Inscrivez-vous",
     "alert_title": "Connexion",
-    "alert_ok": "Ok"
+    "alert_ok": "OK"
   },
   
   "header": {
-    "setting" : "Parameters",
-    "privacy" : "Vie privée",
-    "accessibility" : "Accessibilité",
-    "buy_coffee" : "Don",
-    "deleteAcc" : "Effacer le compte",
-    "langs" : "Langues",
-    "update" : "Mis a jour",
-    "support" : "Support",
-    "about" : "À propos"
+    "setting": "Paramètres",
+    "privacy": "Vie privée",
+    "accessibility": "Accessibilité",
+    "buy_coffee": "Don",
+    "deleteAcc": "Supprimer le compte",
+    "langs": "Langues",
+    "update": "Mise à jour",
+    "support": "Support",
+    "about": "À propos"
   },
   
   "register": {
     "alerts": {
       "password_mismatch": "Les mots de passe ne correspondent pas",
       "age_restriction": "Vous ne pouvez pas vous inscrire si vous avez moins de 13 ans",
-      "email_registered": "Cet email est déjà enregistré. Essayez un autre",
+      "email_registered": "Cet e-mail est déjà enregistré. Essayez-en un autre.",
       "incorrect_code": "Code incorrect",
-      "alert_ok":"ok",
-      "ageTitle": "Age"
+      "alert_ok": "OK",
+      "ageTitle": "Âge"
     },
     "steps": {
       "name_username": {
@@ -40,7 +40,7 @@
         "desc": "Choisissez un nom et un nom d'utilisateur",
         "name": "Nom",
         "username": "Nom d'utilisateur",
-        "username_note": "Le nom d'utilisateur doit contenir moins de 21 caractères !",
+        "username_note": "Le nom d'utilisateur doit contenir moins de 21 caractères.",
         "continue": "Continuer"
       },
       "birthday": {
@@ -51,9 +51,9 @@
         "continue": "Continuer"
       },
       "email": {
-        "title": "Email",
-        "desc": "Entrez votre email pour confirmation",
-        "email": "Email",
+        "title": "E-mail",
+        "desc": "Entrez votre e-mail pour confirmation",
+        "email": "E-mail",
         "back": "Retour",
         "continue": "Continuer"
       },
@@ -69,7 +69,7 @@
         "desc": "Créez un mot de passe fort pour sécuriser votre compte",
         "password": "Mot de passe",
         "verify_password": "Vérifier le mot de passe",
-        "privacy_policy_text": "En continuant, vous acceptez notre.",
+        "privacy_policy_text": "En continuant, vous acceptez notre ",
         "and_text": "et",
         "privacy_policy": "Politique de confidentialité",
         "terms_of_use": "Conditions d'utilisation",
@@ -91,13 +91,13 @@
       "bn": "Bengali",
       "ru": "Russe",
       "pt": "Portugais",
-      "ur": "Urdu",
+      "ur": "Ourdou",
       "id": "Indonésien",
       "de": "Allemand",
       "ja": "Japonais",
       "sw": "Swahili",
       "mr": "Marathi",
-      "te": "Telugu",
+      "te": "Télougou",
       "tr": "Turc",
       "ta": "Tamoul",
       "vi": "Vietnamien",
@@ -107,84 +107,84 @@
   
   "notePage": {
     "noteLengthText": "Vous avez {{notesLength}} notes",
-    "networkStatusTrue": "enligne",
-    "networkStatusFalse": "hors-ligne",
+    "networkStatusTrue": "en ligne",
+    "networkStatusFalse": "hors ligne",
     "addNotesText": "La liste est vide",
     "addNote": "Ajouter",
     "addNoteTitle": "Ajouter une note",
     "cancel": "Annuler",
-    "enter_a_name": "Entrer un nom",
-    "empty": "Vide!"
+    "enter_a_name": "Entrez un nom",
+    "empty": "Vide !"
   },
   
   "indivuNote": {
-    "post_note_b": "Poster cette note",
-    "placeholder": "Écrivez quelques choses...",
+    "post_note_b": "Publier cette note",
+    "placeholder": "Écrivez quelque chose...",
     "addTag": "Ajouter un tag",
     "save": "Enregistrer",
-    "set_secret": "Rendre secret",
-    "set_public": "Rendre public",
+    "set_secret": "Rendre secrète",
+    "set_public": "Rendre publique",
     "copy": "Copier",
     "share": "Partager",
     "delete": "Supprimer",
     "title": "Titre",
     
     "deleteAlert": {
-      "title": "Effacer",
-      "msg": "Êtes-vous sûr de vouloir supprimer cette note?",
+      "title": "Supprimer",
+      "msg": "Êtes-vous sûr de vouloir supprimer cette note ?",
       "boxBs": {
-        "no" : "Non",
-        "yes" : "Effacer"
+        "no": "Non",
+        "yes": "Supprimer"
       }
     },
     
-    "shareAlert":{
-      "msg" : "Impossible de partager sans un contenu.",
+    "shareAlert": {
+      "msg": "Impossible de partager sans contenu.",
       "title": "Partager",
-      "ok" : "Ok"
+      "ok": "OK"
     },
     
-    "clearAlert":{
-      "msg" : "Êtes-vous de supprimer le contenu?",
+    "clearAlert": {
+      "msg": "Êtes-vous sûr de vouloir supprimer le contenu ?",
       "title": "Effacer",
-      "ok" : "Oui",
-      "no" : "Non"
+      "ok": "Oui",
+      "no": "Non"
     }
   },
   
-  "noteSettings" : {
-    "acc" : "Compte",
-    "secret" : "Notes secret"
+  "noteSettings": {
+    "acc": "Compte",
+    "secret": "Notes secrètes"
   },
   
   "account": {
-    "edit" : "Modifier",
-    "create" : "Poster",
-    "no_post" : "Vous n'avez pas encore de poste.",
-    "posts": "postes",
+    "edit": "Modifier",
+    "create": "Publier",
+    "no_post": "Vous n'avez pas encore de publication.",
+    "posts": "publications",
     "notes": "notes",
     
     "options": {
-      "share": "Partager le profile",
+      "share": "Partager le profil",
       "copy_link": "Copier le lien",
-      "moreSets": "Parameters",
-      "share_app" : "Invite les amis"
+      "moreSets": "Paramètres",
+      "share_app": "Inviter des amis"
     }
   },
   
-  "accSettings":{
-    "privacy" : "Vie privée",
-    "accessibility" : "Accessibilité",
-    "buy_coffee" : "Don",
-    "logout" : "Déconnexion",
-    "deleteAcc" : "Effacer le compte",
-    "langs" : "Langues",
-    "update" : "Mis a jour",
-    "support" : "Support",
-    "about" : "À propos",
+  "accSettings": {
+    "privacy": "Vie privée",
+    "accessibility": "Accessibilité",
+    "buy_coffee": "Don",
+    "logout": "Déconnexion",
+    "deleteAcc": "Supprimer le compte",
+    "langs": "Langues",
+    "update": "Mise à jour",
+    "support": "Support",
+    "about": "À propos",
     "clear_cache": "Cache",
     
-    "privacyPage" : {
+    "privacyPage": {
       "privacy_option": {
         "description": "Si cette option est activée, personne ne pourra :",
         "list": {
@@ -201,41 +201,41 @@
     }
   },
   
-  "accessibility" : {
-    "fontsize" : "Taille du text"
+  "accessibility": {
+    "fontsize": "Taille du texte"
   },
   
-  "support" : {
-    "report_a_prob" : "Déclarer un problème",
-    "ask" : "Demander"
+  "support": {
+    "report_a_prob": "Signaler un problème",
+    "ask": "Demander"
   },
   
-  "about" : {
+  "about": {
     "policy": "Politique de confidentialité",
     "term": "Conditions d'utilisation"
   },
   
   "searchPage": {
-    "placeholder": "Chercher...",
-    "result" : "Resultat pour",
+    "placeholder": "Rechercher...",
+    "result": "Résultat pour",
     "accounts": "Comptes",
     "notes": "Notes",
-    "no_result": "Pas de résultats"
+    "no_result": "Aucun résultat"
   },
   
-  "create_post":{
-    "add_note" : "Ajouter une note",
-    "add_tag" : "Ajouter des tags",
-    "add_images" : "Ajouter des images",
-    "add_fontFam" : "Famille de police",
-    "post" : "Poster",
-    "msg" : "Aucune note trouvé",
-    "close" : "Fermer",
-    "create_post": "Créer une poste"
+  "create_post": {
+    "add_note": "Ajouter une note",
+    "add_tag": "Ajouter des tags",
+    "add_images": "Ajouter des images",
+    "add_fontFam": "Famille de police",
+    "post": "Publier",
+    "msg": "Aucune note trouvée",
+    "close": "Fermer",
+    "create_post": "Créer une publication"
   },
   
   "otherUserProfile": {
-    "connect": "Connecter",
+    "connect": "Se connecter",
     "connected": "Connecté"
   },
   
@@ -255,30 +255,31 @@
     "Usurpation d'identité",
     "Logiciels malveillants ou liens nuisibles"
   ],
-  "reportMsgBox" : {
-    "reason":"Raison de déclaration",
+  
+  "reportMsgBox": {
+    "reason": "Raison de la déclaration",
     "title": "Avant de déclarer",
-    "msg": "S'il vous plaît, Choisissez une bonne raison avant de déclarer. Vos commentaire nous aide à améliorer nos services et à garder cette communauté appréciable pour tout le monde. Merci!",
+    "msg": "Veuillez choisir une bonne raison avant de déclarer. Vos commentaires nous aident à améliorer nos services et à garder cette communauté agréable pour tout le monde. Merci !",
     "alert": {
       "title": "Déclarer",
-      "msg": "Êtes vous sure de vouloir déclarer cette publication",
+      "msg": "Êtes-vous sûr de vouloir déclarer cette publication ?",
       "ok": "Oui",
       "no": "Non"
     }
   },
   
   "post": {
-    "share": "partager",
-    "report": "déclarer",
+    "share": "Partager",
+    "report": "Déclarer",
     "comment": "Commentaire",
-    "delete": "Effacer",
+    "delete": "Supprimer",
     
     "alert": {
-      "msg": "Êtes vous sûr de vouloir effacer cette publication?",
-      "title": "Effacer",
+      "msg": "Êtes-vous sûr de vouloir supprimer cette publication ?",
+      "title": "Supprimer",
       "actions": {
-        "ok" : "Oui",
-        "no" : "Non"
+        "ok": "Oui",
+        "no": "Non"
       }
     }
   },
@@ -288,8 +289,8 @@
     "choose_a_pic": "Choisissez une photo",
     "placeholder_name": "Nom",
     "placeholder_bio": "Bio",
-    "blank": "Ne doit pas être vide!",
-    "chars": "Ne doit contenir que 101 caractères",
+    "blank": "Ne doit pas être vide !",
+    "chars": "Ne doit contenir que 101 caractères.",
     "role": "Rôle",
     "geust": "Invité",
     "roles": [
@@ -432,12 +433,12 @@
       "Assistant modérateur"
     ],
     "submit": "Soumettre",
-    "letter" : {
+    "letter": {
       "username": "nom d'utilisateur",
-      "email": "l'email",
-      "password": "mots de passe",
-      "age": "l'age",
-      "msg" : "La modification de {{email}}, {{pssw}}, du {{username}} et de {{age}} seront bientôt disponibles car ils ont besoin d'une double validation avant la soumission."
+      "email": "e-mail",
+      "password": "mot de passe",
+      "age": "l’âge",
+      "msg": "La modification de {{email}}, {{pssw}}, du {{username}} et de {{age}} sera bientôt disponible, car elle nécessite une double validation avant la soumission."
     }
   }
 }

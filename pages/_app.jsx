@@ -11,6 +11,8 @@ import UpdatePopUp from '../components/updatePopUp.jsx';
 import { Device } from '@capacitor/device';
 import { Capacitor } from '@capacitor/core';
 import { useCache } from '../hooks/notrCachingHook.js';
+import { LocalNotifications } from '@capacitor/local-notifications';
+import { scheduleDailyNotifications } from '../notification/notifs.jsx';
 
 export default function AppWrapper({ Component, pageProps }) {
   const [size, setSize] = useState(0);
@@ -34,6 +36,20 @@ export default function AppWrapper({ Component, pageProps }) {
     };
     loadLang();
   }, []);
+  
+  useEffect(() => {
+    scheduleDailyNotifications()
+    
+    const listener = LocalNotifications.addListener(
+      'localNotificationActionPerformed',
+      (notification) => {
+        const target = notification.notification.extra?.targetPage || '/';
+        router.push(target)
+      }
+    );
+    
+    return () => listener.remove()
+  }, [router])
   
   useEffect(() => {
     document.body.style.overflow = isUpdate ? 'hidden' : '';
