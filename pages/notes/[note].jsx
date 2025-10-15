@@ -143,10 +143,16 @@ Notr - https://notr-sigma.vercel.app`
         }
       })
       const data = await res.json()
-      
-      if (data?.response?.title) {
+      console.log('💙',data.response?.fontStyle) 
+      if (res.ok && data?.response?.title) {
         setNotes(data.response)
         setNewNote(data.response?.note)
+        
+        setFontStyle(data.response?.fontStyle)
+        setFontFam(data.response?.fontFamily)
+        setFontWeight(data.response?.fontWeight)
+        setTl(data.response?.textAlign)
+        
         setNewTitle(data.response?.title)
         setIsPrivate(data?.response?.isPrivate)
         setIsLoading(false)
@@ -171,8 +177,8 @@ Notr - https://notr-sigma.vercel.app`
         tag: tag? tag : notes?.tag,
         isPrivate: isPrvt === false || true? isPrvt : notes?.isPrivate,
         fontStyle : fontStyle,
-        textAlign : textAlign,
-        fontFamily : fontFamily,
+        textAlign : tl,
+        fontFamily : fontFam,
         fontWeight : fontWeight
       })
     });
@@ -182,7 +188,8 @@ Notr - https://notr-sigma.vercel.app`
         duration: 'long',
         positive: 'positive',
       })
-      return setLoad(false)
+      setIsSave(false)
+      return setIsLoading(false)
     }
     if (res.ok) {
       setIsTyping(false)

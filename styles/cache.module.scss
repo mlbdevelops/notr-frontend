@@ -40,4 +40,20 @@
       }
     }
   }
+  
+  .clearB{
+    width: 90%;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: white;
+    color: black;
+    border: none;
+    transition: 0.2s;
+    margin: 30px 0;
+    
+    &:active{
+      transform: scale(0.99);
+      opacity: 0.7;
+    }
+  }
 }

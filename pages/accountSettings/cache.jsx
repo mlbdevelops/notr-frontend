@@ -32,6 +32,9 @@ export default function cache(){
         text='Cache'
         leftIcon={
           <ChevronLeft
+            style={{
+              padding: 10,
+            }}
             onClick={() => {
               router.back()
             }}
@@ -60,7 +63,7 @@ export default function cache(){
           </small>
         </span>
       </div>
-      <button onClick={clear_cache}>
+      <button className={styles.clearB} onClick={clear_cache}>
         Clear cache
       </button>
     </div>
