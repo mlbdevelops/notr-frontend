@@ -418,7 +418,7 @@ Notr - https://notr-sigma.vercel.app`
                 openUrl(lk)
               }}
               key={i}>
-              <Link size={10}/> {lk}
+              <Link size={10}/> {lk.length >= 35? `${lk.substring(0, 35)}...` : lk}
             </span>
           ))}
         </div>

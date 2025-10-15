@@ -17,7 +17,7 @@ import {
   Moon,
   Locales,
   Star,
-  ArrowUpCircle
+  ArrowUpCircle,
 } from 'lucide-react';
 import Header from '../../components/header.jsx'
 import { useRouter } from 'next/router'
@@ -27,6 +27,8 @@ import Loader from '../../components/loading_spinner.jsx'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next';
 import { useCache } from '../../hooks/notrCachingHook.js';
+import { Browser } from '@capacitor/browser'
+import Image from 'next/image'
 
 export default function settings(){
   const { t } = useTranslation()
@@ -36,12 +38,13 @@ export default function settings(){
   const [isDeleting, setIsDeleting] = useState(false)
   const [msgIndex, setMsgIndex] = useState()
   const [data, setData] = useState({})
+  const [post, setPost] = useState()
   const [autoSave, setAutoSave] = useState('')
   const [user, setUser] = useState('')
   const [token, setToken] = useState('')
   const [update, setUpdate] = useState(true)
   const [isNewUpdate, setIsNewUpdate] = useState(false)
-  const { clear } = useCache()
+  const { clear, getProvider } = useCache()
   
   useEffect(() => {
     const userid = JSON.parse(localStorage.getItem('user'))?._id || ''
@@ -116,8 +119,20 @@ export default function settings(){
     }
   }
   
+  const fb = async () => {
+    await Browser.open('https://www.facebook.com/profile.php?id=61582512174009')
+  }
+  
+  const wa = async () => {
+    await Browser.open('https://whatsapp.com/channel/0029Vb6JpXGHltY2Vz4Vw01Z')
+  }
+  
+  const insta = async () => {
+    await Browser.open('https://www.instagram.com/notr1571')
+  }
+  
   return(
-    <div style={{marginTop: '100px'}}>
+    <div style={{marginTop: '100px', marginBottom: 50,}}>
       <Header
         text={t('header.setting')}
         isTransparent={true}
@@ -208,13 +223,24 @@ export default function settings(){
           </div>
         </div>
         
-        { /*buy_me_a_coffee*/ }
+        { /*buy_me_a_coffee
         <div onClick={() => {
           router.push('/accountSettings/buy_me_a_coffee')
         }} className={styles.component}>
           <span className={styles.span}>
             <HandHeart size={20}/>
             {t('accSettings.buy_coffee')}
+          </span>
+          <ChevronRight/>
+        </div>*/}
+        
+        { /*clear cache*/ }
+        <div onClick={ async () => {
+          router.push('/accountSettings/cache')
+        }} className={styles.component}>
+          <span className={styles.span}>
+            <Save size={20}/>
+            {t('accSettings.clear_cache')}
           </span>
           <ChevronRight/>
         </div>
@@ -268,6 +294,72 @@ export default function settings(){
           <span style={{color: 'lightgray'}}>
             {isDeleting? 'Deleting...' : ''}
           </span>
+        </div>
+      </div>
+      
+      <p style={{
+        textAlign: 'center',
+        color: 'darkgray',
+        fontSize: 12,
+      }}>
+        Follow Notr
+      </p>
+      
+      <div style={{
+        display: 'flex',
+        width: '100%',
+        justifyContent: 'center',
+        gap: 20,
+        margin: '20px 0',
+      }}>
+        
+        <div onClick={fb} style={{
+            backgroundColor: 'white',
+            borderRadius: 50,
+            padding: 10,
+            width: 20, 
+            height: 20,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <Image
+            width={20} 
+            height={20}
+            src={'./logos/facebook.png'}
+          />
+        </div>
+        <div onClick={insta} style={{
+            backgroundColor: 'white',
+            borderRadius: 50,
+            padding: 10,
+            width: 20, 
+            height: 20,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <Image
+            width={20} 
+            height={20}
+            src={'./logos/instagram.png'}
+          />
+        </div>
+        <div onClick={wa} style={{
+            backgroundColor: 'white',
+            borderRadius: 50,
+            padding: 10,
+            width: 20, 
+            height: 20,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <Image
+            width={20} 
+            height={20}
+            src={'./logos/whatsapp.png'}
+          />
         </div>
       </div>
     </div>

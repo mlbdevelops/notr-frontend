@@ -55,8 +55,10 @@ export default function search(){
         {history.length >= 1?
           history.map((his, i) => (
             <span 
-              onClick={() => {
+              onClick={(e) => {
                 setQ(his)
+                e.target.value = his
+                redirect(e)
               }}
               className={styles.elem}>
               {his}

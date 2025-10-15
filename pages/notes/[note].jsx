@@ -31,6 +31,7 @@ import Options from '../../components/litlePopup.jsx'
 import styles2 from '../../styles/litlePopup.module.scss';
 import Loader from '../../components/loading_spinner.jsx';
 import { Capacitor } from '@capacitor/core'
+import { Toast } from '@capacitor/toast'
 
 export default function note(){
   const router = useRouter();
@@ -168,9 +169,21 @@ Notr - https://notr-sigma.vercel.app`
         title: newTitle,
         note: newNote,
         tag: tag? tag : notes?.tag,
-        isPrivate: isPrvt === false || true? isPrvt : notes?.isPrivate
+        isPrivate: isPrvt === false || true? isPrvt : notes?.isPrivate,
+        fontStyle : fontStyle,
+        textAlign : textAlign,
+        fontFamily : fontFamily,
+        fontWeight : fontWeight
       })
     });
+    if (!res.ok) {
+      await Toast.show({
+        text: 'Error saving note.',
+        duration: 'long',
+        positive: 'positive',
+      })
+      return setLoad(false)
+    }
     if (res.ok) {
       setIsTyping(false)
       setIsSave(false)

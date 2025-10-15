@@ -5,10 +5,11 @@ import styles from '../../styles/privacy.module.scss';
 import { useState, useEffect } from 'react';
 import Loader from '../../components/loading_spinner.jsx';
 import { useTranslation } from 'react-i18next';
+import { useCache } from '../../hooks/notrCachingHook.js';
 
 export default function privacy(){
   const { t } = useTranslation();
-  
+  const { remove, getProvider } = useCache();
   const router = useRouter();
   const [isPrivate, setIsPrivate] = useState(false);
   const [load, setLoad] = useState(false);
@@ -21,6 +22,11 @@ export default function privacy(){
   
   useEffect(() => {
     const getPrivate = async (token) => {
+      const userData = getProvider('user')
+      if (userData != undefined) {
+        return setIsPrivate(userData.user.isPrivate)
+      }
+      
       setLoad(true)
       const res = await fetch('https://notrbackend.vercel.app/api/user/isPrivate', {
         method: 'GET',
@@ -29,7 +35,7 @@ export default function privacy(){
         }
       })
       const data = await res.json();
-      console.log(data)
+    
       if (res.ok) {
         setIsPrivate(data.isPrivate)
         setLoad(false)
@@ -54,6 +60,7 @@ export default function privacy(){
     const response = await res.json()
     console.log(response)
     if (res.ok) {
+      remove('user')
       setIsPrivate(response.isPrivate)
       setLoad(false)
     }

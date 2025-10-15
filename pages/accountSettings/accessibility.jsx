@@ -4,6 +4,7 @@ import { ChevronLeft, Type, ChevronRight } from 'lucide-react';
 import styles from '../../styles/accessibility.module.scss';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { App } from '@capacitor/app';
 
 export default function accessibility(){
   const router = useRouter();
@@ -13,6 +14,8 @@ export default function accessibility(){
   useEffect(() => {
     setSize(localStorage.getItem('size') || 2);
   }, []);
+  
+  console.log(App.restartApp())
   
   return(
     <div style={{
@@ -89,15 +92,26 @@ export default function accessibility(){
               width: '100%',
             }} 
             type="range" 
+            className={styles.range}
             value={size}
             onChange={(e) => {
               setSize(e.target.value)
-              localStorage.setItem('size', e.target.value)
             }} 
             max={4}
             min={0}
           />
+          
         </div>
+        <button onClick={() => {
+          try {
+            localStorage.setItem('size', size)
+            location.reload()
+          } catch (err) {
+            alert(err);
+          }
+        }} className={styles.setB}>
+          Apply
+        </button>
       </div>
     </div>
   );

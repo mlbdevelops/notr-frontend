@@ -8,17 +8,25 @@ export function useCache(key, initialValue) {
   const setCache = (value) => {
     cache.set(key, value);
     setData(value);
-    console.log(value);
   };
   
-  const clear = () => {
-    cache.clear()
-  }
+  const saveProvider = (key, value) => {
+    cache.set(key, value);
+    setData(value);
+  };
   
-  const remove = (elem) => {
-    cache.delete(elem)
-  }
-  
+  const clear = () => cache.clear()
+  const remove = (elem) => cache.delete(elem)
   const getCache = () => cache.get(key);
-  return { data, setCache, getCache, clear, remove };
+  const getProvider = (keyElem) => cache.get(keyElem);
+  
+  return { 
+    data, 
+    setCache,
+    getCache,
+    clear, 
+    remove,
+    saveProvider,
+    getProvider,
+  };
 }

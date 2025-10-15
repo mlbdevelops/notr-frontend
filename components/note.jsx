@@ -50,6 +50,7 @@ export default function Note({title, note, time, noteId, tag, deleteFunc, networ
             borderRadius: '50px',
             border: '1px solid #2d2d2d',
             backgroundColor: '#262626',
+            whiteSpace: 'nowrap'
           }}>{tag}</span> : <Tag className={noteStyles.tagIcon} size={12}/>}
         </div>
         {networkStatus == 'Online'? <Link href={`/notes/${encodeURIComponent(noteId)}`}>

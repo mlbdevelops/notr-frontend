@@ -31,7 +31,7 @@ export default function home() {
     }));
     setTabIndex(tab);
   }
-
+  
   useEffect(() => {
     setTheme(localStorage.getItem('theme') || 'dark');
   }, []);

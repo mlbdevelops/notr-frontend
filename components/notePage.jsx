@@ -15,11 +15,9 @@ import { useRouter } from 'next/router';
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 import { useTranslation } from 'react-i18next';
 import { useCache } from '../hooks/notrCachingHook.js';
-
 export default function Home() {
   const { t } = useTranslation();
   const router = useRouter();
-
   const [user, setUser] = useState('');
   const [userName, setUserName] = useState('');
   const [add, setAdd] = useState(false);
@@ -29,7 +27,6 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [networkConn, setNetworkConn] = useState('');
   const [token, setToken] = useState('');
-
   const { setCache, getCache } = useCache('notes');
   
   useEffect(() => {
@@ -37,25 +34,29 @@ export default function Home() {
     const token = JSON.parse(localStorage.getItem('token'));
     if (user && token) {
       setUser(user._id);
-      setUserName(user.name);
+      setUserName(user.username);
       setToken(token);
     }
   }, []);
   
   const isNative = Capacitor.getPlatform() !== 'web';
   
-  const saveNoteData = async () => {
+  const saveNoteData = async (data) => {
     if (!isNative || notes.length === 0) return;
     try {
       await Filesystem.writeFile({
         path: 'notr_offline.json',
-        data: JSON.stringify(notes),
+        data: JSON.stringify(data),
         directory: Directory.Data,
         encoding: Encoding.UTF8,
       });
     } catch (e) {
       console.error('Failed to save offline notes:', e);
-      alert('Something went wrong saving notes.');
+      await Toast.show({
+        text: 'Something went wrong while saving notes.',
+        duration: 'long',
+        position: 'bottom',
+      })
     }
   };
   
@@ -131,7 +132,7 @@ export default function Home() {
       if (res.ok) {
         setCache(noteList.response);
         setNotes(noteList.response);
-        await saveNoteData();
+        await saveNoteData(noteList.response);
       }
     } catch (err) {
       console.log('Error fetching notes:', err);
@@ -241,7 +242,11 @@ export default function Home() {
                   key={i}
                   networkStatus={mode}
                   token={token}
-                  title={`${note.title.substring(0, 35)}`}
+                  title={
+                    note.title.length > 25
+                    ? `${note.title.substring(0, 25)}...`
+                    : `${note.title}`
+                  }
                   note={
                     note.note.length <= 0
                       ? t('notePage.empty')

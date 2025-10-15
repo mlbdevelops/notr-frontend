@@ -15,7 +15,7 @@ import {
   Images
 } from 'lucide-react';
 import { useEffect, useState } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/router'
 import styles from '../../styles/accInfo.module.scss'
 import Post from '../../components/post.jsx'
 import Loader from '../../components/loading_spinner.jsx'
@@ -27,7 +27,6 @@ import PullToRefresh from 'pulltorefreshjs'
 export default function account(){
   const {t} = useTranslation()
   const router = useRouter()
-  const searchParams = useSearchParams()
   const [user, setUser] = useState({})
   const [connections, setConnections] = useState()
   const [loggedUser, setLoggedUserId] = useState('')
@@ -85,7 +84,7 @@ export default function account(){
       setUserParam(userId)
       getUser(userId, loggedUser)
     }
-  }, [searchParams, loggedUser])
+  }, [router.isReady, loggedUser])
   
   useEffect(() => {
     const getConnected = async () => {

@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 export default function query(){
   const router = useRouter();
   const {t} = useTranslation();
-  const [q, setQ] = useState('');
+  const [q, setQ] = useState(router.query.q);
   const [user, setUser] = useState('');
   const [token, setToken] = useState('');
   const [tabIndex, setTabIndex] = useState(1);
@@ -41,7 +41,10 @@ export default function query(){
     });
     
     const data = await res.json();
-    
+    if (!res.ok) {
+      setNoData(true)
+      return setLoad(false)
+    }
     if (res.ok) {
       setUsers(data?.users)
       setPosts(data?.posts)
@@ -51,8 +54,10 @@ export default function query(){
   };
   
   useEffect(() => {
-    getPosts(router.query.q)
-  }, [router.query.q])
+    if (router.isReady && router.query.q) {
+      getPosts(q)
+    }
+  }, [router.isReady, router.query.q])
   
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'))

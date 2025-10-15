@@ -247,7 +247,7 @@ export default function account(){
     <div id="docBody" style={{marginTop: '100px'}} className={styles.body}>
       <Header
         leftIcon={<ChevronLeft style={{padding:'10px'}} onClick={() => router.back()}/>}
-        text={<small>{user?.name}</small>}
+        text={<small>{user?.name?.length >= 30? `${user?.name?.substring(0, 20)}...` : user?.name}</small>}
         rightIcons={[
           <div className={styles.moreIcon}>
             <Menu onClick={() => setIsMore(true)}/>
