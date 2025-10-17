@@ -12,7 +12,7 @@ import { Device } from '@capacitor/device';
 import { Capacitor } from '@capacitor/core';
 import { useCache } from '../hooks/notrCachingHook.js';
 import { LocalNotifications } from '@capacitor/local-notifications';
-import { scheduleDailyNotifications } from '../notification/notifs.jsx';
+import { scheduleDailyNotifications } from '../utils/notifs.js';
 
 export default function AppWrapper({ Component, pageProps }) {
   const [size, setSize] = useState(0);
@@ -113,7 +113,8 @@ export default function AppWrapper({ Component, pageProps }) {
   useEffect(() => {
     if (isUpdate) sessionStorage.setItem('isNewUpdate', isUpdate);
   }, [isUpdate]);
-
+  
+  
   return (
     <div style={{ fontSize: ['16px', '17px', '18px', '20px', '22px'][size] || '18px' }}>
       <Component {...pageProps} />
@@ -125,7 +126,6 @@ export default function AppWrapper({ Component, pageProps }) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <title>Notr</title>
       </Head>
-
       {isUpdate && router.pathname !== '/accountSettings/app_update' && (
         <UpdatePopUp
           currentV={`Your version: ${currentV || 0}`}

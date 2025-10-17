@@ -24,22 +24,12 @@ export default function Home() {
   const [userName, setUserName] = useState('');
   const [add, setAdd] = useState(false);
   const [title, setTitle] = useState('');
-  const [mode, setMode] = useState('');
+  const [mode, setMode] = useState('Online');
   const [notes, setNotes] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [networkConn, setNetworkConn] = useState('');
+  const [networkConn, setNetworkConn] = useState('Online');
   const [token, setToken] = useState('');
   const { setCache, getCache } = useCache('notes');
-  
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    const token = JSON.parse(localStorage.getItem('token'));
-    if (user && token) {
-      setUser(user._id);
-      setUserName(user.username);
-      setToken(token);
-    }
-  }, []);
   
   const isNative = Capacitor.getPlatform() !== 'web';
   
@@ -65,100 +55,129 @@ export default function Home() {
   const readFile = async () => {
     if (!isNative) return [];
     try {
+      await Filesystem.stat({
+        path: 'notr_offline.json',
+        directory: Directory.Data,
+      });
+  
       const file = await Filesystem.readFile({
         path: 'notr_offline.json',
         directory: Directory.Data,
         encoding: Encoding.UTF8,
       });
-      return JSON.parse(file?.data || '[]');
+  
+      return JSON.parse(file.data || '[]');
     } catch (error) {
-      console.log('No offline file found:', error);
+      console.warn('Offline file not found or corrupted:', error.message);
       return [];
     }
   };
-  
+
   useEffect(() => {
-    let removeListener;
-    const initNetworkListener = async () => {
+    const initApp = async () => {
+      const userData = JSON.parse(localStorage.getItem('user'));
+      const userToken = JSON.parse(localStorage.getItem('token'));
+      if (userData && userToken) {
+        setUser(userData._id);
+        setUserName(userData.username);
+        setToken(userToken);
+      }
+
       if (isNative) {
         const status = await Network.getStatus();
-        setNetworkConn(status.connected ? t('notePage.networkStatusTrue') : t('notePage.networkStatusFalse'));
-        setMode(status.connected ? 'Online' : 'Offline');
+        const online = status.connected;
+        setMode(online ? 'Online' : 'Offline');
+        setNetworkConn(online ? t('notePage.networkStatusTrue') : t('notePage.networkStatusFalse'));
 
-        const handler = await Network.addListener('networkStatusChange', async (status) => {
-          const online = status.connected;
-          setNetworkConn(online ? t('notePage.networkStatusTrue') : t('notePage.networkStatusFalse'));
-          setMode(online ? 'Online' : 'Offline');
+        if (!online) {
+          const offlineNotes = await readFile();
+          if (offlineNotes.length > 0) setNotes(offlineNotes);
+        } else {
+          getNotesFunc();
+        }
 
-          if (online) {
+        Network.addListener('networkStatusChange', async (status) => {
+          const connected = status.connected;
+          setMode(connected ? 'Online' : 'Offline');
+          setNetworkConn(connected ? t('notePage.networkStatusTrue') : t('notePage.networkStatusFalse'));
+          if (connected) {
             getNotesFunc();
           } else {
             const offlineNotes = await readFile();
             setNotes(offlineNotes);
           }
         });
-
-        removeListener = handler.remove;
       } else {
         setMode('Online');
         setNetworkConn('Online');
+        getNotesFunc();
       }
     };
 
-    initNetworkListener();
-    return () => {
-      if (removeListener) removeListener();
-    };
-  }, [user, token]);
-  
-  useEffect(() => {
-    const setOfflineNotes = async () => {
-      if (token && mode === 'Offline') {
-        const offlineNotes = await readFile();
-        setNotes(offlineNotes);
-      }
-    };
-    setOfflineNotes();
-  }, [token, mode]);
-  
+    initApp();
+  }, []);
+
   const getNotesFunc = async () => {
-    if (mode === 'Offline' || !user || !token) return;
+    if (!user || !token) return;
+
+    if (mode === 'Offline') {
+      const offlineNotes = await readFile();
+      if (offlineNotes.length > 0) setNotes(offlineNotes);
+      return;
+    }
+
     try {
       setIsLoading(true);
       const res = await fetch(`https://notrbackend.vercel.app/api/getNotes`, {
-        headers: {
-          token: token,
-        },
+        headers: { token },
       });
-      const noteList = await res.json();
+      const data = await res.json();
+      if (!res.ok) {
+        setIsLoading(false)
+        if (Capacitor.isNativePlatform()) {
+          await Toast.show({
+            text: 'Something went wrong, try again',
+            duration: 'long',
+            position: 'bottom'
+          })
+        }else{
+          console.log('Something went wrong, try again', e)
+        }
+      }
       if (res.ok) {
-        setCache(noteList.response);
-        setNotes(noteList.response);
-        await saveNoteData(noteList.response);
+        setCache(data.response);
+        setNotes(data.response);
+        await saveNoteData(data.response);
       }
     } catch (err) {
-      console.log('Error fetching notes:', err);
+      console.error('Fetch notes failed:', err);
+      const cachedData = getCache();
+      if (cachedData?.length) setNotes(cachedData);
+      else {
+        const offlineNotes = await readFile();
+        if (offlineNotes.length) setNotes(offlineNotes);
+      }
     } finally {
       setIsLoading(false);
     }
   };
-  
+
   useEffect(() => {
     if (user && token) {
-      const cachedData = getCache();
-      if (cachedData?.length) {
-        setNotes(cachedData);
-      } else if (mode !== 'Offline') {
+      const cached = getCache();
+      if (cached?.length) {
+        setNotes(cached);
+      } else {
         getNotesFunc();
       }
     }
-  }, [user, token]);
+  }, [user, token, mode]);
   
   const addNote = async () => {
     if (mode === 'Offline') {
       await Toast.show({
         text: "You're offline.",
-        duration: 'long',
+        duration: 'short',
         position: 'bottom',
       });
       return;
@@ -191,7 +210,7 @@ export default function Home() {
     if (mode === 'Offline') {
       await Toast.show({
         text: "You're offline.",
-        duration: 'long',
+        duration: 'short',
         position: 'bottom',
       });
       return;
@@ -225,7 +244,9 @@ export default function Home() {
   }, []);
 
   return (
-    <div id="body" style={{ marginTop: '100px' }} className={styles.body}>
+    <div id="body" style={{ 
+      marginTop: '100px',
+    }} className={styles.body}>
       {user && token ? (
         <div className={styles.networkDiv}>
           <p>{t('notePage.noteLengthText', { returnsObject: true, notesLength: notes.length })}</p>

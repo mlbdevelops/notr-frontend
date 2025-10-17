@@ -1,7 +1,7 @@
 import Post from './post.jsx';
 import { useEffect, useState, useRef } from 'react';
 import styles from '../styles/postPage.module.scss';
-import { Book, WifiOff } from 'lucide-react';
+import { Book, WifiOff, Newspaper } from 'lucide-react';
 import { useRouter } from 'next/router';
 import { Network } from '@capacitor/network';
 import { Capacitor } from '@capacitor/core';
@@ -40,7 +40,9 @@ export default function PostPage() {
         headers: {'token' : token}
       });
       const data = await res.json();
-      
+      if (data.length == 0) {
+        return setPosts('nodata');
+      }
       if (res.ok) {
         setPosts(prev => {
           const newPosts = [...prev, ...data.posts];
@@ -115,6 +117,45 @@ export default function PostPage() {
     
     return () => PullToRefresh.destroyAll()
   }, []);
+  
+  if (posts == 'nodata') {
+    return(
+      <div id="body" style={{
+        marginTop: '100px',
+        height: 500,
+        width: 'auto',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }} className={styles.body}>
+        <div style={{
+          height: 150,
+          width: 150,
+          borderRadius: 50,
+          border: '1px solid darkgrey',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginBottom: 20,
+        }}>
+          <Newspaper size={50}/>
+        </div>
+        <strong 
+          style={{
+            fontSize: 25,
+          }}
+        >
+          No post was found
+        </strong>
+        <span onClick={() => {router.push('/create/createNew')}} style={{
+          color: '#6a69fe',
+          cursor: 'pointer'
+        }}>
+          Be the first to share
+        </span>
+      </div>
+    )
+  }
   
   return (
     <div id="body" style={{marginTop: '100px'}} className={styles.body}>

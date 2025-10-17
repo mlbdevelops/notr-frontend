@@ -56,6 +56,7 @@ export default function settings(){
     localStorage.removeItem('user')
     localStorage.removeItem('token')
     router.push('/')
+    clear()
   };
   
   useEffect(() => {
@@ -271,7 +272,6 @@ export default function settings(){
         <div onClick={() => {
           setIsPopup(true)
           setMsgIndex(0)
-          clear()
         }} className={styles.component}>
           <span className={styles.span}>
             <LogOut size={20}/>
@@ -284,7 +284,6 @@ export default function settings(){
           onClick={() => {
             setIsPopup(true)
             setMsgIndex(1)
-            clear()
           }} 
           style={{color: 'red',justifyContent: 'space-between'}} className={styles.component}>
           <span className={styles.span}>

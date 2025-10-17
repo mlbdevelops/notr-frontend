@@ -21,6 +21,7 @@ import Quetion from '../../components/confirm.jsx'
 import Loader from '../../components/loading_spinner.jsx';
 import { useTranslation } from 'react-i18next';
 import { useCache } from '../../hooks/notrCachingHook.js';
+import { Toast } from '@capacitor/toast';
 
 export default function createPost(){
   const router = useRouter()
@@ -120,19 +121,34 @@ export default function createPost(){
     }
   }
   
+  const addTags = async () => {
+    if (selectedTag.length === 3) {
+      return await Toast.show({
+        text: 'You can only select up to 3 tags.',
+        duration: 'long',
+        position: 'bottom',
+      })
+    }
+    newNote && selectedTag.length !== 3? setTagPopUp(true) : null
+  }
+  
   const tagData=[{category:"Topic/Subject",tags:["ProjectProposal","MeetingNotes","Recipe","Ideas","Quotes","Memories","Challenges","Reflections","Goals","Journaling","Favorites","Stories","Tips","Advice","Opinions"]},{category:"Status",tags:["InProgress","Completed","Blocked","Pending","Reviewed"]},{category:"Priority",tags:["High","Medium","Low","Urgent"]},{category:"Context",tags:["Work","Personal","School","Travel","Fitness","Wellness","Learning","Creativity","Mindfulness"]},{category:"People",tags:["Family","Friends","Girlfriend","Boyfriend","Crush","Myself","Colleagues","Mentors","Dad","Mom","Sister","Brother","Aunt","Uncle","Grandma","Grandpa","Cousin","Neighbors"]},{category:"Date/Time",tags:["Today","Tomorrow","Yesterday","NextWeek","LastMonth","ThisYear","Weekend"]},{category:"Projects&Events",tags:["MarketingCampaign","WebsiteRedesign","WeekendVibes","Conferences","Birthday","Holiday","Party"]},{category:"Location",tags:["Home","Office","Cafe","Outdoors","Gym","NatureLovers","City","Beach"]},{category:"Type",tags:["Idea","Quote","Question","Reflection","Story","Tip","Advice","Opinion","Announcement","GoalSetting"]},{category:"Source",tags:["Article","Book","Website","Podcast","Video"]},{category:"Sentiment",tags:["Positive","Negative","Neutral","Motivational","Gratitude","Inspiration","Mindfulness","Humor","Love","Peace","Hope","Excited"]},{category:"Extras",tags:["CreativityBoost","Focus","LearningCurve","SelfCare","Productivity","Adventure","Relaxation","Growth"]}
   ];
   
   const genericFontFamilies = ["serif","sans-serif","monospace","cursive","fantasy"];
   
   
-  const setfiles = (e) => {
+  const setfiles = async (e) => {
     const files = Array.from(e.target.files)
-    if (images.length > 15) {
-      return alert('You can only select up to 15 images.');
+    if (images.length > 10) {
+      return await Toast.show({
+        text: 'You can only select up to 10 images.',
+        duration: 'long',
+        position: 'bottom',
+      });
     }
     if (files) {
-      setImages((prev) => [...new Set([...prev, ...files])])
+      setImages((prev) => [...new Set([...prev, ...files])].slice(0, 10))
     }
   }
   
@@ -230,6 +246,9 @@ export default function createPost(){
                 <ul className={styles2.ul}>
                   {tag.tags.map((tg, i) => (
                     <span onClick={() => {
+                      if (selectedTag.includes(tg)) {
+                        return;
+                      }
                       selectedTag.push(tg)
                       if (selectedTag.length === 3) {
                         setTagPopUp(false)
@@ -293,7 +312,10 @@ export default function createPost(){
             </div>} 
             </div>
             
-            <button onClick={() => setList(false)} className={styles.closeBList}>
+            <button onClick={() => {
+              setIsLoading(false)
+              setList(false)
+            }} className={styles.closeBList}>
               {t('create_post.close')}
             </button>
           </div>
@@ -304,7 +326,7 @@ export default function createPost(){
         { newNote && newTitle?
           <div className={styles.note}>
             <strong className={styles.noteTitle}>
-              {newTitle.substring(0, 20)}
+              ••• {newTitle.substring(0, 20)}
             </strong>
             <span
               className={styles.noteText}
@@ -361,7 +383,7 @@ export default function createPost(){
             style={{
               opacity: !newNote? 0.5 : 1,
             }}
-            onClick={() => newNote && selectedTag.length !== 3? setTagPopUp(true) : null} 
+            onClick={addTags} 
             className={styles.tags}
           >
             <span 
@@ -370,6 +392,13 @@ export default function createPost(){
                 size={14} 
                 className={styles.icon}/>
               {t('create_post.add_tag')}
+              <span style={{
+                color: 'white',
+                position: 'absolute',
+                right: 10
+              }}>
+                {selectedTag?.length}/3
+              </span>
             </span>
           </span>
           { selectedTag.length >= 1?
@@ -403,6 +432,7 @@ export default function createPost(){
           >
             <div className={styles.imgs}>
             <button
+              type='reset'
               style={{
                 opacity: !newNote? 0.5 : 1,
               }}
@@ -411,6 +441,15 @@ export default function createPost(){
                 className={styles.icon} 
                 size={17.5}
               />{t('create_post.add_images')}
+              
+              <span style={{
+                color: 'white',
+                position: 'absolute',
+                right: 10
+              }}>
+                {images?.length}/10
+              </span>
+              
             </button>
             <input 
               accept='image/*' 
@@ -460,7 +499,15 @@ export default function createPost(){
               fontFamily: font? font : 'Arial',
               opacity: !newNote? 0.5 : 1,
             }}
-          ><Type size={17.5} className={styles.icon}/>{font? font : t('create_post.add_fontFam')}</span>
+          ><Type size={17.5} className={styles.icon}/>{t('create_post.add_fontFam')} 
+            <span style={{
+              color: 'white',
+              position: 'absolute',
+              right: 10
+            }}>
+              {font || '•••'}
+            </span>
+          </span>
         </div>
       </div>
       

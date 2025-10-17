@@ -33,7 +33,6 @@ export default function home() {
     };
     setScrollPositions(newScrolls);
     saveProvider('scrollPositions', newScrolls);
-
     setTabIndex(tab);
   }
   

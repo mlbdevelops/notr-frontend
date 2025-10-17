@@ -18,8 +18,8 @@ export default function Note({title, note, time, noteId, tag, deleteFunc, networ
   
   const showToast = async () => {
     await Toast.show({
-      text: "You're offline!",
-      duration: 'long',
+      text: "You're offline.",
+      duration: 'short',
       position: 'bottom',
     })
   }

@@ -19,7 +19,7 @@
     "buy_coffee": "Donate",
     "deleteAcc": "Delete account",
     "langs": "Languages",
-    "update": "Update",
+    "update": "App updates",
     "support": "Support",
     "about": "About"
   },
@@ -168,7 +168,7 @@
     "logout": "Logout",
     "deleteAcc": "Delete account",
     "langs": "Languages",
-    "update": "Update",
+    "update": "App updates",
     "support": "Support",
     "about": "About",
     "clear_cache": "Cache",

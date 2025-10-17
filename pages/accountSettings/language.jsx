@@ -48,7 +48,7 @@ export default function report(){
   const selectLanguage = async (langCode) => {
     setSelectedLang(langCode);
     setConfirm(true);
-
+    
     try {
       i18n.changeLanguage(langCode);
       await Preferences.set({ key: 'language', value: langCode });
@@ -75,7 +75,6 @@ export default function report(){
         blur={'20px'}
         rightIcons={<Globe/>}
       />
-
       <div className={styles.languages}>
           {languages.map(({ code, name }) => (
             <p 

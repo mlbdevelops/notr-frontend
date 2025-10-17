@@ -1,4 +1,4 @@
-"use client"
+'use client';
 
 import Header from '../../components/header.jsx';
 import { 
@@ -25,7 +25,7 @@ import { Capacitor } from '@capacitor/core'
 import PullToRefresh from 'pulltorefreshjs'
 
 export default function account(){
-  const {t} = useTranslation()
+  const { t } = useTranslation()
   const router = useRouter()
   const [user, setUser] = useState({})
   const [connections, setConnections] = useState()

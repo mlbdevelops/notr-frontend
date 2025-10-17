@@ -15,7 +15,8 @@ import {
   Wend2,
   RotateCw,
   Heart,
-  QrCode
+  QrCode,
+  UserPlus
 } from 'lucide-react';
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
@@ -215,7 +216,7 @@ export default function account(){
         height: 10px
       }
       .ptr--text {
-        display: none !important; /* ✅ completely hides the messages */
+        display: none !important;
       }
     `,
     instructionsPullToRefresh: false,
@@ -332,7 +333,7 @@ export default function account(){
             
             <span onClick={copyFunc} className={styles.option}><Link size={20}/>{t('account.options.copy_link')}</span>
             
-            <span onClick={shareApp} className={styles.option}><Heart size={20}/>{t('account.options.share_app')}</span>
+            <span onClick={shareApp} className={styles.option}><UserPlus size={20}/>{t('account.options.share_app')}</span>
             
             <span 
               style={{
@@ -444,6 +445,14 @@ export default function account(){
           !isLoading && posts.length == 0 && connections >= 0? <div className={styles.empty}>
             <Camera size={60} className={styles.cam}/>
             <strong>{t('account.no_post')}</strong>
+            <small onClick={() => {
+              router.push('/create/createNew')
+            }} style={{
+              margin: '10px 0',
+              fontWeight: 'bold',
+              color: '#6a69fe',
+              cursor: 'pointer'
+            }}>Share your first thought</small>
           </div>
         : ''}
       </div>

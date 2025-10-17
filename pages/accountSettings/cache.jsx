@@ -6,11 +6,10 @@ import { useCache } from '../../hooks/notrCachingHook.js';
 import { Plugins, Capacitor } from '@capacitor/core';
 import { Toast } from '@capacitor/toast';
 import { useState } from 'react'
+import { WebViewCache } from 'capacitor-plugin-webview-cache';
 
 export default function cache(){
   const router = useRouter();
-  //const { WebViewCache } = Plugins;
-  const WebViewCache = ''
   const { getProvider, remove, clear } = useCache()
   const notes = getProvider('notes')
   const posts = getProvider('posts')
@@ -26,7 +25,7 @@ export default function cache(){
       setCalPosts(0)
       setCalNotes(0)
       if (Capacitor.isNativePlatform()) {
-        await WebViewCache.clearCache();
+        await WebViewCache.clear();
         return await Toast.show({
           text: 'Cache cleared',
           position: 'bottom',

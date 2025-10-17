@@ -11,12 +11,7 @@ body{
   user-select: none;
 }
 
-body::-webkit-scrollbar {
+body::-webkit-scrollbar{
   display: none;
   opacity: 0;
-}
-
-:global(.ptr__icon) {
-  border-top-color: #fff !important;
-  border-left-color: #fff !important;
 }

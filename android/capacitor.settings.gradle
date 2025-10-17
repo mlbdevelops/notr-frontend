@@ -40,3 +40,6 @@ project(':capacitor-toast').projectDir = new File('../node_modules/@capacitor/to
 
 include ':capacitor-clear-cache'
 project(':capacitor-clear-cache').projectDir = new File('../node_modules/capacitor-clear-cache/android')
+
+include ':capacitor-plugin-webview-cache'
+project(':capacitor-plugin-webview-cache').projectDir = new File('../node_modules/capacitor-plugin-webview-cache/android')
