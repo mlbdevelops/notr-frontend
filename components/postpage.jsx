@@ -40,7 +40,7 @@ export default function PostPage() {
         headers: {'token' : token}
       });
       const data = await res.json();
-      if (data.length == 0) {
+      if (data.posts.length == 0) {
         return setPosts('nodata');
       }
       if (res.ok) {
@@ -145,7 +145,7 @@ export default function PostPage() {
             fontSize: 25,
           }}
         >
-          No post was found
+          No post found
         </strong>
         <span onClick={() => {router.push('/create/createNew')}} style={{
           color: '#6a69fe',
