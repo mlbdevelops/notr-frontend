@@ -10,6 +10,7 @@ import { Clipboard as CapClip } from '@capacitor/clipboard';
 import { Share as CapShare } from '@capacitor/share';
 import styles2 from '../styles/comment.module.scss';
 import { Browser } from '@capacitor/browser'
+import { Toast } from '@capacitor/toast'
 import { useTranslation } from 'react-i18next';
 
 export default function Post({tag, note, title, username, name, ownerId, _id, photos, loggedUser, likes, fontFamily, textAlign, fontStyle, fontWeight, time, accProfile, likedByUser}){
@@ -200,7 +201,11 @@ export default function Post({tag, note, title, username, name, ownerId, _id, ph
     if (res.ok) {
       setIsLoading(false)
       location.reload()
-      alert(data?.msg); 
+      await Toast.show({
+        text: data?.msg,
+        duration: 'short',
+        position: 'bottom',
+      })
     }
   };
   
