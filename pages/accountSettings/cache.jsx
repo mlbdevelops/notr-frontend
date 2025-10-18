@@ -6,7 +6,7 @@ import { useCache } from '../../hooks/notrCachingHook.js';
 import { Capacitor } from '@capacitor/core';
 import { Toast } from '@capacitor/toast';
 import { useState } from 'react'
-import ClearCache from 'capacitor-clear-cache'; // ✅ replace WebViewCache
+import ClearCache from 'capacitor-clear-cache';
 
 export default function cache(){
   const router = useRouter();

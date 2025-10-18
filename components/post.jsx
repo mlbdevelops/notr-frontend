@@ -189,7 +189,6 @@ export default function Post({tag, note, title, username, name, ownerId, _id, ph
     if (!loggedUser) {
       return alert('Login to perform this action.');
     }
-    setIsLoading(true)
     const res = await fetch(`https://notrbackend.vercel.app/api/posts/delete/${_id}`, {
       method: 'DELETE',
       headers: {
@@ -199,10 +198,9 @@ export default function Post({tag, note, title, username, name, ownerId, _id, ph
     });
     const data = await res.json()
     if (res.ok) {
-      setIsLoading(false)
       location.reload()
       await Toast.show({
-        text: data?.msg,
+        text: 'Deleted',
         duration: 'short',
         position: 'bottom',
       })
@@ -219,7 +217,7 @@ ${note}
 .
 .
 .
-Notr - https://notr-sigma.vercel.app
+Notr - https://notrapp.vercel.app
       `,
     }
     
@@ -240,7 +238,7 @@ ${note}
 .
 .
 .
-Notr - https://notr-sigma.vercel.app`
+Notr - https://notrapp.vercel.app`
         })
       } catch (error) {
         console.error(error);
