@@ -355,9 +355,6 @@ export default function account(){
         {user?.coverUrl? <img className={styles.coverPic} src={user?.coverUrl} alt=""/> : <Images className={styles.noCover} size={30}/>}
         <div className={styles.profileDiv}>
           {userProfile? <img src={userProfile} height={80} width={80} onClick={() => setIsPicShown(true)} className={styles.profilePic}/> : <User size={30} className={styles.userIcon}/>}
-          <span className={styles.role}>
-            {user?.role || 'Geust'}
-          </span>
         </div>
       </div>
       <div className={styles.container}>
@@ -367,6 +364,9 @@ export default function account(){
           </span>
           <span className={styles.conn}>
             {connections} connections
+          </span>
+          <span className={styles.role}>
+            {`~ ${user?.role || 'Geust'}`}
           </span>
         </div>
       </div>

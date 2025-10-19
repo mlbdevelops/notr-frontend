@@ -11,6 +11,8 @@ import { Share as CapShare } from '@capacitor/share';
 import styles2 from '../styles/comment.module.scss';
 import { Browser } from '@capacitor/browser'
 import { Toast } from '@capacitor/toast'
+import { App } from '@capacitor/app'
+import { Capacitor } from '@capacitor/core'
 import { useTranslation } from 'react-i18next';
 
 export default function Post({tag, note, title, username, name, ownerId, _id, photos, loggedUser, likes, fontFamily, textAlign, fontStyle, fontWeight, time, accProfile, likedByUser}){
@@ -32,7 +34,7 @@ export default function Post({tag, note, title, username, name, ownerId, _id, ph
   const [expanded, setExpanded] = useState(false)
   const [isLikes, setIsLikes] = useState(likedByUser)
   const [isLoading, setIsLoading] = useState(false)
-  const links = note.split(' ').filter((link => link.includes('.') && !link.startsWith('.') && !link.endsWith('.')))
+  const links = note.match(/\bhttps?:\/\/[^\s]+|[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b/g) || [];
   const emos = [
     '❤️',
     '🥳',
@@ -80,24 +82,28 @@ export default function Post({tag, note, title, username, name, ownerId, _id, ph
   
   
   useEffect(() => {
+    let backHandler;
     if (comment) {
       document.body.style.overflow = 'hidden';
-      window.history.pushState({ commentOpen: true }, "");
-      const handlePop = () => {
-        setComment(false);
-      };
-      window.addEventListener("popstate", handlePop);
+      const handleClose = () => setComment(false);
+      if (Capacitor.isNativePlatform()) {
+        backHandler = App.addListener('backButton', (event) => {
+          event.preventDefault();
+          handleClose();
+        });
+      } else {
+        window.history.pushState({ commentOpen: true }, '');
+        window.addEventListener('popstate', handleClose);
+      }
       return () => {
-        window.removeEventListener("popstate", handlePop);
+        document.body.style.overflow = '';
+        if (backHandler) backHandler.remove();
+        window.removeEventListener('popstate', handleClose);
       };
     } else {
       document.body.style.overflow = '';
     }
-    return () => {
-      document.body.style.overflow = '';
-    };
   }, [comment]);
-  
   
   const like = async (tkn) => {
     if (loggedUser == 'null') {
@@ -134,6 +140,7 @@ export default function Post({tag, note, title, username, name, ownerId, _id, ph
     if(router.pathname == '/account' || router.query.user == ownerId){
       return;
     }
+    setComment(false)
     router.push(ownerId === user? '/account' : `/profile/profile?user=${ownerId}`);
   };
   

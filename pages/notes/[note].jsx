@@ -32,11 +32,15 @@ import styles2 from '../../styles/litlePopup.module.scss';
 import Loader from '../../components/loading_spinner.jsx';
 import { Capacitor } from '@capacitor/core'
 import { Toast } from '@capacitor/toast'
+import { useCache } from '../../hooks/notrCachingHook.js';
 
 export default function note(){
+  const { remove } = useCache()
   const router = useRouter();
   const { t } = useTranslation();
-  const { note } = router.query;
+  //const { note } = router.query;
+  const { noteId } = router.query 
+  const note = noteId
   const [notes, setNotes] = useState({});
   const [title, setTitle] = useState('');
   const [isSave, setIsSave] = useState(false);
@@ -194,6 +198,7 @@ Notr - https://notr-sigma.vercel.app`
     if (res.ok) {
       setIsTyping(false)
       setIsSave(false)
+      remove('notes')
     }
   };
   
@@ -204,6 +209,7 @@ Notr - https://notr-sigma.vercel.app`
       headers: {'token' : token}
     });
     if (res.ok) {
+      remove('notes')
       setIsLoading(false);
       router.back();
     }

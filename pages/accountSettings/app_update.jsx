@@ -80,7 +80,9 @@ export default function AppUpdate() {
   
   const manualD = async () => {
     if (!update?.apkUrl) return;
-    await Browser.open({url: update?.apkUrl})
+    await Browser.open({
+      url: update?.apkUrl
+    })
   }
   
   if (!isNewUpdate) {
@@ -203,7 +205,7 @@ export default function AppUpdate() {
   
           <div style={{ marginTop: 10, fontSize: 12, color: 'white' }}>Status: {status}</div>
           
-          {progress == 0? <div style={{ marginTop: 30, fontSize: 12, color: 'darkgray', }}>If the download failed or you encountered a problem while installing this version, <span onClick={manualD} style={{color: '#6a69fe', cursor: 'pointer'}}>Click here</span></div> : ''}
+          {progress == 0? <p style={{textAlign: 'center', marginTop: 30, fontSize: 12, color: 'darkgray', }}>If the download failed or you encountered a problem while installing this version, <span onClick={manualD} style={{color: '#6a69fe', cursor: 'pointer'}}>Click here</span></p> : ''}
         </div>
       );
     }

@@ -30,7 +30,6 @@ export default function Home() {
   const [networkConn, setNetworkConn] = useState('Online');
   const [token, setToken] = useState('');
   const { setCache, getCache } = useCache('notes');
-  
   const isNative = Capacitor.getPlatform() !== 'web';
   
   const saveNoteData = async (data) => {
@@ -59,13 +58,11 @@ export default function Home() {
         path: 'notr_offline.json',
         directory: Directory.Data,
       });
-  
       const file = await Filesystem.readFile({
         path: 'notr_offline.json',
         directory: Directory.Data,
         encoding: Encoding.UTF8,
       });
-  
       return JSON.parse(file.data || '[]');
     } catch (error) {
       console.warn('Offline file not found or corrupted:', error.message);
@@ -82,20 +79,20 @@ export default function Home() {
         setUserName(userData.username);
         setToken(userToken);
       }
-
+      
       if (isNative) {
         const status = await Network.getStatus();
         const online = status.connected;
         setMode(online ? 'Online' : 'Offline');
         setNetworkConn(online ? t('notePage.networkStatusTrue') : t('notePage.networkStatusFalse'));
-
+        
         if (!online) {
           const offlineNotes = await readFile();
           if (offlineNotes.length > 0) setNotes(offlineNotes);
         } else {
           getNotesFunc();
         }
-
+        
         Network.addListener('networkStatusChange', async (status) => {
           const connected = status.connected;
           setMode(connected ? 'Online' : 'Offline');
@@ -113,7 +110,7 @@ export default function Home() {
         getNotesFunc();
       }
     };
-
+    
     initApp();
   }, []);
 
@@ -125,7 +122,7 @@ export default function Home() {
       if (offlineNotes.length > 0) setNotes(offlineNotes);
       return;
     }
-
+    
     try {
       setIsLoading(true);
       const res = await fetch(`https://notrbackend.vercel.app/api/getNotes`, {
@@ -137,11 +134,11 @@ export default function Home() {
         if (Capacitor.isNativePlatform()) {
           await Toast.show({
             text: 'Something went wrong, try again',
-            duration: 'long',
+            duration: 'short',
             position: 'bottom'
           })
         }else{
-          console.log('Something went wrong, try again', e)
+          alert('Something went wrong, try again')
         }
       }
       if (res.ok) {
@@ -183,7 +180,6 @@ export default function Home() {
       return;
     }
     if (!title.trim()) return;
-
     try {
       setIsLoading(true);
       const res = await fetch('https://notrbackend.vercel.app/api/addNote', {
@@ -215,7 +211,6 @@ export default function Home() {
       });
       return;
     }
-
     try {
       const res = await fetch(`https://notrbackend.vercel.app/api/delete/${noteId}`, {
         method: 'DELETE',
@@ -226,22 +221,6 @@ export default function Home() {
       console.log('Delete error:', err);
     }
   };
-  
-  useEffect(() => {
-    PullToRefresh.init({
-      mainElement: '#body',
-      onRefresh(){
-        try {
-          setIsLoading(true)
-          getNotesFunc()
-        } catch (error) {
-          console.error(error);
-        }
-      }
-    })
-    
-    return () => PullToRefresh.destroyAll()
-  }, []);
 
   return (
     <div id="body" style={{ 

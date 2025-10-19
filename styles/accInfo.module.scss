@@ -212,8 +212,8 @@
     align-items: center; 
     gap: 10px;
     position: absolute;
-    right: 13px;
-    bottom: -70px;
+    right: 5px;
+    bottom: -95px;
     
     .userIcon{
       padding: 25px;
@@ -235,14 +235,6 @@
       border-radius: 50px;
       border: 1px solid #262626;
       object-fit: cover;
-    }
-    
-    .role{
-      font-size: 10px;
-      padding: 3.5px 10px;
-      border-radius: 50px;
-      background-color: #161616;
-      border: 1px solid #1d1d1d;
     }
   }
 
@@ -312,4 +304,10 @@
 
 .code:active{
   background-color: rgb(36,36,36);
+}
+
+.role{
+  background-color: transparent;
+  color: #727272;
+  font-size: 15px;
 }

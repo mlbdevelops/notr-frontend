@@ -9,17 +9,18 @@ import { useCache } from '../hooks/notrCachingHook.js';
 import PullToRefresh from 'pulltorefreshjs';
 
 export default function PostPage() {
+  const { getCache, setCache, getProvider, saveProvider, remove } = useCache('posts');
   const [posts, setPosts] = useState([]);
   const [mode, setMode] = useState();
   const [user, setUser] = useState('');
   const [token, setToken] = useState('');
   const [postsLength, setPostsLength] = useState(0);
-  const [cursor, setCursor] = useState(null);
+  const [cursor, setCursor] = useState(getProvider('cursor') || null);
   const [hasMore, setHasMore] = useState(true);
   const [hasFetched, setHasFetched] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const loaderRef = useRef(null);
   const router = useRouter();
-  const { getCache, setCache } = useCache('posts');
 
   useEffect(() => {
     const savedUser = JSON.parse(localStorage.getItem('user'));
@@ -31,29 +32,34 @@ export default function PostPage() {
   }, []);
 
   const fetchPosts = async () => {
+    if (isLoading) return;
+    setIsLoading(true);
     try {
       const url = new URL("https://notrbackend.vercel.app/api/posts/getPosts");
       url.searchParams.append("userId", user);
       url.searchParams.append("limit", 10);
       if (cursor) url.searchParams.append("cursor", cursor);
-
+      
       const res = await fetch(url, {
         headers: {'token' : token}
       });
       const data = await res.json();
-
+      
       if (data.posts.length == 0 && posts.length === 0) {
+        setIsLoading(false);
         return setPosts('nodata');
       }
       if (data.posts.length == 0) {
         setHasMore(false);
+        setIsLoading(false);
         return;
       }
-
+      
       if (res.ok) {
         setPosts(prev => {
           const newPosts = [...prev, ...data.posts];
           setCache(newPosts);
+          saveProvider('cursor', data.nextCursor);
           return newPosts;
         });
         setCursor(data.nextCursor);
@@ -62,6 +68,8 @@ export default function PostPage() {
       }
     } catch (err) {
       console.log(err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -70,18 +78,21 @@ export default function PostPage() {
     const initNetworkListener = async () => {
       if (Capacitor.isNativePlatform()) {
         const status = await Network.getStatus();
-        setMode(status.connected)
+        setMode(status.connected);
         
         listener = Network.addListener('networkStatusChange', async (status) => {
-          setMode(status.connected)
-          if (status.connected && !hasFetched) fetchPosts()
+          setMode(status.connected);
+          if (status.connected && !hasFetched) {
+            saveProvider('cursor', null);
+            fetchPosts();
+          }
         });
       }
-    }
+    };
     initNetworkListener();
 
     return () => { if (listener) listener.remove(); };
-  }, [user, token, hasFetched])
+  }, [user, token, hasFetched]);
 
   useEffect(() => {
     if (!user || hasFetched) return;
@@ -96,10 +107,10 @@ export default function PostPage() {
   }, [user, mode]);
 
   useEffect(() => {
-    if (!loaderRef.current) return;
+    if (!loaderRef.current || posts.length === 0) return;
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting && hasMore && mode) {
+        if (entries[0].isIntersecting && hasMore && mode && !isLoading) {
           fetchPosts();
         }
       },
@@ -107,29 +118,31 @@ export default function PostPage() {
     );
     observer.observe(loaderRef.current);
     return () => observer.disconnect();
-  }, [hasMore, cursor, mode]);
-  
+  }, [hasMore, cursor, mode, posts.length]);
+
   useEffect(() => {
     PullToRefresh.init({
-      mainElement: '#body',
-      onRefresh(){
+      mainElement: document.getElementById('body'),
+      onRefresh() {
         try {
           setCursor(null);
           setHasMore(true);
           setPosts([]);
           setHasFetched(false);
+          remove('posts');
+          saveProvider('cursor', null);
           fetchPosts();
         } catch (error) {
           console.error(error);
         }
       }
-    })
+    });
     
-    return () => PullToRefresh.destroyAll()
+    return () => PullToRefresh.destroyAll();
   }, []);
   
   if (posts == 'nodata') {
-    return(
+    return (
       <div id="body" style={{
         marginTop: '100px',
         height: 500,
@@ -150,25 +163,21 @@ export default function PostPage() {
         }}>
           <Newspaper size={50}/>
         </div>
-        <strong 
-          style={{
-            fontSize: 25,
-          }}
-        >
+        <strong style={{ fontSize: 25 }}>
           No post found
         </strong>
-        <span onClick={() => {router.push('/create/createNew')}} style={{
+        <span onClick={() => { router.push('/create/createNew'); }} style={{
           color: '#6a69fe',
           cursor: 'pointer'
         }}>
           Be the first to share
         </span>
       </div>
-    )
+    );
   }
   
   return (
-    <div id="body" style={{marginTop: '100px'}} className={styles.body}>
+    <div id="body" style={{ marginTop: '100px' }} className={styles.body}>
       {posts.map(post => (
         <Post
           key={post?._id}
@@ -209,13 +218,13 @@ export default function PostPage() {
             justifyContent: 'center',
           }}
         >
-        <div style={{
-          height: '30px',
-          width: '30px',
-          borderRadius: '300px',
-          border: '1px solid',
-          borderTopColor: 'transparent'
-        }} className={styles.loader}></div> 
+          <div style={{
+            height: '30px',
+            width: '30px',
+            borderRadius: '300px',
+            border: '1px solid',
+            borderTopColor: 'transparent'
+          }} className={styles.loader}></div>
         </div>
       )}
     </div>

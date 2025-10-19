@@ -8,6 +8,7 @@ import Loader from '../../components/loading_spinner.jsx';
 import Question from '../../components/confirm.jsx';
 import { useTranslation } from 'react-i18next';
 import { Trans } from 'react-i18next';
+import { Toast } from '@capacitor/toast'
 
 export default function Register() {
   const { t } = useTranslation();
@@ -66,7 +67,17 @@ export default function Register() {
         age: cal(userAge),
       }),
     });
-
+    
+    if (!res.ok) {
+      setIsLoading(false)
+      await Toast.show({
+        text: 'Error, try again',
+        duration: 'short',
+        position: 'bottom',
+      })
+      return;
+    }
+    
     const data = await res.json();
     if (res.ok) {
       localStorage.setItem('user', JSON.stringify(data.response));
@@ -87,7 +98,17 @@ export default function Register() {
       body: JSON.stringify({ email }),
     });
     const data = await res.json();
-
+    
+    if (!res.ok) {
+      setIsLoading(false)
+      await Toast.show({
+        text: 'Error, try again',
+        duration: 'short',
+        position: 'bottom',
+      })
+      return;
+    }
+    
     if (res.status === 401) {
       setMsg(true);
       setMsgData(data);
@@ -109,7 +130,7 @@ export default function Register() {
       body: JSON.stringify({ email, code: verificationNumber }),
     });
     const data = await res.json();
-
+    
     if (!res.ok) {
       setMsg(true);
       setMsgData(data);

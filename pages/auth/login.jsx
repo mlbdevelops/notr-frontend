@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Loader from '../../components/loading_spinner.jsx';
 import { useTranslation } from 'react-i18next';
+import { Toast } from '@capacitor/toast'
 
 export default function LoginPage() {
   const { t } = useTranslation();
@@ -34,7 +35,16 @@ export default function LoginPage() {
         body: JSON.stringify(data),
       });
       const user = await res.json();
-
+      if (!res.ok) {
+        setIsLoading(false)
+        setIsSuccess(false);
+        await Toast.show({
+          text: 'Error, try again',
+          duration: 'short',
+          position: 'bottom',
+        })
+        return;
+      }
       if (res.ok) {
         setIsLoading(false);
         localStorage.setItem('theme', 'dark');

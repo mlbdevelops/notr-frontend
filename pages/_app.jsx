@@ -87,15 +87,15 @@ export default function AppWrapper({ Component, pageProps }) {
         if (currentVersion !== data.latestVersion && data.apkUrl) {
           sessionStorage.setItem('update', JSON.stringify(data))
           setIsUpdate(true);
-          if (versionCheckedNum === 3) {
+          if (Number(versionCheckedNum) === 5) {
+            setIsUpdateCheckDone(true);
             return router.push('/accountSettings/app_update')
           }
           if (versionCheckedNum >= 1) {
-            if (versionCheckedNum === 3) {
+            if (versionCheckedNum === 5) {
               return;
             }else{
               localStorage.setItem('versionCheckedNum', versionCheckedNum + 1)
-              
             }
           }
         } else {

@@ -166,9 +166,6 @@ export default function account(){
         {user?.coverUrl? <img className={styles.coverPic} src={user?.coverUrl} alt=""/> : <Images className={styles.noCover} size={30}/>}
         <div className={styles.profileDiv}>
           {user?.photoUrl? <img onClick={() => user?.isPrivate? null : setIsPicShown(true)} src={user?.photoUrl} height={80} width={80} className={styles.profilePic}/> : <User size={30} className={styles.userIcon}/>}
-          <span className={styles.role}>
-            {user.isPrivate? <Lock size={13}/> : user?.role || 'Geust'}
-          </span>
         </div>
       </div>
       
@@ -179,6 +176,9 @@ export default function account(){
           </span>
           <span className={styles.conn}>
             {connections} connections
+          </span>
+          <span className={styles.role}>
+            {user.isPrivate? '•••' : `~ ${user?.role || 'Geust'}`}
           </span>
         </div>
         
