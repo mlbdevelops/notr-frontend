@@ -32,10 +32,11 @@ export const scheduleDailyNotifications = async () => {
   
   const notifications = NOTIFICATION_HOURS.map((hour, index) => ({
     id: index + 1,
-    title: 'Notr updates',
+    title: 'Notr',
     body: CTA_MESSAGES[index % CTA_MESSAGES.length],
     schedule: { every: { hour: hour, minute: 0 } },
     sound: null,
+    smallIcon: 'ic_notification',
     extra: { targetPage: extras[index % extras.length] }
   }));
   
