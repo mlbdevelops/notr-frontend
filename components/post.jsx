@@ -14,6 +14,7 @@ import { Toast } from '@capacitor/toast'
 import { App } from '@capacitor/app'
 import { Capacitor } from '@capacitor/core'
 import { useTranslation } from 'react-i18next';
+import { useCache } from '../hooks/notrCachingHook.js';
 
 export default function Post({tag, note, title, username, name, ownerId, _id, photos, loggedUser, likes, fontFamily, textAlign, fontStyle, fontWeight, time, accProfile, likedByUser}){
   const router = useRouter()
@@ -35,6 +36,7 @@ export default function Post({tag, note, title, username, name, ownerId, _id, ph
   const [isLikes, setIsLikes] = useState(likedByUser)
   const [isLoading, setIsLoading] = useState(false)
   const links = note.match(/\bhttps?:\/\/[^\s]+|[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b/g) || [];
+  const { saveProvider, getProvider } = useCache();
   const emos = [
     '❤️',
     '🥳',
@@ -42,7 +44,7 @@ export default function Post({tag, note, title, username, name, ownerId, _id, ph
     '😝',
     '😯',
     '😡',
-    '🤮',
+    '😳',
   ]
   
   const menuRef = useRef(null)
@@ -83,9 +85,13 @@ export default function Post({tag, note, title, username, name, ownerId, _id, ph
   
   useEffect(() => {
     let backHandler;
+    const handleClose = () => setComment(false);
+  
     if (comment) {
       document.body.style.overflow = 'hidden';
-      const handleClose = () => setComment(false);
+      if (typeof setGlobalCommentState === 'function') {
+        setGlobalCommentState(true, handleClose);
+      }
       if (Capacitor.isNativePlatform()) {
         backHandler = App.addListener('backButton', (event) => {
           event.preventDefault();
@@ -95,13 +101,20 @@ export default function Post({tag, note, title, username, name, ownerId, _id, ph
         window.history.pushState({ commentOpen: true }, '');
         window.addEventListener('popstate', handleClose);
       }
+      
       return () => {
         document.body.style.overflow = '';
+        if (typeof setGlobalCommentState === 'function') {
+          setGlobalCommentState(false);
+        }
         if (backHandler) backHandler.remove();
         window.removeEventListener('popstate', handleClose);
       };
     } else {
       document.body.style.overflow = '';
+      if (typeof setGlobalCommentState === 'function') {
+        setGlobalCommentState(false);
+      }
     }
   }, [comment]);
   
