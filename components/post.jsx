@@ -15,6 +15,7 @@ import { App } from '@capacitor/app'
 import { Capacitor } from '@capacitor/core'
 import { useTranslation } from 'react-i18next';
 import { useCache } from '../hooks/notrCachingHook.js';
+import { setGlobalCommentState } from '../pages/_app.jsx';
 
 export default function Post({tag, note, title, username, name, ownerId, _id, photos, loggedUser, likes, fontFamily, textAlign, fontStyle, fontWeight, time, accProfile, likedByUser}){
   const router = useRouter()

@@ -17,7 +17,6 @@ export default function PostPage() {
   const [postsLength, setPostsLength] = useState(0);
   const [cursor, setCursor] = useState(null);
   const [hasMore, setHasMore] = useState(true);
-  const [hasFetched, setHasFetched] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const loaderRef = useRef(null);
   const router = useRouter();
@@ -25,36 +24,31 @@ export default function PostPage() {
   useEffect(() => {
     const savedUser = JSON.parse(localStorage.getItem('user'));
     const savedToken = JSON.parse(localStorage.getItem('token'));
-    if (savedUser) {
+    if (savedUser && savedToken) {
       setUser(savedUser._id);
       setToken(savedToken);
     }
   }, []);
   
-  useEffect(() => {
-    if (user && token) {
-      const savedCursor = getProvider('cursor');
-      if (savedCursor) setCursor(savedCursor);
-    }
-  }, [user, token]);
-
   const fetchPosts = async () => {
-    if (isLoading) return;
+    if (!user || isLoading || !hasMore) return;
     setIsLoading(true);
+    
     try {
-      const url = new URL('https://notrbackend.vercel.app/api/posts/getPosts');
-      url.searchParams.append('userId', user);
-      url.searchParams.append('limit', 10);
-      if (cursor) url.searchParams.append('cursor', cursor);
-      
+      const url = new URL("https://notrbackend.vercel.app/api/posts/getPosts");
+      url.searchParams.append("userId", user);
+      url.searchParams.append("limit", 10);
+      if (cursor) url.searchParams.append("cursor", cursor);
+
       const res = await fetch(url, {
-        headers: { token: token },
+        headers: { token }
       });
       const data = await res.json();
       
       if (data.posts.length === 0 && posts.length === 0) {
+        setPosts('nodata');
         setIsLoading(false);
-        return setPosts('nodata');
+        return;
       }
       if (data.posts.length === 0) {
         setHasMore(false);
@@ -63,7 +57,7 @@ export default function PostPage() {
       }
       
       if (res.ok) {
-        setPosts((prev) => {
+        setPosts(prev => {
           const newPosts = [...prev, ...data.posts];
           setCache(newPosts);
           saveProvider('cursor', data.nextCursor);
@@ -79,46 +73,40 @@ export default function PostPage() {
       setIsLoading(false);
     }
   };
-
+  
+  useEffect(() => {
+    if (!user) return;
+    const cachedPosts = getCache('posts');
+    const savedCursor = getProvider('cursor') || null;
+    if (cachedPosts) setPosts(cachedPosts);
+    if (savedCursor) setCursor(savedCursor);
+    fetchPosts();
+  }, [user]);
+  
   useEffect(() => {
     let listener;
     const initNetworkListener = async () => {
-      if (Capacitor.isNativePlatform()) {
-        const status = await Network.getStatus();
+      if (!Capacitor.isNativePlatform()) return;
+
+      const status = await Network.getStatus();
+      setMode(status.connected);
+
+      listener = Network.addListener('networkStatusChange', async (status) => {
         setMode(status.connected);
-        listener = Network.addListener('networkStatusChange', async (status) => {
-          setMode(status.connected);
-          if (status.connected) {
-            if (posts.length === 0 || !hasFetched) {
-              saveProvider('cursor', null);
-              setHasFetched(false);
-              fetchPosts();
-            }
-          }
-        });
-      }
+        if (status.connected && posts.length === 0) {
+          setCursor(getProvider('cursor') || null);
+          fetchPosts();
+        }
+      });
     };
     initNetworkListener();
-    
-    return () => {
-      if (listener) listener.remove();
-    };
-  }, [user, token, hasFetched, posts.length]);
 
-  useEffect(() => {
-    if (!user || hasFetched) return;
-    const data = getCache('posts');
-    if (data) {
-      setPosts(data);
-      setHasFetched(true);
-    } else {
-      fetchPosts();
-      setHasFetched(true);
-    }
-  }, [user, mode]);
-
+    return () => { if (listener) listener.remove(); };
+  }, [user, token]);
+  
   useEffect(() => {
     if (!loaderRef.current || posts.length === 0) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting && hasMore && mode && !isLoading) {
@@ -127,78 +115,45 @@ export default function PostPage() {
       },
       { threshold: 1.0 }
     );
+
     observer.observe(loaderRef.current);
     return () => observer.disconnect();
-  }, [hasMore, cursor, mode, posts.length]);
-
+  }, [hasMore, cursor, mode, posts.length, isLoading]);
+  
   useEffect(() => {
     PullToRefresh.init({
       mainElement: document.getElementById('body'),
-      onRefresh: async () => {
+      onRefresh() {
         try {
           setCursor(null);
           setHasMore(true);
           setPosts([]);
-          setHasFetched(false);
           remove('posts');
           saveProvider('cursor', null);
-          await fetchPosts();
+          fetchPosts();
         } catch (error) {
           console.error(error);
         }
-      },
+      }
     });
-
     return () => PullToRefresh.destroyAll();
-  }, []);
-
+  }, [user])
+  
   if (posts === 'nodata') {
     return (
-      <div
-        id="body"
-        style={{
-          marginTop: '100px',
-          height: 500,
-          width: 'auto',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-        className={styles.body}
-      >
-        <div
-          style={{
-            height: 150,
-            width: 150,
-            borderRadius: 50,
-            border: '1px solid darkgrey',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginBottom: 20,
-          }}
-        >
-          <Newspaper size={50} />
+      <div id="body" style={{ marginTop: '100px', height: 500, display: 'flex', justifyContent: 'center', alignItems: 'center' }} className={styles.body}>
+        <div style={{ height: 150, width: 150, borderRadius: 50, border: '1px solid darkgrey', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 20 }}>
+          <Newspaper size={50}/>
         </div>
         <strong style={{ fontSize: 25 }}>No post found</strong>
-        <span
-          onClick={() => {
-            router.push('/create/createNew');
-          }}
-          style={{
-            color: '#6a69fe',
-            cursor: 'pointer',
-          }}
-        >
-          Be the first to share
-        </span>
+        <span onClick={() => router.push('/create/createNew')} style={{ color: '#6a69fe', cursor: 'pointer' }}>Be the first to share</span>
       </div>
     );
   }
 
   return (
     <div id="body" style={{ marginTop: '100px' }} className={styles.body}>
-      {posts.map((post) => (
+      {posts.map(post => (
         <Post
           key={post?._id}
           tag={post?.tag}
@@ -228,26 +183,8 @@ export default function PostPage() {
       )}
 
       {hasMore && (
-        <div
-          ref={loaderRef}
-          style={{
-            width: '100%',
-            height: '50px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <div
-            style={{
-              height: '30px',
-              width: '30px',
-              borderRadius: '300px',
-              border: '1px solid',
-              borderTopColor: 'transparent',
-            }}
-            className={styles.loader}
-          ></div>
+        <div ref={loaderRef} style={{ width: '100%', height: '50px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div style={{ height: '30px', width: '30px', borderRadius: '300px', border: '1px solid', borderTopColor: 'transparent' }} className={styles.loader}></div>
         </div>
       )}
     </div>

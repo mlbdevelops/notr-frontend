@@ -10,9 +10,9 @@ export function useCache(key, initialValue) {
     setData(value);
   };
   
-  const saveProvider = (key, value) => {
-    cache.set(key, value);
-    setData(value);
+  const saveProvider = (keyElem, value) => {
+    cache.set(keyElem, value);
+    return value
   };
   
   const clear = () => cache.clear()
