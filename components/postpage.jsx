@@ -39,7 +39,6 @@ export default function PostPage() {
       url.searchParams.append("userId", user);
       url.searchParams.append("limit", 10);
       if (cursor) url.searchParams.append("cursor", cursor);
-
       const res = await fetch(url, {
         headers: { token }
       });

@@ -9,10 +9,12 @@ import '../i18n';
 import { Preferences } from '@capacitor/preferences';
 import UpdatePopUp from '../components/updatePopUp.jsx';
 import { Device } from '@capacitor/device';
+import { Browser } from '@capacitor/browser';
 import { Capacitor } from '@capacitor/core';
 import { useCache } from '../hooks/notrCachingHook.js';
 import { LocalNotifications } from '@capacitor/local-notifications';
 import { scheduleDailyNotifications } from '../utils/notifs.js';
+import Image from 'next/image';
 
 let isCommentOpen = false;
 let closeCommentFn = null;
@@ -29,6 +31,7 @@ export default function AppWrapper({ Component, pageProps }) {
   const [newV, setNewV] = useState();
   const [versionCheckedNum, setVersionCheckedNum] = useState(0);
   const [isUpdate, setIsUpdate] = useState(false);
+  const [isDApp, setIsDApp] = useState(true);
   const [isUpdateCheckDone, setIsUpdateCheckDone] = useState(false);
   const router = useRouter();
   const { setCache } = useCache('update');
@@ -68,6 +71,18 @@ export default function AppWrapper({ Component, pageProps }) {
     StatusBar.setOverlaysWebView({ overlay: true });
     StatusBar.setBackgroundColor({ color: 'transparent' });
   }, []);
+  
+  useEffect(() => {
+    setInterval(() => {
+      if (!isDApp) {
+        setIsDApp(true)
+      }
+    }, 1000 * 30)
+  }, [isDApp]);
+  
+  const openUrl = async () => {
+    await Browser.open({url: 'https://download2296.mediafire.com/tpib0vuwcmsgNSK-7x8e7fyk8QwKHWNbmwUfKS_W0TNP32N5ZpBu-UFxNhu9EBnBeXfnlQ6Do4frShF4-J1clJByCrjSSfs4jstLOAVDY7QT9qCz57gH8E0sqKJyzudjW7HBTtwtT_QmNWy7dlzOL2foaHesZWntYHFXvCJgMHLSIXJZ/3f77tn2z8ihyjb0/notr-main-eb1728-release.apk'})
+  }
   
   useEffect(() => {
     const handler = App.addListener('backButton', () => {
@@ -133,7 +148,26 @@ export default function AppWrapper({ Component, pageProps }) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <title>Notr</title>
       </Head>
-
+      
+      { !Capacitor.isNativePlatform() && isDApp?
+        (
+          <div draggable={true} class='getAppBar'>
+            <div class='bar'>
+              <span onClick={() => setIsDApp(false)} class='closeB'>
+                ×
+              </span>
+              <Image class='barImg' src={'./notr.png'} width={50} height={50}/>
+              <small>
+                Browse faster on the app
+              </small>
+              <button onClick={openUrl} class='barButton'>
+                Get
+              </button>
+            </div>
+          </div>
+        )
+      : ''}
+      
       {isUpdate && router.pathname !== '/accountSettings/app_update' && (
         <UpdatePopUp
           currentV={`Your version: ${currentV || 0}`}
