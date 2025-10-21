@@ -35,16 +35,7 @@ export default function LoginPage() {
         body: JSON.stringify(data),
       });
       const user = await res.json();
-      if (!res.ok) {
-        setIsLoading(false)
-        setIsSuccess(false);
-        await Toast.show({
-          text: 'Error, try again',
-          duration: 'short',
-          position: 'bottom',
-        })
-        return;
-      }
+      
       if (res.ok) {
         setIsLoading(false);
         localStorage.setItem('theme', 'dark');
@@ -56,11 +47,19 @@ export default function LoginPage() {
       } else {
         setIsSuccess(true);
         setIsLoading(false);
-        setMsg({
-          msg: user.msg,
-          title: t('login.alert_title'),
-          actions: <p onClick={() => setIsSuccess(false)}>{t('login.alert_ok')}</p>,
-        });
+        if (user.msg) {
+          setMsg({
+            msg: user.msg,
+            title: t('login.alert_title'),
+            actions: <p onClick={() => setIsSuccess(false)}>{t('login.alert_ok')}</p>,
+          });
+        }else{ 
+          await Toast.show({
+            text: 'Error, try again',
+            duration: 'short',
+            position: 'bottom',
+          })
+        }
       }
     } catch (e) {
       console.log(e);
