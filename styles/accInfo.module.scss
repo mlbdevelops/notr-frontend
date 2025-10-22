@@ -311,3 +311,10 @@
   color: #727272;
   font-size: 15px;
 }
+
+.username{
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}

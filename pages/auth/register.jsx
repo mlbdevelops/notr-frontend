@@ -9,6 +9,7 @@ import Question from '../../components/confirm.jsx';
 import { useTranslation } from 'react-i18next';
 import { Trans } from 'react-i18next';
 import { Toast } from '@capacitor/toast'
+import { Capacitor } from '@capacitor/core'
 
 export default function Register() {
   const { t } = useTranslation();
@@ -45,9 +46,18 @@ export default function Register() {
     }
   }, []);
 
-  const regLogic = () => {
+  const regLogic = async () => {
     if (vPass !== password) {
-      return alert(t('register.alerts.password_mismatch'));
+      if (Capacitor.isNativePlatform()) {
+        return await Toast.show({
+          text : t('register.alerts.password_mismatch'), 
+          duration: 'long',
+          position: 'bottom',
+        });
+      }else{
+        return alert(t('register.alerts.password_mismatch'));
+      }
+      return;
     }
     register();
   };
@@ -404,7 +414,7 @@ export default function Register() {
           >
             {t('register.steps.password.back')}
           </button>
-          <button className={styles.ButtonDiv} onClick={register}>
+          <button className={styles.ButtonDiv} onClick={regLogic}>
             {t('register.steps.password.finish')}
           </button>
         </div>

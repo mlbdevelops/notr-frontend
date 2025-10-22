@@ -130,6 +130,7 @@ export default function query(){
               title={post?.title}
               username={post.owner?.username}
               ownerId={post?.owner?._id}
+              isVerified={post?.owner?.isVerified}
               _id={post._id}
               photos={post?.photosUrls}
               loggedUser={user}
@@ -178,6 +179,7 @@ export default function query(){
             users.map((user, i) => (
               <ProfileDiv 
                 username={user.username}
+                isVerified={user.isVerified}
                 profile={user.photoUrl}
                 userId={user._id}
                 role={user.role}

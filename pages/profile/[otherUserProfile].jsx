@@ -17,6 +17,7 @@ import {
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import styles from '../../styles/accInfo.module.scss'
+import badge from '../../styles/badge.module.scss'
 import Post from '../../components/post.jsx'
 import Loader from '../../components/loading_spinner.jsx'
 import { useTranslation } from 'react-i18next';
@@ -173,6 +174,9 @@ export default function account(){
         <div className={styles.info}>
           <span className={styles.username}>
             @{user?.username || ' •••'}
+            {user?.isVerified?
+              <Check size={10} className={badge.badge}/>
+            : ''}
           </span>
           <span className={styles.conn}>
             {connections} connections

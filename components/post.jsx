@@ -1,5 +1,5 @@
 import {
-  EllipsisVertical, Heart,  MessageCircle, Tag, Send, Trash, Share, User, AlertTriangle, Link
+  EllipsisVertical, Heart,  MessageCircle, Tag, Send, Trash, Share, User, AlertTriangle, Link, Check
 } from 'lucide-react';
 import styles from '../styles/post.module.scss'
 import { useState, useEffect, useRef } from 'react'
@@ -16,8 +16,9 @@ import { Capacitor } from '@capacitor/core'
 import { useTranslation } from 'react-i18next';
 import { useCache } from '../hooks/notrCachingHook.js';
 import { setGlobalCommentState } from '../pages/_app.jsx';
+import badge from '../styles/badge.module.scss';
 
-export default function Post({tag, note, title, username, name, ownerId, _id, photos, loggedUser, likes, fontFamily, textAlign, fontStyle, fontWeight, time, accProfile, likedByUser}){
+export default function Post({tag, note, title, username, name, ownerId, _id, photos, loggedUser, likes, fontFamily, textAlign, fontStyle, fontWeight, time, accProfile, likedByUser, isVerified}){
   const router = useRouter()
   const trans = useTranslation()
   const t = trans.t
@@ -286,7 +287,12 @@ Notr - https://notrapp.vercel.app`
         <div className={styles.userDiv}>
           {accProfile? <img src={accProfile} height={52} width={52} onClick={userProfile} className={styles.userProfile}>{}</img> : <User onClick={userProfile} size={20} className={styles.userProfileNone}/>}
           <div className={styles.postUser}>
-            <span style={{cursor: 'pointer'}} onClick={() => userProfile()}>{username}</span>
+            <span style={{cursor: 'pointer', whiteSpace: 'nowrap', display: 'flex', alignItems: 'center', gap: 5}} onClick={() => userProfile()}> 
+            {username}
+              {isVerified?
+              <Check size={10} className={badge.badge}/>
+            : ''}
+            </span>
             <span style={{
               display: 'flex',
               alignItems: 'center',
@@ -324,7 +330,7 @@ Notr - https://notrapp.vercel.app`
             className={styles.closeComments}> 
           </div>
           <div className={styles2.commentDiv}>
-            <p className={styles2.commentText}>Comments</p>
+            <p className={styles2.commentText}>{t('post.comment')}</p>
             <div>
               { isLoading? <div style={{
                 display: 'flex',
@@ -372,7 +378,7 @@ Notr - https://notrapp.vercel.app`
               </div>
              <div className={styles.commentInpDiv}>
                 <input 
-                  placeholder='Write something...' 
+                  placeholder={t('indivuNote.placeholder')} 
                   className={styles.sendInp} 
                   type='text'
                   value={commentText}

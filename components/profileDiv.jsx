@@ -1,9 +1,10 @@
 import styles from '../styles/profileDiv.module.scss'
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { User } from 'lucide-react'
+import { User, Check } from 'lucide-react'
+import badge from '../styles/badge.module.scss';
 
-export default function ProfileDiv({username, profile, role, connect, userId}){
+export default function ProfileDiv({username, profile, role, connect, userId, isVerified}){
   const router = useRouter();
   const [user, setUser] = useState('')
   
@@ -23,11 +24,20 @@ export default function ProfileDiv({username, profile, role, connect, userId}){
         {profile? <img className={styles.img} src={profile} height={50} width={50}/> : <div className={styles.profile}><User size={20}/></div>}
         
         <div className={styles.urname}>
-          <span>{username}</span>
+          <span style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 5
+          }}>
+            {username} 
+            {isVerified?
+              <Check size={10} className={badge.badge}/>
+            : ''}
+          </span>
           <span className={styles.conn}>{role}</span>
         </div>
       </div>
-      {userId == user? <span>You</span> : ''}
+      {userId == user? <span style={{marginRight: 5}}>You</span> : ''}
     </div>
   );
 }

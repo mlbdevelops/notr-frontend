@@ -160,6 +160,7 @@ export default function PostPage() {
           title={post?.title}
           username={post.owner?.username}
           ownerId={post?.owner?._id}
+          isVerified={post?.owner?.isVerified}
           _id={post._id}
           photos={post?.photosUrls}
           loggedUser={user}

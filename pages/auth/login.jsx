@@ -68,7 +68,7 @@ export default function LoginPage() {
 
   return (
     <div className={styles.body}>
-      <h2 style={{ margin: '20px 0' }}>{t('login.login_message')}</h2>
+      <h2 style={{ margin: '75px 0 0 0' }}>{t('login.login_message')}</h2>
 
       {isSuccess && <Question msg={msg.msg} title={msg.title} actions={msg.actions} />}
 

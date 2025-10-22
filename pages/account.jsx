@@ -16,11 +16,13 @@ import {
   RotateCw,
   Heart,
   QrCode,
-  UserPlus
+  UserPlus,
+  Check
 } from 'lucide-react';
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import styles from '../styles/accInfo.module.scss'
+import badge from '../styles/badge.module.scss'
 import Post from '../components/post.jsx'
 import { Share as CapShare } from '@capacitor/share';
 import { useTranslation } from 'react-i18next';
@@ -361,6 +363,9 @@ export default function account(){
         <div className={styles.info}>
           <span className={styles.username}>
             @{user?.username || ' •••'}
+            {user?.isVerified?
+              <Check size={10} className={badge.badge}/>
+            : ''}
           </span>
           <span className={styles.conn}>
             {connections} connections
@@ -427,6 +432,7 @@ export default function account(){
                 title={post?.title}
                 username={post?.owner?.username}
                 ownerId={post?.owner?._id}
+                isVerified={post?.owner?.isVerified}
                 _id={post?._id}
                 accProfile={post?.userProfile}
                 photos={post.photosUrls}
