@@ -77,11 +77,11 @@ export default function AppWrapper({ Component, pageProps }) {
       if (!isDApp) {
         setIsDApp(true)
       }
-    }, 1000 * 30)
+    }, 1000 * 60 * 2)
   }, [isDApp]);
   
   const openUrl = async () => {
-    await Browser.open({url: 'https://download2296.mediafire.com/tpib0vuwcmsgNSK-7x8e7fyk8QwKHWNbmwUfKS_W0TNP32N5ZpBu-UFxNhu9EBnBeXfnlQ6Do4frShF4-J1clJByCrjSSfs4jstLOAVDY7QT9qCz57gH8E0sqKJyzudjW7HBTtwtT_QmNWy7dlzOL2foaHesZWntYHFXvCJgMHLSIXJZ/3f77tn2z8ihyjb0/notr-main-eb1728-release.apk'})
+    await Browser.open({url: 'https://www.mediafire.com/file/megrzn1n486zhj0/notr-main-d00aa2-release.apk/file?dkey=9l0m531s1bh&r=768'})
   }
   
   useEffect(() => {
